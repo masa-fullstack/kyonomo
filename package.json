@@ -1,0 +1,71 @@
+{
+  "name": "with-typescript-eslint-jest",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "dev:api": "aspida --watch",
+    "build": "pathpida && aspida && next build",
+    "start": "next start",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write .",
+    "lint": "eslint . --cache",
+    "lint:fix": "eslint . --cache --fix",
+    "test": "jest",
+    "test-all": "yarn lint && yarn type-check && yarn test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@aspida/axios": "^1.7.1",
+    "@aspida/swr": "^1.7.1",
+    "@types/date-fns": "^2.6.0",
+    "axios": "^0.21.1",
+    "next": "latest",
+    "next-http-proxy-middleware": "^1.0.10",
+    "react": "^17.0.2",
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.9.0",
+    "react-loading": "^2.0.3",
+    "swr": "^0.5.6"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^11.2.5",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.14.25",
+    "@types/react": "^17.0.1",
+    "@types/react-copy-to-clipboard": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "autoprefixer": "^10.2.6",
+    "babel-jest": "^27.0.2",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^4.2.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.4",
+    "jest-watch-typeahead": "^0.6.1",
+    "lint-staged": "^10.0.10",
+    "npm-run-all": "^4.1.5",
+    "pathpida": "^0.15.2",
+    "postcss": "^8.3.5",
+    "prettier": "^2.0.2",
+    "tailwindcss": "^2.2.4",
+    "typescript": "^4.1.3"
+  }
+}
