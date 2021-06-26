@@ -127,8 +127,8 @@ const Container: React.VFC = () => {
       body: data,
     })
 
-    form.setValue('answer', `${process.env.NEXT_PUBLIC_MY_URL}/answer?id=${res.id}`)
-    form.setValue('admin', `${process.env.NEXT_PUBLIC_MY_URL}/admin?id=${res.id}`)
+    form.setValue('answer', `${process.env.NEXT_PUBLIC_SITE_URL}/answer?id=${res.id}`)
+    form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
     setIsDispURL(true)
     setIsLoading(false)
   }
