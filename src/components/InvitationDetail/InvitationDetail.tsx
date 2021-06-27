@@ -38,8 +38,8 @@ const Component: React.VFC<Props> = ({
   setIsCopiedAdmin,
 }) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
-    <div className="grid grid-cols-2 gap-4">
-      <div className="col-span-2">
+    <div className="grid grid-cols-10 gap-4">
+      <div className="col-span-10">
         <StaticInput
           id="mail"
           label="Mail"
@@ -50,7 +50,7 @@ const Component: React.VFC<Props> = ({
           register={form.register('mail')}
         />
       </div>
-      <div className="col-span-2">
+      <div className="col-span-10">
         <StaticInput
           id="lineId"
           label="LineID"
@@ -61,7 +61,7 @@ const Component: React.VFC<Props> = ({
           register={form.register('lineId')}
         />
       </div>
-      <div className="">
+      <div className="col-span-6">
         <StaticInput
           id="limitDate"
           label="締切日"
@@ -72,7 +72,7 @@ const Component: React.VFC<Props> = ({
           register={form.register('limitDate', { required: true })}
         />
       </div>
-      <div className="">
+      <div className="col-span-4">
         <StaticInput
           id="limitTime"
           label="締切時間"
@@ -82,7 +82,7 @@ const Component: React.VFC<Props> = ({
           register={form.register('limitTime', { required: true })}
         />
       </div>
-      <div className="col-span-2">
+      <div className="col-span-10">
         <StaticInput
           id="text"
           label="テキスト"
@@ -95,7 +95,7 @@ const Component: React.VFC<Props> = ({
       </div>
       {(form.formState.errors.limitDate || form.formState.errors.limitTime) && <span>締切は必須入力です</span>}
 
-      <div className="col-span-2">
+      <div className="col-span-10">
         <div className="flex flex-col items-center justify-center">
           <Button label="飲もうぜ🍻" />
 
@@ -109,7 +109,7 @@ const Component: React.VFC<Props> = ({
 
       {isDispURL && (
         <>
-          <div className="col-span-2">
+          <div className="col-span-10">
             <div className="flex">
               <div className="flex-grow">
                 <StaticInput
@@ -140,7 +140,7 @@ const Component: React.VFC<Props> = ({
               </div>
             </div>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-10">
             <div className="flex">
               <div className="flex-grow">
                 <StaticInput
