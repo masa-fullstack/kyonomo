@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { parse, format } from 'date-fns'
 import React, { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
@@ -142,8 +142,11 @@ const Container: React.VFC = () => {
   const nowTime = '23:59'
   const onSubmit = async (data) => {
     setIsLoading(true)
+    const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
+    const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
+
     const res: Invitation = await apiClient.invitation.$post({
-      body: data,
+      body: { ...data, limitDate, limitTime },
     })
 
     form.setValue('answer', `${process.env.NEXT_PUBLIC_SITE_URL}/answer?id=${res.id}`)
