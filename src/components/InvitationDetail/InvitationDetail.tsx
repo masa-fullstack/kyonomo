@@ -1,5 +1,5 @@
 import { parse, format } from 'date-fns'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
@@ -17,9 +17,26 @@ type Props = {
   isDispURL: boolean
   nowDate: string
   nowTime: string
+  scrollBottomRef: React.MutableRefObject<HTMLDivElement>
+  isCopiedAnswer: boolean
+  setIsCopiedAnswer: React.Dispatch<React.SetStateAction<boolean>>
+  isCopiedAdmin: boolean
+  setIsCopiedAdmin: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, isDispURL, nowDate, nowTime }) => (
+const Component: React.VFC<Props> = ({
+  form,
+  onSubmit,
+  isLoading,
+  isDispURL,
+  nowDate,
+  nowTime,
+  scrollBottomRef,
+  isCopiedAnswer,
+  setIsCopiedAnswer,
+  isCopiedAdmin,
+  setIsCopiedAdmin,
+}) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
     <div className="grid grid-cols-2 gap-4">
       <div className="col-span-2">
@@ -105,9 +122,22 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, isDispURL, now
                   register={form.register('answer')}
                 />
               </div>
-              <CopyToClipboard text={form.getValues('answer')}>
-                <img src="images/icon_copy.svg" className="cursor-pointer" alt="copy"></img>
-              </CopyToClipboard>
+              <div className="relative flex items-center">
+                <CopyToClipboard
+                  text={form.getValues('answer')}
+                  onCopy={() => {
+                    setIsCopiedAnswer(true)
+                    setTimeout(() => setIsCopiedAnswer(false), 1000)
+                  }}
+                >
+                  <img src="images/icon_copy.svg" className="cursor-pointer" alt="copy"></img>
+                </CopyToClipboard>
+                {isCopiedAnswer ? (
+                  <span className="absolute left-2 bottom-16 inline-block p-1 whitespace-nowrap text-sm bg-gray-800 text-gray-200 rounded-lg">
+                    Copied
+                  </span>
+                ) : null}
+              </div>
             </div>
           </div>
           <div className="col-span-2">
@@ -123,20 +153,38 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, isDispURL, now
                   register={form.register('admin')}
                 />
               </div>
-              <CopyToClipboard text={form.getValues('admin')}>
-                <img src="images/icon_copy.svg" className="cursor-pointer" alt="copy"></img>
-              </CopyToClipboard>
+
+              <div className="relative flex items-center">
+                <CopyToClipboard
+                  text={form.getValues('admin')}
+                  onCopy={() => {
+                    setIsCopiedAdmin(true)
+                    setTimeout(() => setIsCopiedAdmin(false), 1000)
+                  }}
+                >
+                  <img src="images/icon_copy.svg" className="cursor-pointer" alt="copy"></img>
+                </CopyToClipboard>
+                {isCopiedAdmin ? (
+                  <span className="absolute left-2 bottom-16 inline-block p-1 whitespace-nowrap text-sm bg-gray-800 text-gray-200 rounded-lg">
+                    Copied
+                  </span>
+                ) : null}
+              </div>
             </div>
           </div>
         </>
       )}
+      <div ref={scrollBottomRef} />
     </div>
   </form>
 )
 
 const Container: React.VFC = () => {
+  const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
+  const [isCopiedAdmin, setIsCopiedAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isDispURL, setIsDispURL] = useState(false)
+  const scrollBottomRef = useRef<HTMLDivElement>(null)
   const form = useForm()
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
@@ -153,6 +201,7 @@ const Container: React.VFC = () => {
     form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
     setIsDispURL(true)
     setIsLoading(false)
+    scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   // console.log(form.watch("mail"));
@@ -171,6 +220,11 @@ const Container: React.VFC = () => {
       isDispURL={isDispURL}
       nowDate={nowDate}
       nowTime={nowTime}
+      scrollBottomRef={scrollBottomRef}
+      isCopiedAnswer={isCopiedAnswer}
+      setIsCopiedAnswer={setIsCopiedAnswer}
+      isCopiedAdmin={isCopiedAdmin}
+      setIsCopiedAdmin={setIsCopiedAdmin}
     />
   )
 }
