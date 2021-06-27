@@ -43,7 +43,6 @@ const Component: React.VFC<Props> = ({
         <StaticInput
           id="mail"
           label="Mail"
-          labelStyles="bg-gray-500 text-white"
           type="text"
           placeholder="kyonomo@gmail.com"
           defaultValue=""
@@ -54,7 +53,6 @@ const Component: React.VFC<Props> = ({
         <StaticInput
           id="lineId"
           label="LineID"
-          labelStyles="bg-gray-500 text-white"
           type="text"
           placeholder="LineのユーザーID"
           defaultValue=""
@@ -65,7 +63,6 @@ const Component: React.VFC<Props> = ({
         <StaticInput
           id="limitDate"
           label="締切日"
-          labelStyles="bg-gray-500 text-white"
           type="date"
           placeholder=""
           defaultValue={nowDate}
@@ -86,7 +83,6 @@ const Component: React.VFC<Props> = ({
         <StaticInput
           id="text"
           label="テキスト"
-          labelStyles="bg-gray-500 text-white"
           type="textarea"
           placeholder="今日20:00からオンライン飲みどう？"
           defaultValue=""
@@ -118,7 +114,6 @@ const Component: React.VFC<Props> = ({
                   type="url"
                   placeholder=""
                   defaultValue=""
-                  styles="border-none"
                   register={form.register('answer')}
                 />
               </div>
@@ -149,7 +144,6 @@ const Component: React.VFC<Props> = ({
                   type="url"
                   placeholder=""
                   defaultValue=""
-                  styles="border-none"
                   register={form.register('admin')}
                 />
               </div>

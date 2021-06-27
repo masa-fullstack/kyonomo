@@ -8,8 +8,6 @@ type ContainerProps = {
   type: InputHTMLAttributes<HTMLInputElement>['type']
   placeholder?: string
   defaultValue?: string
-  styles?: string
-  labelStyles?: string
   currency?: string[]
 }
 
@@ -28,10 +26,10 @@ const Component: React.VFC<Props> = (props) => (
         name={props.id}
         id={props.id}
         rows={2}
-        placeholder={props.placeholder}
         defaultValue={props.defaultValue}
+        placeholder={props.placeholder}
         {...props.register}
-        className={`focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-xs md:text-sm border-gray-300 rounded-md resize-none ${props.styles}`}
+        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base border-gray-300 rounded-md resize-none"
       />
     ) : // 読み取り専用枠なし
     props.type === 'url' ? (
@@ -39,11 +37,11 @@ const Component: React.VFC<Props> = (props) => (
         name={props.id}
         id={props.id}
         rows={3}
-        placeholder={props.placeholder}
         defaultValue={props.defaultValue}
+        placeholder={props.placeholder}
         readOnly={true}
         {...props.register}
-        className={`block w-full px-3 md:px-5 text-xs md:text-sm border-0 ring-0 focus:ring-0 resize-none `}
+        className="block w-full px-3 md:px-5 text-xs md:text-sm border-0 ring-0 focus:ring-0 resize-none"
       />
     ) : (
       //以外
@@ -53,10 +51,10 @@ const Component: React.VFC<Props> = (props) => (
           type={props.type}
           name={props.id}
           id={props.id}
-          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base border-gray-300 rounded-md"
           defaultValue={props.defaultValue}
-          {...props.register}
           placeholder={props.placeholder}
+          {...props.register}
+          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base border-gray-300 rounded-md"
         />
       </div>
     )}

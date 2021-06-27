@@ -1,4 +1,5 @@
 import useAspidaSWR from '@aspida/swr'
+import { useSpring, animated, SpringValue } from '@react-spring/web'
 import { useRouter } from 'next/dist/client/router'
 import React, { useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
@@ -15,9 +16,28 @@ type Props = {
   isAnswered: boolean
   isError: boolean
   id: string
+  setSpringState1: React.Dispatch<React.SetStateAction<boolean>>
+  x1: SpringValue<number>
+  setSpringState2: React.Dispatch<React.SetStateAction<boolean>>
+  x2: SpringValue<number>
+  setSpringState3: React.Dispatch<React.SetStateAction<boolean>>
+  x3: SpringValue<number>
 }
 
-const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, isAnswered, isError, id }) =>
+const Component: React.VFC<Props> = ({
+  form,
+  onSubmit,
+  isLoading,
+  isAnswered,
+  isError,
+  id,
+  setSpringState1,
+  x1,
+  setSpringState2,
+  x2,
+  setSpringState3,
+  x3,
+}) =>
   isError ? (
     <span className="text-xl" role="img" aria-label="エラー">
       有効なお誘いが存在しません。 期限が切れているか、URLが誤っていないかご確認下さい🥺
@@ -40,7 +60,6 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, isAnswered, is
         <StaticInput
           id="text"
           label="テキスト"
-          labelStyles="bg-gray-500 text-white"
           type="textarea"
           placeholder="20:30から参加します"
           defaultValue=""
@@ -49,28 +68,67 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, isAnswered, is
       </div>
 
       <div className="flex items-center justify-center mt-16 mb-8">
-        <input
-          type="submit"
-          onClick={() => form.setValue('status', 'OK')}
-          value="OK🙆‍♂️"
-          className="px-10 py-5 bg-blue-600 text-white text-xl font-medium rounded-3xl cursor-pointer"
-        />
+        <animated.div
+          style={{
+            opacity: x1.to({ range: [0, 0.5, 1], output: [1, 0.5, 1] }),
+            scale: x1.to({
+              range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+              output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+            }),
+          }}
+        >
+          <input
+            type="submit"
+            onClick={() => {
+              form.setValue('status', 'OK')
+              setSpringState1((prevState) => !prevState)
+            }}
+            value="OK🙆‍♂️"
+            className="px-10 py-5 bg-blue-600 text-white text-xl font-medium rounded-3xl cursor-pointer"
+          />
+        </animated.div>
       </div>
       <div className="flex items-center justify-center mb-8">
-        <input
-          type="submit"
-          onClick={() => form.setValue('status', 'PENDING')}
-          value="PENDING🤔"
-          className="px-10 py-5 bg-yellow-500 text-white text-xl font-medium rounded-3xl cursor-pointer"
-        />
+        <animated.div
+          style={{
+            opacity: x2.to({ range: [0, 0.5, 1], output: [1, 0.5, 1] }),
+            scale: x2.to({
+              range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+              output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+            }),
+          }}
+        >
+          <input
+            type="submit"
+            onClick={() => {
+              form.setValue('status', 'PENDING')
+              setSpringState2((prevState) => !prevState)
+            }}
+            value="PENDING🤔"
+            className="px-10 py-5 bg-yellow-500 text-white text-xl font-medium rounded-3xl cursor-pointer"
+          />
+        </animated.div>
       </div>
       <div className="flex items-center justify-center">
-        <input
-          type="submit"
-          onClick={() => form.setValue('status', 'NG')}
-          value="NG🙅‍♂️"
-          className="px-10 py-5 bg-red-600 text-white text-xl font-medium rounded-3xl cursor-pointer"
-        />
+        <animated.div
+          style={{
+            opacity: x3.to({ range: [0, 0.5, 1], output: [1, 0.5, 1] }),
+            scale: x3.to({
+              range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+              output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+            }),
+          }}
+        >
+          <input
+            type="submit"
+            onClick={() => {
+              form.setValue('status', 'NG')
+              setSpringState3((prevState) => !prevState)
+            }}
+            value="NG🙅‍♂️"
+            className="px-10 py-5 bg-red-600 text-white text-xl font-medium rounded-3xl cursor-pointer"
+          />
+        </animated.div>
       </div>
       <input name="status" type="hidden" value="" />
     </form>
@@ -81,8 +139,29 @@ const Container: React.VFC = () => {
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
 
+  const [springState1, setSpringState1] = useState(true)
+  const { x: x1 } = useSpring({
+    from: { x: 0 },
+    x: springState1 ? 1 : 0,
+    config: { duration: 1000 },
+  })
+
+  const [springState2, setSpringState2] = useState(true)
+  const { x: x2 } = useSpring({
+    from: { x: 0 },
+    x: springState2 ? 1 : 0,
+    config: { duration: 1000 },
+  })
+
+  const [springState3, setSpringState3] = useState(true)
+  const { x: x3 } = useSpring({
+    from: { x: 0 },
+    x: springState3 ? 1 : 0,
+    config: { duration: 1000 },
+  })
+
   const onSubmit = (data) => {
-    setIsAnswered(true)
+    setTimeout(() => setIsAnswered(true), 950)
     apiClient.answer.$post({
       body: data,
     })
@@ -118,7 +197,22 @@ const Container: React.VFC = () => {
     },
   })
 
-  return <Component form={form} onSubmit={onSubmit} isLoading={!data} isError={error} isAnswered={isAnswered} id={id} />
+  return (
+    <Component
+      form={form}
+      onSubmit={onSubmit}
+      isLoading={!data}
+      isError={error}
+      isAnswered={isAnswered}
+      id={id}
+      setSpringState1={setSpringState1}
+      x1={x1}
+      setSpringState2={setSpringState2}
+      x2={x2}
+      setSpringState3={setSpringState3}
+      x3={x3}
+    />
+  )
 }
 
 export default Container
