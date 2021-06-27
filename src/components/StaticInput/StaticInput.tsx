@@ -2,46 +2,62 @@ import React, { InputHTMLAttributes } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
 
 type ContainerProps = {
+  id: string
+  register: UseFormRegisterReturn
   label?: string
   type: InputHTMLAttributes<HTMLInputElement>['type']
   placeholder?: string
   defaultValue?: string
-  readOnly?: boolean
-  register: UseFormRegisterReturn
   styles?: string
   labelStyles?: string
+  currency?: string[]
 }
 
 type Props = ContainerProps
 
 const Component: React.VFC<Props> = (props) => (
-  <>
+  <div>
     {props.label && (
-      <div
-        className={`flex-none text-sm font-medium w-24 min-w-max rounded-l px-4 py-3 whitespace-no-wrap ${props.labelStyles}`}
-      >
+      <label htmlFor={props.id} className="block text-sm font-medium text-gray-700">
         {props.label}
+      </label>
+    )}
+    {props.type === 'textarea' ? (
+      <textarea
+        name={props.id}
+        id={props.id}
+        rows={2}
+        placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
+        {...props.register}
+        className={`focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-xs md:text-sm border-gray-300 rounded-md resize-none ${props.styles}`}
+      />
+    ) : props.type === 'url' ? (
+      <textarea
+        name={props.id}
+        id={props.id}
+        rows={3}
+        placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
+        readOnly={true}
+        {...props.register}
+        className={`block w-full px-3 md:px-5 text-xs md:text-sm border-0 ring-0 focus:ring-0 resize-none `}
+      />
+    ) : (
+      <div className="mt-1 relative rounded-md shadow-sm">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+        <input
+          type={props.type}
+          name={props.id}
+          id={props.id}
+          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-xs md:text-sm border-gray-300 rounded-md"
+          defaultValue={props.defaultValue}
+          {...props.register}
+          placeholder={props.placeholder}
+        />
       </div>
     )}
-    {props.type === 'text' ? (
-      <input
-        type={props.type}
-        placeholder={props.placeholder}
-        defaultValue={props.defaultValue}
-        {...props.register}
-        readOnly={props.readOnly}
-        className={`text-sm border-2 rounded-r px-4 py-2 w-full outline-none ${props.styles}`}
-      />
-    ) : props.type === 'textarea' ? (
-      <textarea
-        rows={4}
-        placeholder={props.placeholder}
-        defaultValue={props.defaultValue}
-        {...props.register}
-        className={`text-sm border-2 rounded-r px-4 py-2 w-full outline-none resize-none ${props.styles}`}
-      />
-    ) : null}
-  </>
+  </div>
 )
 
 const Container: React.VFC<ContainerProps> = (props) => {
