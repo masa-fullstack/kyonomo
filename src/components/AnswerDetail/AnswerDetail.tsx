@@ -39,15 +39,21 @@ const Component: React.VFC<Props> = ({
   x3,
 }) =>
   isError ? (
-    <span className="text-xl" role="img" aria-label="エラー">
-      有効なお誘いが存在しません。 期限が切れているか、URLが誤っていないかご確認下さい🥺
-    </span>
+    <div className="flex items-center justify-center">
+      <span className="text-xl" role="img" aria-label="エラー">
+        有効なお誘いが存在しません。 期限が切れているか、URLが誤っていないかご確認下さい🥺
+      </span>
+    </div>
   ) : isLoading ? (
-    <ReactLoading type="bars" color="#000" width={160} height={160} />
+    <div className="flex items-center justify-center">
+      <ReactLoading type="bars" color="#000" width={160} height={160} />
+    </div>
   ) : isAnswered ? (
-    <span className="text-3xl" role="img" aria-label="完了">
-      Thank you🙌
-    </span>
+    <div className="flex items-center justify-center">
+      <span className="text-3xl" role="img" aria-label="完了">
+        Thank you🙌
+      </span>
+    </div>
   ) : (
     <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>
       <div className="hidden">
