@@ -29,7 +29,7 @@ const Component: React.VFC<Props> = (props) => (
         defaultValue={props.defaultValue}
         placeholder={props.placeholder}
         {...props.register}
-        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base border-gray-300 rounded-md resize-none"
+        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md resize-none"
       />
     ) : // 読み取り専用枠なし
     props.type === 'url' ? (
@@ -54,7 +54,7 @@ const Component: React.VFC<Props> = (props) => (
           defaultValue={props.defaultValue}
           placeholder={props.placeholder}
           {...props.register}
-          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base border-gray-300 rounded-md"
+          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md"
         />
       </div>
     )}

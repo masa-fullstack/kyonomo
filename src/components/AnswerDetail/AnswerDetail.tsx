@@ -62,12 +62,12 @@ const Component: React.VFC<Props> = ({
       <div className="hidden">
         <StaticInput id="status" type="text" register={form.register('status')} />
       </div>
-      <div className="mb-3">
+      <div className="mb-3 w-72">
         <StaticInput
           id="text"
-          label="テキスト"
+          label="Comments ✉️💨"
           type="textarea"
-          placeholder="20:30から参加します"
+          placeholder="例)21時から参加します👍"
           defaultValue=""
           register={form.register('text')}
         />
