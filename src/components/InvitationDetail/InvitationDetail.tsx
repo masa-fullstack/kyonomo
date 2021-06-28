@@ -93,7 +93,7 @@ const Component: React.VFC<Props> = ({
 
       <div className="col-span-10">
         <div className="flex flex-col items-center justify-center">
-          <Button label="飲もうぜ🍻" />
+          <Button label="飲もうぜ🍻" color="bg-indigo-700" />
 
           {isLoading && (
             <div className="mt-5">

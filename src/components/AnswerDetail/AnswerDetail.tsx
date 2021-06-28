@@ -7,6 +7,7 @@ import ReactLoading from 'react-loading'
 
 import { apiClient } from '~/src/utils/apiClient'
 
+import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
 
 type Props = {
@@ -73,7 +74,7 @@ const Component: React.VFC<Props> = ({
         />
       </div>
 
-      <div className="flex items-center justify-center mt-16 mb-8">
+      <div className="flex items-center justify-center mt-16 mb-12">
         <animated.div
           style={{
             opacity: x1.to({ range: [0, 0.5, 1], output: [1, 0.5, 1] }),
@@ -83,18 +84,17 @@ const Component: React.VFC<Props> = ({
             }),
           }}
         >
-          <input
-            type="submit"
+          <Button
+            label="OK🙆‍♂️"
+            color="bg-blue-600"
             onClick={() => {
               form.setValue('status', 'OK')
               setSpringState1((prevState) => !prevState)
             }}
-            value="OK🙆‍♂️"
-            className="px-10 py-5 bg-blue-600 text-white text-xl font-medium rounded-3xl cursor-pointer"
           />
         </animated.div>
       </div>
-      <div className="flex items-center justify-center mb-8">
+      <div className="flex items-center justify-center mb-12">
         <animated.div
           style={{
             opacity: x2.to({ range: [0, 0.5, 1], output: [1, 0.5, 1] }),
@@ -104,14 +104,13 @@ const Component: React.VFC<Props> = ({
             }),
           }}
         >
-          <input
-            type="submit"
+          <Button
+            label="PENDING🤔"
+            color="bg-yellow-500"
             onClick={() => {
               form.setValue('status', 'PENDING')
               setSpringState2((prevState) => !prevState)
             }}
-            value="PENDING🤔"
-            className="px-10 py-5 bg-yellow-500 text-white text-xl font-medium rounded-3xl cursor-pointer"
           />
         </animated.div>
       </div>
@@ -125,14 +124,13 @@ const Component: React.VFC<Props> = ({
             }),
           }}
         >
-          <input
-            type="submit"
+          <Button
+            label="NG🙅‍♂️"
+            color="bg-red-600"
             onClick={() => {
               form.setValue('status', 'NG')
               setSpringState3((prevState) => !prevState)
             }}
-            value="NG🙅‍♂️"
-            className="px-10 py-5 bg-red-600 text-white text-xl font-medium rounded-3xl cursor-pointer"
           />
         </animated.div>
       </div>
