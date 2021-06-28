@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
+import smoothscroll from 'smoothscroll-polyfill'
 
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
@@ -195,6 +196,8 @@ const Container: React.VFC = () => {
     form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
     setIsDispURL(true)
     setIsLoading(false)
+
+    smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
   }
 

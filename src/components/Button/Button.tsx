@@ -14,7 +14,7 @@ const Component: React.VFC<Props> = (props) => (
       type="submit"
       value={props.label}
       onClick={props.onClick}
-      className={`${props.color} w-48 px-10 py-8 text-white text-xl font-medium rounded-3xl cursor-pointer`}
+      className={`${props.color} w-48 px-10 py-6 text-white text-xl font-medium rounded-3xl cursor-pointer`}
     />
   </>
 )

@@ -4,11 +4,14 @@ import { useRouter } from 'next/dist/client/router'
 import React, { useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
+import Lottie from 'react-lottie'
 
 import { apiClient } from '~/src/utils/apiClient'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
+
+import * as animationData from './check.json'
 
 type Props = {
   form: UseFormReturn<FieldValues>
@@ -50,7 +53,20 @@ const Component: React.VFC<Props> = ({
       <ReactLoading type="bars" color="#000" width={160} height={160} />
     </div>
   ) : isAnswered ? (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
+      <Lottie
+        options={{
+          loop: false,
+          autoplay: true,
+          animationData: animationData,
+          rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice',
+          },
+        }}
+        height={300}
+        width={300}
+        speed={1.8}
+      />
       <span className="text-3xl" role="img" aria-label="完了">
         Thank you🙌
       </span>
