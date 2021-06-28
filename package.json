@@ -31,6 +31,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "@types/date-fns": "^2.6.0",
     "axios": "^0.21.1",
+    "lottie-web": "^5.7.11",
     "next": "latest",
     "next-http-proxy-middleware": "^1.0.10",
     "react": "^17.0.2",

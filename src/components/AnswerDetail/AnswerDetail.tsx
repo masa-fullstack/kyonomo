@@ -1,17 +1,15 @@
 import useAspidaSWR from '@aspida/swr'
 import { useSpring, animated, SpringValue } from '@react-spring/web'
+import lottie from 'lottie-web'
 import { useRouter } from 'next/dist/client/router'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
-import Lottie from 'react-lottie'
 
 import { apiClient } from '~/src/utils/apiClient'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
-
-import * as animationData from './check.json'
 
 type Props = {
   form: UseFormReturn<FieldValues>
@@ -20,6 +18,7 @@ type Props = {
   isAnswered: boolean
   isError: boolean
   id: string
+  animationContainer: React.MutableRefObject<HTMLDivElement>
   setSpringState1: React.Dispatch<React.SetStateAction<boolean>>
   x1: SpringValue<number>
   setSpringState2: React.Dispatch<React.SetStateAction<boolean>>
@@ -35,6 +34,7 @@ const Component: React.VFC<Props> = ({
   isAnswered,
   isError,
   id,
+  animationContainer,
   setSpringState1,
   x1,
   setSpringState2,
@@ -54,19 +54,7 @@ const Component: React.VFC<Props> = ({
     </div>
   ) : isAnswered ? (
     <div className="flex flex-col items-center justify-center">
-      <Lottie
-        options={{
-          loop: false,
-          autoplay: true,
-          animationData: animationData,
-          rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice',
-          },
-        }}
-        height={300}
-        width={300}
-        speed={1.8}
-      />
+      <div ref={animationContainer} className="w-80 h-80" />
       <span className="text-3xl" role="img" aria-label="完了">
         Thank you🙌
       </span>
@@ -158,7 +146,7 @@ const Container: React.VFC = () => {
   const router = useRouter()
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
-
+  const animationContainer = useRef<HTMLDivElement>(null)
   const [springState1, setSpringState1] = useState(true)
   const { x: x1 } = useSpring({
     from: { x: 0 },
@@ -181,7 +169,16 @@ const Container: React.VFC = () => {
   })
 
   const onSubmit = (data) => {
-    setTimeout(() => setIsAnswered(true), 950)
+    setTimeout(() => {
+      setIsAnswered(true)
+      lottie.loadAnimation({
+        container: animationContainer.current,
+        loop: false,
+        autoplay: true,
+        path: '/images/check.json',
+      })
+      lottie.setSpeed(1.8)
+    }, 950)
     apiClient.answer.$post({
       body: data,
     })
@@ -224,6 +221,7 @@ const Container: React.VFC = () => {
       isLoading={!data}
       isError={error}
       isAnswered={isAnswered}
+      animationContainer={animationContainer}
       id={id}
       setSpringState1={setSpringState1}
       x1={x1}
