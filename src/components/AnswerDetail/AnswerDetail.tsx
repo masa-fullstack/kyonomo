@@ -90,7 +90,7 @@ const Component: React.VFC<Props> = ({
         >
           <Button
             label="OK🙆‍♂️"
-            color="bg-blue-600"
+            color="blue"
             onClick={() => {
               form.setValue('status', 'OK')
               setSpringState1((prevState) => !prevState)
@@ -110,7 +110,7 @@ const Component: React.VFC<Props> = ({
         >
           <Button
             label="PENDING🤔"
-            color="bg-yellow-500"
+            color="yellow"
             onClick={() => {
               form.setValue('status', 'PENDING')
               setSpringState2((prevState) => !prevState)
@@ -130,7 +130,7 @@ const Component: React.VFC<Props> = ({
         >
           <Button
             label="NG🙅‍♂️"
-            color="bg-red-600"
+            color="red"
             onClick={() => {
               form.setValue('status', 'NG')
               setSpringState3((prevState) => !prevState)
