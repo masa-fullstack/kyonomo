@@ -177,7 +177,7 @@ const Container: React.VFC = () => {
         autoplay: true,
         path: '/images/check.json',
       })
-      lottie.setSpeed(1.8)
+      lottie.setSpeed(2)
     }, 950)
     apiClient.answer.$post({
       body: data,
