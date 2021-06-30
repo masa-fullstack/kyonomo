@@ -1,6 +1,6 @@
 import { ApiCommonValue } from './Common'
 
-export type Status = 'ok' | 'pending' | 'ng'
+export type Status = 'ok' | 'hm' | 'ng'
 export type Answer = {
   id: string
   subId: string

@@ -15,7 +15,7 @@ export const description = '今日飲も🍻'
 
 export const returnTitle = (pageTitle?: string) => {
   if (pageTitle !== undefined) {
-    return `${pageTitle} | ${title}`
+    return `${pageTitle}`
   } else {
     return title
   }

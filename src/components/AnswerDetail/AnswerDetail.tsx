@@ -75,12 +75,12 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         </div>
         <div className="flex items-center justify-center mb-12">
           <Button
-            label="PENDING🤔"
+            label="Hmmm...🤔"
             color="yellow"
             onClick={() => {
-              form.setValue('status', 'pending')
+              form.setValue('status', 'hm')
             }}
-            ref={initialStatus === 'pending' ? ref : null}
+            ref={initialStatus === 'hm' ? ref : null}
           />
         </div>
         <div className="flex items-center justify-center">
