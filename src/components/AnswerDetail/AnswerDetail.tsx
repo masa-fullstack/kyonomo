@@ -75,7 +75,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         </div>
         <div className="flex items-center justify-center mb-12">
           <Button
-            label="Hmmm...🤔"
+            label="Hmm...🤔"
             color="yellow"
             onClick={() => {
               form.setValue('status', 'hm')

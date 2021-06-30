@@ -6,7 +6,7 @@ import { Layout } from '~/src/components/Layout'
 import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/src/utils/meta'
 
 const AnswerPage: NextPage = () => {
-  const title = returnTitle('Hmmm...🤔')
+  const title = returnTitle('Hmm...🤔')
   const description = '条件付き参加の場合はこちら'
   return (
     <>
