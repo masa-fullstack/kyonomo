@@ -4,6 +4,9 @@ export const pagesPath = {
   answer: {
     $url: (url?: { hash?: string }) => ({ pathname: '/answer' as const, hash: url?.hash })
   },
+  ok: {
+    $url: (url?: { hash?: string }) => ({ pathname: '/ok' as const, hash: url?.hash })
+  },
   $url: (url?: { hash?: string }) => ({ pathname: '/' as const, hash: url?.hash })
 }
 

@@ -6,8 +6,8 @@ import { Layout } from '~/src/components/Layout'
 import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/src/utils/meta'
 
 const AnswerPage: NextPage = () => {
-  const title = returnTitle('OK🙆‍♂️')
-  const description = 'OKの場合はこちら'
+  const title = returnTitle('NG🙅‍♂️')
+  const description = 'NGの場合はこちら'
   return (
     <>
       <Head>
@@ -15,10 +15,10 @@ const AnswerPage: NextPage = () => {
         <meta key={OG_TITLE} property={OG_TITLE} content={title} />
         <meta key={DESCRIPTION} name={DESCRIPTION} content={description} />
         <meta key={OG_DESCRIPTION} property={OG_DESCRIPTION} content={description} />
-        <meta key={OG_IMAGE} property={OG_IMAGE} content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/OK_OGP.png`} />
+        <meta key={OG_IMAGE} property={OG_IMAGE} content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/NG_OGP.png`} />
       </Head>
       <Layout>
-        <AnswerDetail initialStatus="ok" />
+        <AnswerDetail initialStatus="ng" />
       </Layout>
     </>
   )
