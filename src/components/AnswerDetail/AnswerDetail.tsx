@@ -22,11 +22,11 @@ type Props = {
   isAnswered: boolean
   isError: boolean
   id: string
-}
+} & ContainerPorps
 
 // eslint-disable-next-line react/display-name
-const Component = React.forwardRef<HTMLInputElement[], Props>(
-  ({ form, onSubmit, isLoading, isAnswered, isError, id }, ref) =>
+const Component = React.forwardRef<HTMLInputElement, Props>(
+  ({ form, onSubmit, isLoading, isAnswered, isError, id, initialStatus }, ref) =>
     isError ? (
       <div className="flex items-center justify-center">
         <span className="text-xl" role="img" aria-label="エラー">
@@ -70,7 +70,7 @@ const Component = React.forwardRef<HTMLInputElement[], Props>(
             onClick={() => {
               form.setValue('status', 'ok')
             }}
-            ref={ref[0]}
+            ref={initialStatus === 'ok' ? ref : null}
           />
         </div>
         <div className="flex items-center justify-center mb-12">
@@ -80,7 +80,7 @@ const Component = React.forwardRef<HTMLInputElement[], Props>(
             onClick={() => {
               form.setValue('status', 'pending')
             }}
-            ref={ref[1]}
+            ref={initialStatus === 'pending' ? ref : null}
           />
         </div>
         <div className="flex items-center justify-center">
@@ -90,7 +90,7 @@ const Component = React.forwardRef<HTMLInputElement[], Props>(
             onClick={() => {
               form.setValue('status', 'ng')
             }}
-            ref={ref[2]}
+            ref={initialStatus === 'ng' ? ref : null}
           />
         </div>
         <input name="status" type="hidden" value="" />
@@ -98,15 +98,15 @@ const Component = React.forwardRef<HTMLInputElement[], Props>(
     )
 )
 
-const Container: React.VFC<ContainerPorps> = ({ initialStatus }) => {
+const Container: React.VFC<ContainerPorps> = (props) => {
   const router = useRouter()
 
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
-  const ref = useRef<HTMLInputElement[]>()
+  const ref = useRef<HTMLInputElement>()
 
   const onSubmit = (data: Answer) => {
-    if (initialStatus) setIsAnswered(true)
+    if (props.initialStatus) setIsAnswered(true)
     else setTimeout(() => setIsAnswered(true), 950)
 
     apiClient.answer.$post({
@@ -138,17 +138,12 @@ const Container: React.VFC<ContainerPorps> = ({ initialStatus }) => {
   })
 
   useEffect(() => {
-    if (initialStatus && data) {
-      if (initialStatus === 'ok') ref.current[0].click()
-    } else if (initialStatus === 'pending') {
-      ref.current[1].click()
-    } else if (initialStatus === 'ng') {
-      ref.current[2].click()
-    }
-  }, [initialStatus, data])
+    if (props.initialStatus && data) ref.current.click()
+  }, [props.initialStatus, data])
 
   return (
     <Component
+      {...props}
       form={form}
       onSubmit={onSubmit}
       isLoading={!data}
