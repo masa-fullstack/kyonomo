@@ -216,7 +216,6 @@ const Container: React.VFC<ContainerProps> = (props) => {
 
   return (
     <Component
-      {...props}
       form={form}
       onSubmit={onSubmit}
       isLoading={isLoading}
@@ -228,6 +227,7 @@ const Container: React.VFC<ContainerProps> = (props) => {
       setIsCopiedAnswer={setIsCopiedAnswer}
       isCopiedAdmin={isCopiedAdmin}
       setIsCopiedAdmin={setIsCopiedAdmin}
+      userId={props.userId}
     />
   )
 }

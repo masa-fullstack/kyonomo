@@ -8,10 +8,8 @@ import { OG_TITLE, returnTitle } from '~/src/utils/meta'
 
 const IndexPage = async () => {
   const title = returnTitle()
-  const { liff, userId } = await useLiff()
+  const { userId } = await useLiff()
 
-  // eslint-disable-next-line no-console
-  console.log(liff)
   return (
     <>
       <Head>
