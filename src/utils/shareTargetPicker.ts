@@ -6,12 +6,16 @@ export const shareTargetPicker = async () => {
   alert('start3')
   if (liff.isApiAvailable('shareTargetPicker')) {
     alert('start4')
-    await liff.shareTargetPicker([
-      {
-        type: 'text',
-        text: 'test',
-      },
-    ])
+    const userId = await (await liff.getProfile()).userId
+    alert(userId)
+    await liff
+      .shareTargetPicker([
+        {
+          type: 'text',
+          text: 'test',
+        },
+      ])
+      .then(() => alert('startxx'))
     alert('start5')
   }
   alert('start6')
