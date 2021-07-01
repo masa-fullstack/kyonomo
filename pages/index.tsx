@@ -20,9 +20,7 @@ const IndexPage = () => {
         <title>{title}</title>
         <meta key={OG_TITLE} property={OG_TITLE} content={title} />
       </Head>
-      <Layout>
-        <InvitationDetail userId={data.userId} />
-      </Layout>
+      <Layout>{data && <InvitationDetail userId={data.userId} />}</Layout>
     </>
   )
 }
