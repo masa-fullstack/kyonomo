@@ -117,6 +117,15 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ))}
         </div>
 
+        <StaticInput
+          id="lineId"
+          label="LineID"
+          type="text"
+          placeholder="LineのユーザーID"
+          defaultValue=""
+          register={form.register('lineId')}
+        />
+
         <input name="status" type="hidden" value="" />
       </form>
     )
@@ -124,7 +133,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
 
 const Container: React.VFC<ContainerPorps> = (props) => {
   const router = useRouter()
-
+  const [userId, setUserId] = useState<string>()
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
@@ -166,6 +175,17 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   useEffect(() => {
     if (props.initialStatus && answers) ref.current.click()
   }, [props.initialStatus, answers])
+
+  useEffect(() => {
+    const func = async () => {
+      const liff = (await import('@line/liff')).default
+      await liff.ready
+      const userId = await (await liff.getProfile()).userId
+      setUserId(userId)
+      form.setValue('lineId', userId)
+    }
+    func()
+  }, [userId])
 
   return (
     <Component

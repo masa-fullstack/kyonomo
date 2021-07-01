@@ -47,7 +47,7 @@ const Component: React.VFC<Props> = ({
           register={form.register('mail')}
         />
       </div> */}
-      <div className="col-span-10">
+      <div className="col-span-10 invisible">
         <StaticInput
           id="lineId"
           label="LineID"
