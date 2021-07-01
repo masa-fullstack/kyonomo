@@ -13,6 +13,7 @@ const IndexPage = () => {
 
   // eslint-disable-next-line no-console
   console.log(data)
+
   return (
     <>
       <Head>
@@ -20,7 +21,7 @@ const IndexPage = () => {
         <meta key={OG_TITLE} property={OG_TITLE} content={title} />
       </Head>
       <Layout>
-        <InvitationDetail userId="text" />
+        <InvitationDetail userId={data.userId} />
       </Layout>
     </>
   )
