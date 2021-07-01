@@ -203,7 +203,7 @@ const Container: React.VFC = () => {
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
-    if (userId) await shareTargetPicker(form.getValues('answer'))
+    await shareTargetPicker(form.getValues('answer'))
   }
 
   // console.log(form.watch("mail"));
