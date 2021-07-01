@@ -8,7 +8,7 @@ import { OG_TITLE, returnTitle } from '~/src/utils/meta'
 
 const IndexPage: NextPage = () => {
   const title = returnTitle()
-  const { loggedIn, userId } = useLiff()
+  const { liff } = useLiff()
   return (
     <>
       <Head>
@@ -16,9 +16,7 @@ const IndexPage: NextPage = () => {
         <meta key={OG_TITLE} property={OG_TITLE} content={title} />
       </Head>
       <Layout>
-        <div>
-          {loggedIn}/{userId}
-        </div>
+        <div>{liff}</div>
         <InvitationDetail />
       </Layout>
     </>
