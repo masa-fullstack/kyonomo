@@ -43,7 +43,7 @@ const Component: React.VFC<Props> = ({
 }) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
     <div className="grid grid-cols-10 gap-4">
-      <div className="col-span-10">
+      {/* <div className="col-span-10">
         <StaticInput
           id="mail"
           label="Mail"
@@ -52,12 +52,12 @@ const Component: React.VFC<Props> = ({
           defaultValue=""
           register={form.register('mail')}
         />
-      </div>
-      <div className="col-span-10">
+      </div> */}
+      <div className="col-span-10 invisible">
         <StaticInput
           id="lineId"
           label="LineID"
-          type="text"
+          type="hidden"
           placeholder="LineのユーザーID"
           defaultValue={userId}
           register={form.register('lineId')}
@@ -196,14 +196,14 @@ const Container: React.VFC = () => {
       body: { ...data, limitDate, limitTime },
     })
 
-    form.setValue('answer', `${process.env.NEXT_PUBLIC_SITE_URL}/answer?id=${res.id}`)
+    form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_URL}?id=${res.id}`)
     form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
     setIsDispURL(true)
     setIsLoading(false)
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
-    await shareTargetPicker(form.getValues('answer'))
+    await shareTargetPicker(form.getValues('text'), form.getValues('answer'))
   }
 
   // console.log(form.watch("mail"));

@@ -43,6 +43,9 @@ const Component: React.VFC<Props> = (props) => (
         {...props.register}
         className="block w-full px-3 md:px-5 text-xs md:text-sm border-0 ring-0 focus:ring-0 resize-none"
       />
+    ) : // 読み取り専用枠なし
+    props.type === 'hidden' ? (
+      <input type={props.type} name={props.id} id={props.id} defaultValue={props.defaultValue} {...props.register} />
     ) : (
       //以外
       <div className="mt-1 relative rounded-md shadow-sm">
