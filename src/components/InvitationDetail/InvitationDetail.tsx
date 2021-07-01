@@ -8,6 +8,7 @@ import smoothscroll from 'smoothscroll-polyfill'
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
 
+import { shareTargetPicker } from '../../utils/shareTargetPicker'
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
 
@@ -178,8 +179,6 @@ const Component: React.VFC<Props> = ({
 
 const Container: React.VFC = () => {
   const [userId, setUserId] = useState<string>()
-  const [shareTargetPicker, setShareTargetPicker] = useState<() => void>()
-
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isCopiedAdmin, setIsCopiedAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -204,7 +203,7 @@ const Container: React.VFC = () => {
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
-    shareTargetPicker()
+    if (userId) await shareTargetPicker(form.getValues('answer'))
   }
 
   // console.log(form.watch("mail"));
@@ -221,19 +220,9 @@ const Container: React.VFC = () => {
       await liff.ready
       const userId = await (await liff.getProfile()).userId
       setUserId(userId)
-
-      const shareTargetPicker = async () => {
-        await liff.shareTargetPicker([
-          {
-            type: 'text',
-            text: `${form.getValues('answer')}`,
-          },
-        ])
-      }
-      setShareTargetPicker(shareTargetPicker)
     }
     func()
-  }, [userId, shareTargetPicker, form])
+  }, [userId])
 
   return (
     <Component
