@@ -204,6 +204,7 @@ const Container: React.VFC = () => {
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
+    shareTargetPicker()
   }
 
   // console.log(form.watch("mail"));
