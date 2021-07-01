@@ -128,8 +128,6 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
 
 const Container: React.VFC<ContainerPorps> = (props) => {
   const router = useRouter()
-  const [userId, setUserId] = useState<string>()
-  const [displayName, setDisplayName] = useState<string>()
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
@@ -179,13 +177,11 @@ const Container: React.VFC<ContainerPorps> = (props) => {
       const profile = await liff.getProfile()
       const userId = profile.userId
       const displayName = profile.displayName
-      setUserId(userId)
-      setDisplayName(displayName)
       form.setValue('subId', userId)
       form.setValue('referrer', displayName)
     }
     func()
-  }, [userId, displayName, form])
+  }, [form])
 
   return (
     <Component
