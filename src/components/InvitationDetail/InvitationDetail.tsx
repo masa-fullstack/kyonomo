@@ -10,7 +10,6 @@ import { apiClient } from '~/src/utils/apiClient'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
-import { useLiff } from '../hooks/useLiff'
 
 type Props = {
   form: UseFormReturn<FieldValues>
@@ -176,7 +175,6 @@ const Component: React.VFC<Props> = ({
 )
 
 const Container: React.VFC = () => {
-  const { loggedIn, userId } = useLiff()
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isCopiedAdmin, setIsCopiedAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -212,25 +210,19 @@ const Container: React.VFC = () => {
   // console.log(form.watch("text"));
 
   return (
-    <>
-      <div className="flex">
-        <div>loggedIn:{loggedIn}</div>
-        <div>userId:{userId}</div>
-      </div>
-      <Component
-        form={form}
-        onSubmit={onSubmit}
-        isLoading={isLoading}
-        isDispURL={isDispURL}
-        nowDate={nowDate}
-        nowTime={nowTime}
-        scrollBottomRef={scrollBottomRef}
-        isCopiedAnswer={isCopiedAnswer}
-        setIsCopiedAnswer={setIsCopiedAnswer}
-        isCopiedAdmin={isCopiedAdmin}
-        setIsCopiedAdmin={setIsCopiedAdmin}
-      />
-    </>
+    <Component
+      form={form}
+      onSubmit={onSubmit}
+      isLoading={isLoading}
+      isDispURL={isDispURL}
+      nowDate={nowDate}
+      nowTime={nowTime}
+      scrollBottomRef={scrollBottomRef}
+      isCopiedAnswer={isCopiedAnswer}
+      setIsCopiedAnswer={setIsCopiedAnswer}
+      isCopiedAdmin={isCopiedAdmin}
+      setIsCopiedAdmin={setIsCopiedAdmin}
+    />
   )
 }
 
