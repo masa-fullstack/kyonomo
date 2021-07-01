@@ -54,6 +54,9 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <div className="hidden">
           <StaticInput id="status" type="text" register={form.register('status')} />
         </div>
+        <div className="hidden">
+          <StaticInput id="subId" type="text" register={form.register('subId')} />
+        </div>
         <div className="mb-3 w-72">
           <StaticInput
             id="text"
@@ -116,17 +119,6 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               <People key={answer.subId} />
             ))}
         </div>
-
-        <StaticInput
-          id="lineId"
-          label="LineID"
-          type="text"
-          placeholder="LineのユーザーID"
-          defaultValue=""
-          register={form.register('lineId')}
-        />
-
-        <input name="status" type="hidden" value="" />
       </form>
     )
 )
@@ -182,7 +174,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
       await liff.ready
       const userId = await (await liff.getProfile()).userId
       setUserId(userId)
-      form.setValue('lineId', userId)
+      form.setValue('subId', userId)
     }
     func()
   }, [userId])

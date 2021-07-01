@@ -47,15 +47,8 @@ const Component: React.VFC<Props> = ({
           register={form.register('mail')}
         />
       </div> */}
-      <div className="col-span-10 invisible">
-        <StaticInput
-          id="lineId"
-          label="LineID"
-          type="text"
-          placeholder="LineのユーザーID"
-          defaultValue=""
-          register={form.register('lineId')}
-        />
+      <div className="hidden">
+        <StaticInput id="lineId" type="text" register={form.register('lineId')} />
       </div>
       <div className="col-span-6">
         <StaticInput
