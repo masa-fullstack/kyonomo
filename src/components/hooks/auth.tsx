@@ -40,6 +40,7 @@ export const useAuth = (): UseAuthReturn => {
       initialized: false,
       loggedIn: false,
       login: () => null,
+      userId: 'test',
     }
   }
 
