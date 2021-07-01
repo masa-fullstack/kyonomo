@@ -3,12 +3,12 @@ import Head from 'next/head'
 
 import { InvitationDetail } from '~/src/components/InvitationDetail'
 import { Layout } from '~/src/components/Layout'
-// import { useLiff } from '~/src/components/hooks/useLiff'
+import { useAuth } from '~/src/components/hooks/auth'
 import { OG_TITLE, returnTitle } from '~/src/utils/meta'
 
 const IndexPage = () => {
   const title = returnTitle()
-  const { userId } = { userId: 'test' }
+  const { userId } = useAuth()
 
   return (
     <>
