@@ -4,11 +4,15 @@ export const shareTargetPicker = async (text: string) => {
   alert('start2')
   await liff.ready
   alert('start3')
-  await liff.shareTargetPicker([
-    {
-      type: 'text',
-      text: `${text}`,
-    },
-  ])
-  alert('start4')
+  if (liff.isApiAvailable('shareTargetPicker')) {
+    alert('start4')
+    await liff.shareTargetPicker([
+      {
+        type: 'text',
+        text: `${text}`,
+      },
+    ])
+    alert('start5')
+  }
+  alert('start6')
 }
