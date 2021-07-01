@@ -134,7 +134,6 @@ const Component: React.VFC<Props> = ({
 )
 
 const Container: React.VFC = () => {
-  const [userId, setUserId] = useState<string>()
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isDispURL, setIsDispURL] = useState(false)
@@ -174,11 +173,10 @@ const Container: React.VFC = () => {
       const liff = (await import('@line/liff')).default
       await liff.ready
       const userId = await (await liff.getProfile()).userId
-      setUserId(userId)
       form.setValue('lineId', userId)
     }
     func()
-  }, [userId])
+  }, [form])
 
   return (
     <Component

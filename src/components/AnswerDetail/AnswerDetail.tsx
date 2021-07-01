@@ -57,6 +57,9 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <div className="hidden">
           <StaticInput id="subId" type="text" register={form.register('subId')} />
         </div>
+        <div className="hidden">
+          <StaticInput id="referrer" type="text" register={form.register('referrer')} />
+        </div>
         <div className="mb-3 w-72">
           <StaticInput
             id="text"
@@ -126,6 +129,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
 const Container: React.VFC<ContainerPorps> = (props) => {
   const router = useRouter()
   const [userId, setUserId] = useState<string>()
+  const [displayName, setDisplayName] = useState<string>()
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
@@ -172,12 +176,16 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     const func = async () => {
       const liff = (await import('@line/liff')).default
       await liff.ready
-      const userId = await (await liff.getProfile()).userId
+      const profile = await liff.getProfile()
+      const userId = profile.userId
+      const displayName = profile.displayName
       setUserId(userId)
+      setDisplayName(displayName)
       form.setValue('subId', userId)
+      form.setValue('referrer', displayName)
     }
     func()
-  }, [userId])
+  }, [userId, displayName, form])
 
   return (
     <Component
