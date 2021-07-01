@@ -49,7 +49,7 @@ const Component: React.VFC<Props> = ({
           label="Mail"
           type="text"
           placeholder="kyonomo@gmail.com"
-          defaultValue={userId}
+          defaultValue=""
           register={form.register('mail')}
         />
       </div>
@@ -59,7 +59,7 @@ const Component: React.VFC<Props> = ({
           label="LineID"
           type="text"
           placeholder="LineのユーザーID"
-          defaultValue=""
+          defaultValue={userId}
           register={form.register('lineId')}
         />
       </div>
@@ -203,7 +203,7 @@ const Container: React.VFC = () => {
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
-    await shareTargetPicker()
+    await shareTargetPicker(form.getValues('answer'))
   }
 
   // console.log(form.watch("mail"));
