@@ -9,6 +9,8 @@ import { OG_TITLE, returnTitle } from '~/src/utils/meta'
 const IndexPage: NextPage = () => {
   const title = returnTitle()
   const { liff } = useLiff()
+  // eslint-disable-next-line no-console
+  console.log(liff)
   return (
     <>
       <Head>
@@ -16,7 +18,6 @@ const IndexPage: NextPage = () => {
         <meta key={OG_TITLE} property={OG_TITLE} content={title} />
       </Head>
       <Layout>
-        <div>{liff}</div>
         <InvitationDetail />
       </Layout>
     </>
