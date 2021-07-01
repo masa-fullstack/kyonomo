@@ -8,7 +8,7 @@ export const shareTargetPicker = async () => {
     alert('start4')
     const userId = await (await liff.getProfile()).userId
     alert(userId)
-    await liff
+    liff
       .shareTargetPicker([
         {
           type: 'text',
