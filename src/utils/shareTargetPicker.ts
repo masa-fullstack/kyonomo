@@ -1,4 +1,4 @@
-export const shareTargetPicker = async (text: string) => {
+export const shareTargetPicker = async () => {
   alert('start')
   const liff = (await import('@line/liff')).default
   alert('start2')
@@ -9,7 +9,7 @@ export const shareTargetPicker = async (text: string) => {
     await liff.shareTargetPicker([
       {
         type: 'text',
-        text: `${text}`,
+        text: 'test',
       },
     ])
     alert('start5')
