@@ -9,6 +9,8 @@ export const LiffProvider: FC = ({ children }) => {
   useEffect(() => {
     let unmounted = false
     const mountLiff = async () => {
+      // eslint-disable-next-line no-console
+      console.log('liff')
       const liff = (await import('@line/liff')).default
       await liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID })
       if (!unmounted) {
