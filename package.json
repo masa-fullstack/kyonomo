@@ -28,6 +28,7 @@
   "dependencies": {
     "@aspida/axios": "^1.7.1",
     "@aspida/swr": "^1.7.1",
+    "@line/liff": "^2.11.1",
     "@tailwindcss/forms": "^0.3.3",
     "@types/date-fns": "^2.6.0",
     "axios": "^0.21.1",

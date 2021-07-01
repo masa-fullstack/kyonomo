@@ -1,3 +1,4 @@
+import { Answer } from '~/src/types/api/Answer'
 import { ApiReqHeaders } from '~/src/types/api/Headers'
 import { Invitation } from '~/src/types/api/Invitation'
 
@@ -8,6 +9,6 @@ export type Methods = {
       id: Invitation['id']
     }
 
-    resBody: string
+    resBody: Answer[]
   }
 }

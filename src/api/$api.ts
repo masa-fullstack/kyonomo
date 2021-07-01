@@ -33,9 +33,9 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
     invitation: {
       check: {
         get: (option: { query: Methods2['get']['query'], headers?: Methods2['get']['reqHeaders'], config?: T }) =>
-          fetch<Methods2['get']['resBody']>(prefix, PATH2, GET, option).text(),
+          fetch<Methods2['get']['resBody']>(prefix, PATH2, GET, option).json(),
         $get: (option: { query: Methods2['get']['query'], headers?: Methods2['get']['reqHeaders'], config?: T }) =>
-          fetch<Methods2['get']['resBody']>(prefix, PATH2, GET, option).text().then(r => r.body),
+          fetch<Methods2['get']['resBody']>(prefix, PATH2, GET, option).json().then(r => r.body),
         $path: (option?: { method?: 'get'; query: Methods2['get']['query'] }) =>
           `${prefix}${PATH2}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
       },

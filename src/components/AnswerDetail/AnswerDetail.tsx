@@ -9,6 +9,7 @@ import { apiClient } from '~/src/utils/apiClient'
 
 import { Animation } from '../Animation'
 import { Button } from '../Button'
+import { People } from '../People'
 import { StaticInput } from '../StaticInput'
 
 type ContainerPorps = {
@@ -22,20 +23,17 @@ type Props = {
   isAnswered: boolean
   isError: boolean
   id: string
+  answers: Answer[]
 } & ContainerPorps
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef<HTMLInputElement, Props>(
-  ({ form, onSubmit, isLoading, isAnswered, isError, id, initialStatus }, ref) =>
+  ({ form, onSubmit, isLoading, isAnswered, isError, id, answers, initialStatus }, ref) =>
     isError ? (
       <div className="flex items-center justify-center">
         <span className="text-xl" role="img" aria-label="エラー">
           有効なお誘いが存在しません。 期限が切れているか、URLが誤っていないかご確認下さい🥺
         </span>
-      </div>
-    ) : isLoading ? (
-      <div className="flex items-center justify-center">
-        <ReactLoading type="bars" color="#000" width={160} height={160} />
       </div>
     ) : isAnswered ? (
       <div className="flex flex-col items-center justify-center">
@@ -43,6 +41,10 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <span className="text-3xl" role="img" aria-label="完了">
           Thank you🙌
         </span>
+      </div>
+    ) : isLoading ? (
+      <div className="flex items-center justify-center">
+        <ReactLoading type="bars" color="#000" width={160} height={160} />
       </div>
     ) : (
       <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>
@@ -63,7 +65,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
           />
         </div>
 
-        <div className="flex items-center justify-center mt-16 mb-12">
+        <div className="flex items-center justify-center mt-16 mb-2">
           <Button
             label="OK🙆‍♂️"
             color="blue"
@@ -73,7 +75,14 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ref={initialStatus === 'ok' ? ref : null}
           />
         </div>
-        <div className="flex items-center justify-center mb-12">
+        <div className="flex items-center justify-center h-5 mb-10">
+          {answers
+            .filter((answer) => answer.status === 'ok')
+            .map((answer) => (
+              <People key={answer.subId} />
+            ))}
+        </div>
+        <div className="flex items-center justify-center mb-2">
           <Button
             label="Hmm...🤔"
             color="yellow"
@@ -83,7 +92,14 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ref={initialStatus === 'hm' ? ref : null}
           />
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center h-5 mb-10">
+          {answers
+            .filter((answer) => answer.status === 'hm')
+            .map((answer) => (
+              <People key={answer.subId} />
+            ))}
+        </div>
+        <div className="flex items-center justify-center mb-2">
           <Button
             label="NG🙅‍♂️"
             color="red"
@@ -93,6 +109,14 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ref={initialStatus === 'ng' ? ref : null}
           />
         </div>
+        <div className="flex items-center justify-center h-5">
+          {answers
+            .filter((answer) => answer.status === 'ng')
+            .map((answer) => (
+              <People key={answer.subId} />
+            ))}
+        </div>
+
         <input name="status" type="hidden" value="" />
       </form>
     )
@@ -119,10 +143,12 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     id = router.query.id
   }
 
-  const { data, error } = useAspidaSWR(apiClient.invitation.check, '$get', {
+  const { data: answers, error } = useAspidaSWR(apiClient.invitation.check, '$get', {
     query: { id: id },
+    enabled: !!id && !isAnswered,
     revalidateOnReconnect: false,
     revalidateOnFocus: false,
+
     onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
       // Never retry on 404.
       if (error.status === 404) return
@@ -138,18 +164,19 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   })
 
   useEffect(() => {
-    if (props.initialStatus && data) ref.current.click()
-  }, [props.initialStatus, data])
+    if (props.initialStatus && answers) ref.current.click()
+  }, [props.initialStatus, answers])
 
   return (
     <Component
       {...props}
       form={form}
       onSubmit={onSubmit}
-      isLoading={!data}
+      isLoading={!answers}
       isError={error}
       isAnswered={isAnswered}
       id={id}
+      answers={answers}
       ref={ref}
     />
   )
