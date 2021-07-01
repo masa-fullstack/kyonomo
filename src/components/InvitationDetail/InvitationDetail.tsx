@@ -1,5 +1,5 @@
 import { parse, format } from 'date-fns'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
@@ -10,10 +10,6 @@ import { apiClient } from '~/src/utils/apiClient'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
-
-type ContainerProps = {
-  userId: string
-}
 
 type Props = {
   form: UseFormReturn<FieldValues>
@@ -27,7 +23,8 @@ type Props = {
   setIsCopiedAnswer: React.Dispatch<React.SetStateAction<boolean>>
   isCopiedAdmin: boolean
   setIsCopiedAdmin: React.Dispatch<React.SetStateAction<boolean>>
-} & ContainerProps
+  userId: string
+}
 
 const Component: React.VFC<Props> = ({
   form,
@@ -179,7 +176,10 @@ const Component: React.VFC<Props> = ({
   </form>
 )
 
-const Container: React.VFC<ContainerProps> = (props) => {
+const Container: React.VFC = () => {
+  const [userId, setUserId] = useState<string>()
+  const [shareTargetPicker, setShareTargetPicker] = useState<() => void>()
+
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isCopiedAdmin, setIsCopiedAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -214,6 +214,26 @@ const Container: React.VFC<ContainerProps> = (props) => {
   // console.log(form.watch("answer"));
   // console.log(form.watch("text"));
 
+  useEffect(() => {
+    const func = async () => {
+      const liff = (await import('@line/liff')).default
+      await liff.ready
+      const userId = await (await liff.getProfile()).userId
+      setUserId(userId)
+
+      const shareTargetPicker = async () => {
+        await liff.shareTargetPicker([
+          {
+            type: 'text',
+            text: `${form.getValues('answer')}`,
+          },
+        ])
+      }
+      setShareTargetPicker(shareTargetPicker)
+    }
+    func()
+  }, [userId, shareTargetPicker, form])
+
   return (
     <Component
       form={form}
@@ -227,7 +247,7 @@ const Container: React.VFC<ContainerProps> = (props) => {
       setIsCopiedAnswer={setIsCopiedAnswer}
       isCopiedAdmin={isCopiedAdmin}
       setIsCopiedAdmin={setIsCopiedAdmin}
-      userId={props.userId}
+      userId={userId}
     />
   )
 }
