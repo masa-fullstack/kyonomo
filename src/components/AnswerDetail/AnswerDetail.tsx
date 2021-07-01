@@ -65,7 +65,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
           />
         </div>
 
-        <div className="flex items-center justify-center mt-16 mb-2">
+        <div className="flex items-center justify-center mt-2 mb-2">
           <Button
             label="OK🙆‍♂️"
             color="blue"
@@ -75,7 +75,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ref={initialStatus === 'ok' ? ref : null}
           />
         </div>
-        <div className="flex items-center justify-center h-5 mb-10">
+        <div className="flex items-center justify-center h-5 mb-6">
           {answers
             .filter((answer) => answer.status === 'ok')
             .map((answer) => (
@@ -92,7 +92,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ref={initialStatus === 'hm' ? ref : null}
           />
         </div>
-        <div className="flex items-center justify-center h-5 mb-10">
+        <div className="flex items-center justify-center h-5 mb-6">
           {answers
             .filter((answer) => answer.status === 'hm')
             .map((answer) => (

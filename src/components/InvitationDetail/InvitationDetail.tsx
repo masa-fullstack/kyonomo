@@ -57,7 +57,7 @@ const Component: React.VFC<Props> = ({
         <StaticInput
           id="lineId"
           label="LineID"
-          type="hidden"
+          type="text"
           placeholder="LineのユーザーID"
           defaultValue={userId}
           register={form.register('lineId')}

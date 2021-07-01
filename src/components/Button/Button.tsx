@@ -36,7 +36,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>((props, ref) => (
           props.setSpringState((prevState) => !prevState)
         }}
         ref={ref}
-        className={`${props.colorStyle} w-48 px-10 py-6 text-white text-xl font-medium rounded-3xl cursor-pointer shadow-xl`}
+        className={`${props.colorStyle} w-48 px-10 py-4 text-white text-xl font-medium rounded-3xl cursor-pointer shadow-xl`}
       />
     </animated.div>
   </>
