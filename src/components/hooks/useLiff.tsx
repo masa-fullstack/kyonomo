@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 const liffId = process.env.NEXT_PUBLIC_LIFF_ID
 
-export const useLiff = () => {
+export const useLiff = async () => {
   const [liff, setLiff] = useState<typeof Liff>()
 
   useEffect(() => {
@@ -23,5 +23,7 @@ export const useLiff = () => {
   })
 
   if (!liff) return { undefined }
-  return { liff }
+
+  const userId = await liff.getProfile().then(async (profile) => profile.userId)
+  return { liff, userId }
 }

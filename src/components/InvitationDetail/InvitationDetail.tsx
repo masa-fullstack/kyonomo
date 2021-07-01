@@ -11,6 +11,10 @@ import { apiClient } from '~/src/utils/apiClient'
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
 
+type ContainerProps = {
+  userId: string
+}
+
 type Props = {
   form: UseFormReturn<FieldValues>
   onSubmit: (data: Invitation) => void
@@ -23,7 +27,7 @@ type Props = {
   setIsCopiedAnswer: React.Dispatch<React.SetStateAction<boolean>>
   isCopiedAdmin: boolean
   setIsCopiedAdmin: React.Dispatch<React.SetStateAction<boolean>>
-}
+} & ContainerProps
 
 const Component: React.VFC<Props> = ({
   form,
@@ -37,6 +41,7 @@ const Component: React.VFC<Props> = ({
   setIsCopiedAnswer,
   isCopiedAdmin,
   setIsCopiedAdmin,
+  userId,
 }) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
     <div className="grid grid-cols-10 gap-4">
@@ -46,7 +51,7 @@ const Component: React.VFC<Props> = ({
           label="Mail"
           type="text"
           placeholder="kyonomo@gmail.com"
-          defaultValue=""
+          defaultValue={userId}
           register={form.register('mail')}
         />
       </div>
@@ -174,7 +179,7 @@ const Component: React.VFC<Props> = ({
   </form>
 )
 
-const Container: React.VFC = () => {
+const Container: React.VFC<ContainerProps> = (props) => {
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isCopiedAdmin, setIsCopiedAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -211,6 +216,7 @@ const Container: React.VFC = () => {
 
   return (
     <Component
+      {...props}
       form={form}
       onSubmit={onSubmit}
       isLoading={isLoading}
