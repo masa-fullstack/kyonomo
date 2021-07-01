@@ -10,6 +10,8 @@ const IndexPage: NextPage = () => {
   const title = returnTitle()
   const { liff } = useLiff()
   // eslint-disable-next-line no-console
+  console.log(liff)
+  // eslint-disable-next-line no-console
   console.log(liff.isLoggedIn())
 
   return (
