@@ -22,9 +22,6 @@ type Props = {
   scrollBottomRef: React.MutableRefObject<HTMLDivElement>
   isCopiedAnswer: boolean
   setIsCopiedAnswer: React.Dispatch<React.SetStateAction<boolean>>
-  isCopiedAdmin: boolean
-  setIsCopiedAdmin: React.Dispatch<React.SetStateAction<boolean>>
-  userId: string
 }
 
 const Component: React.VFC<Props> = ({
@@ -37,9 +34,6 @@ const Component: React.VFC<Props> = ({
   scrollBottomRef,
   isCopiedAnswer,
   setIsCopiedAnswer,
-  isCopiedAdmin,
-  setIsCopiedAdmin,
-  userId,
 }) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
     <div className="grid grid-cols-10 gap-4">
@@ -53,13 +47,13 @@ const Component: React.VFC<Props> = ({
           register={form.register('mail')}
         />
       </div> */}
-      <div className="col-span-10 invisible">
+      <div className="col-span-10">
         <StaticInput
           id="lineId"
           label="LineID"
           type="text"
           placeholder="LineのユーザーID"
-          defaultValue={userId}
+          defaultValue=""
           register={form.register('lineId')}
         />
       </div>
@@ -139,37 +133,6 @@ const Component: React.VFC<Props> = ({
               </div>
             </div>
           </div>
-          <div className="col-span-10">
-            <div className="flex">
-              <div className="flex-grow">
-                <StaticInput
-                  id="adminURL"
-                  label="管理URL"
-                  type="url"
-                  placeholder=""
-                  defaultValue=""
-                  register={form.register('admin')}
-                />
-              </div>
-
-              <div className="relative flex items-center">
-                <CopyToClipboard
-                  text={form.getValues('admin')}
-                  onCopy={() => {
-                    setIsCopiedAdmin(true)
-                    setTimeout(() => setIsCopiedAdmin(false), 1000)
-                  }}
-                >
-                  <img src="images/icon_copy.svg" className="cursor-pointer" alt="copy"></img>
-                </CopyToClipboard>
-                {isCopiedAdmin ? (
-                  <span className="absolute left-2 bottom-16 inline-block p-1 whitespace-nowrap text-sm bg-gray-800 text-gray-200 rounded-lg">
-                    Copied
-                  </span>
-                ) : null}
-              </div>
-            </div>
-          </div>
         </>
       )}
       <div ref={scrollBottomRef} />
@@ -180,7 +143,6 @@ const Component: React.VFC<Props> = ({
 const Container: React.VFC = () => {
   const [userId, setUserId] = useState<string>()
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
-  const [isCopiedAdmin, setIsCopiedAdmin] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isDispURL, setIsDispURL] = useState(false)
   const scrollBottomRef = useRef<HTMLDivElement>(null)
@@ -197,7 +159,7 @@ const Container: React.VFC = () => {
     })
 
     form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_URL}?id=${res.id}`)
-    form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
+    // form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
     setIsDispURL(true)
     setIsLoading(false)
 
@@ -220,6 +182,7 @@ const Container: React.VFC = () => {
       await liff.ready
       const userId = await (await liff.getProfile()).userId
       setUserId(userId)
+      form.setValue('lineId', userId)
     }
     func()
   }, [userId])
@@ -235,9 +198,6 @@ const Container: React.VFC = () => {
       scrollBottomRef={scrollBottomRef}
       isCopiedAnswer={isCopiedAnswer}
       setIsCopiedAnswer={setIsCopiedAnswer}
-      isCopiedAdmin={isCopiedAdmin}
-      setIsCopiedAdmin={setIsCopiedAdmin}
-      userId={userId}
     />
   )
 }

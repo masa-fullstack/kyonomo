@@ -65,7 +65,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
           />
         </div>
 
-        <div className="flex items-center justify-center mt-2 mb-2">
+        <div className="flex items-center justify-center mt-6 mb-2">
           <Button
             label="OK🙆‍♂️"
             color="blue"
