@@ -4,14 +4,17 @@ import { useEffect, useState } from 'react'
 const liffId = process.env.NEXT_PUBLIC_LIFF_ID
 
 export const useLiff = async () => {
-  const [liff, setLiff] = useState<typeof Liff>()
+  //   const [liff, setLiff] = useState<typeof Liff>()
+  const [userId, setUserId] = useState<string>('')
 
   useEffect(() => {
-    const mounteLiff = async () => {
+    const getLiffInfo = async () => {
       const liff = (await import('@line/liff')).default
       try {
         await liff.init({ liffId })
-        setLiff(liff)
+
+        const { userId } = await initializeApp(liff)
+        setUserId(userId)
       } catch (error) {
         console.error('liff init error', error.message)
       }
@@ -19,11 +22,12 @@ export const useLiff = async () => {
         liff.login()
       }
     }
-    mounteLiff()
+    const initializeApp = async (liff: typeof Liff) => {
+      const userId = await liff.getProfile().then(async (profile) => profile.userId)
+      return { userId }
+    }
+
+    getLiffInfo()
   })
-
-  if (!liff) return { undefined }
-
-  const userId = await liff.getProfile().then(async (profile) => profile.userId)
-  return { liff, userId }
+  return { userId }
 }
