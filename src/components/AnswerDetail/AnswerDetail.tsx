@@ -139,10 +139,10 @@ const Container: React.VFC<ContainerPorps> = (props) => {
 
     const liff = (await import('@line/liff')).default
     await liff.ready
-    const subId = await liff.getIDToken()
+    const referrer = await liff.getIDToken()
 
     apiClient.answer.$post({
-      body: { ...data, subId },
+      body: { ...data, referrer },
     })
   }
 
