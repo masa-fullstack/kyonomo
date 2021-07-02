@@ -133,12 +133,16 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
 
-  const onSubmit = (data: Answer) => {
+  const onSubmit = async (data: Answer) => {
     if (props.initialStatus) setIsAnswered(true)
     else setTimeout(() => setIsAnswered(true), 950)
 
+    const liff = (await import('@line/liff')).default
+    await liff.ready
+    const subId = await liff.getIDToken()
+
     apiClient.answer.$post({
-      body: data,
+      body: { ...data, subId },
     })
   }
 
@@ -171,18 +175,18 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     if (props.initialStatus && answers) ref.current.click()
   }, [props.initialStatus, answers])
 
-  useEffect(() => {
-    const func = async () => {
-      const liff = (await import('@line/liff')).default
-      await liff.ready
-      const profile = await liff.getProfile()
-      const userId = profile.userId
-      const displayName = profile.displayName
-      form.setValue('subId', userId)
-      form.setValue('referrer', displayName)
-    }
-    func()
-  }, [form])
+  // useEffect(() => {
+  //   const func = async () => {
+  //     const liff = (await import('@line/liff')).default
+  //     await liff.ready
+  //     const profile = await liff.getProfile()
+  //     const userId = profile.userId
+  //     const displayName = profile.displayName
+  //     form.setValue('subId', userId)
+  //     form.setValue('referrer', displayName)
+  //   }
+  //   func()
+  // }, [form])
 
   return (
     <Component

@@ -159,8 +159,6 @@ const Container: React.VFC = () => {
     const liff = (await import('@line/liff')).default
     await liff.ready
     const lineId = await liff.getIDToken()
-    // eslint-disable-next-line no-console
-    console.log(lineId)
 
     const res: Invitation = await apiClient.invitation.$post({
       body: { ...data, limitDate, limitTime, lineId },
