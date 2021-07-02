@@ -142,7 +142,6 @@ const Container: React.VFC = () => {
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
   const onSubmit = async (data) => {
-    shareTargetPicker(form.getValues('text'), form.getValues('answer'))
     setIsLoading(true)
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
@@ -151,13 +150,17 @@ const Container: React.VFC = () => {
       body: { ...data, limitDate, limitTime },
     })
 
-    form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_URL}?id=${res.id}`)
-    // form.setValue('admin', `${process.env.NEXT_PUBLIC_SITE_URL}/admin?id=${res.id}`)
+    // form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
+    form.setValue(
+      'answer',
+      `${process.env.NEXT_PUBLIC_LIFF_OK_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_HM_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_NG_URL}?id=${res.id}\n`
+    )
     setIsDispURL(true)
     setIsLoading(false)
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
+    await shareTargetPicker(form.getValues('text'), form.getValues('answer'))
   }
 
   // console.log(form.watch("mail"));

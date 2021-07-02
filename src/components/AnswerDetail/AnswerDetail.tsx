@@ -116,9 +116,9 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <div className="mb-3 w-72">
           <StaticInput
             id="text"
-            label="Comments ✉️💨"
+            label="コメントがあれば"
             type="textarea"
-            placeholder="例)21時から参加します👍"
+            placeholder="例)遅れて21時から参加します"
             defaultValue=""
             register={form.register('text')}
           />
