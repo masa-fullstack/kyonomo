@@ -7,7 +7,7 @@ import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/
 
 const AnswerPage: NextPage = () => {
   const title = returnTitle('回答する')
-  const description = 'リンク先で5秒で回答できます'
+  const description = '5秒で回答できます'
   return (
     <>
       <Head>
