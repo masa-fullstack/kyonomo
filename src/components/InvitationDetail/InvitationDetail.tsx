@@ -80,6 +80,16 @@ const Component: React.VFC<Props> = ({
           register={form.register('text')}
         />
       </div>
+      <div className="col-span-10">
+        <StaticInput
+          id="mode"
+          label="簡易回答"
+          type="checkbox"
+          placeholder=""
+          defaultValue=""
+          register={form.register('mode')}
+        />
+      </div>
       {(form.formState.errors.limitDate || form.formState.errors.limitTime) && <span>締切は必須入力です</span>}
 
       <div className="col-span-10">
@@ -150,11 +160,15 @@ const Container: React.VFC = () => {
       body: { ...data, limitDate, limitTime },
     })
 
-    // form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
-    form.setValue(
-      'answer',
-      `${process.env.NEXT_PUBLIC_LIFF_OK_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_HM_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_NG_URL}?id=${res.id}\n`
-    )
+    if (form.getValues('mode') === true) {
+      form.setValue(
+        'answer',
+        `${process.env.NEXT_PUBLIC_LIFF_OK_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_HM_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_NG_URL}?id=${res.id}\n`
+      )
+    } else {
+      form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
+    }
+
     setIsDispURL(true)
     setIsLoading(false)
 
@@ -170,6 +184,7 @@ const Container: React.VFC = () => {
   // console.log(form.watch("text"));
   // console.log(form.watch("answer"));
   // console.log(form.watch("text"));
+  // console.log(form.watch("mode"));
 
   useEffect(() => {
     const func = async () => {

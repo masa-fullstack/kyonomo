@@ -7,8 +7,8 @@ import ReactLoading from 'react-loading'
 import { Answer, Status } from '~/src/types/api/Answer'
 import { apiClient } from '~/src/utils/apiClient'
 
+import { AnimatedButton } from '../AnimatedButton'
 import { Animation } from '../Animation'
-import { Button } from '../Button'
 import { People } from '../People'
 import { StaticInput } from '../StaticInput'
 
@@ -62,7 +62,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         </div>
 
         <div className="flex items-center justify-center mt-6 mb-2">
-          <Button
+          <AnimatedButton
             label="OK🙆‍♂️"
             color="blue"
             onClick={() => {
@@ -79,7 +79,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ))}
         </div>
         <div className="flex items-center justify-center mb-2">
-          <Button
+          <AnimatedButton
             label="Hmm...🤔"
             color="yellow"
             onClick={() => {
@@ -96,7 +96,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ))}
         </div>
         <div className="flex items-center justify-center mb-2">
-          <Button
+          <AnimatedButton
             label="NG🙅‍♂️"
             color="red"
             onClick={() => {
