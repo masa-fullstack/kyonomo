@@ -158,7 +158,7 @@ const Container: React.VFC = () => {
 
     const liff = (await import('@line/liff')).default
     await liff.ready
-    const lineId = await liff.getIDToken
+    const lineId = await liff.getIDToken()
     // eslint-disable-next-line no-console
     console.log(lineId)
 
