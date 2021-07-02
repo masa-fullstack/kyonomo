@@ -144,6 +144,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     apiClient.answer.$post({
       body: { ...data, referrer },
     })
+    setTimeout(() => liff.closeWindow(), 2000)
   }
 
   let id: string
