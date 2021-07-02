@@ -1,5 +1,5 @@
 import { parse, format } from 'date-fns'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
@@ -156,8 +156,14 @@ const Container: React.VFC = () => {
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
 
+    const liff = (await import('@line/liff')).default
+    await liff.ready
+    const lineId = await liff.getIDToken
+    // eslint-disable-next-line no-console
+    console.log(lineId)
+
     const res: Invitation = await apiClient.invitation.$post({
-      body: { ...data, limitDate, limitTime },
+      body: { ...data, limitDate, limitTime, lineId },
     })
 
     if (form.getValues('mode') === true) {
@@ -186,15 +192,15 @@ const Container: React.VFC = () => {
   // console.log(form.watch("text"));
   // console.log(form.watch("mode"));
 
-  useEffect(() => {
-    const func = async () => {
-      const liff = (await import('@line/liff')).default
-      await liff.ready
-      const idToken = await liff.getIDToken
-      form.setValue('lineId', idToken)
-    }
-    func()
-  }, [form])
+  // useEffect(() => {
+  //   const func = async () => {
+  //     const liff = (await import('@line/liff')).default
+  //     await liff.ready
+  //     const idToken = await liff.getIDToken
+  //     form.setValue('lineId', idToken)
+  //   }
+  //   func()
+  // }, [form])
 
   return (
     <Component
