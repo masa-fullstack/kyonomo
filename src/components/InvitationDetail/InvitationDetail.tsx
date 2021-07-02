@@ -142,6 +142,7 @@ const Container: React.VFC = () => {
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
   const onSubmit = async (data) => {
+    shareTargetPicker(form.getValues('text'), form.getValues('answer'))
     setIsLoading(true)
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
@@ -157,7 +158,6 @@ const Container: React.VFC = () => {
 
     smoothscroll.polyfill()
     scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
-    await shareTargetPicker(form.getValues('text'), form.getValues('answer'))
   }
 
   // console.log(form.watch("mail"));

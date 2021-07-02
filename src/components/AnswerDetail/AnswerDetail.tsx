@@ -60,16 +60,6 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <div className="hidden">
           <StaticInput id="referrer" type="text" register={form.register('referrer')} />
         </div>
-        <div className="mb-3 w-72">
-          <StaticInput
-            id="text"
-            label="Comments ✉️💨"
-            type="textarea"
-            placeholder="例)21時から参加します👍"
-            defaultValue=""
-            register={form.register('text')}
-          />
-        </div>
 
         <div className="flex items-center justify-center mt-6 mb-2">
           <Button
@@ -115,12 +105,23 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             ref={initialStatus === 'ng' ? ref : null}
           />
         </div>
-        <div className="flex items-center justify-center h-5">
+        <div className="flex items-center justify-center h-5 mb-12">
           {answers
             .filter((answer) => answer.status === 'ng')
             .map((answer) => (
               <People key={answer.subId} />
             ))}
+        </div>
+
+        <div className="mb-3 w-72">
+          <StaticInput
+            id="text"
+            label="Comments ✉️💨"
+            type="textarea"
+            placeholder="例)21時から参加します👍"
+            defaultValue=""
+            register={form.register('text')}
+          />
         </div>
       </form>
     )
