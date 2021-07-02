@@ -190,8 +190,8 @@ const Container: React.VFC = () => {
     const func = async () => {
       const liff = (await import('@line/liff')).default
       await liff.ready
-      const userId = await (await liff.getProfile()).userId
-      form.setValue('lineId', userId)
+      const idToken = await liff.getIDToken
+      form.setValue('lineId', idToken)
     }
     func()
   }, [form])
