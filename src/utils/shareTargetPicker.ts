@@ -111,7 +111,7 @@ export const shareTargetPicker = async (text: string, url: string) => {
                   action: {
                     type: 'uri',
                     label: 'OK',
-                    uri: url,
+                    uri: 'https://liff.line.me/1656164238-QBJ8Kzky',
                   },
                 },
                 {
@@ -121,7 +121,7 @@ export const shareTargetPicker = async (text: string, url: string) => {
                   action: {
                     type: 'uri',
                     label: 'Hmm...',
-                    uri: 'https://linecorp.com',
+                    uri: 'https://liff.line.me/1656164238-pA6oXKvj',
                   },
                 },
                 {
@@ -131,7 +131,7 @@ export const shareTargetPicker = async (text: string, url: string) => {
                   action: {
                     type: 'uri',
                     label: 'NG',
-                    uri: 'https://linecorp.com',
+                    uri: 'https://liff.line.me/1656164238-PajlAG3E',
                   },
                 },
                 {
