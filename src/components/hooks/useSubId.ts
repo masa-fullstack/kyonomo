@@ -19,12 +19,7 @@ const setLocalSubId: SetLocalSubId = (localSubId) => {
   // eslint-disable-next-line no-console
   console.log(`セット前localSubIds:${localSubIds}`)
 
-  const updatedLocalSubIds =
-    localSubIds === undefined
-      ? [localSubId]
-      : localSubIds.map((e) => {
-          e.id === localSubId.id ? localSubId : e
-        })
+  const updatedLocalSubIds = localSubIds === undefined ? [localSubId] : [...localSubIds, localSubId]
   // eslint-disable-next-line no-console
   console.log(`更新のやつupdatedLocalSubIds:${updatedLocalSubIds}`)
   localStorage.setItem('localSubIds', JSON.stringify(updatedLocalSubIds))
