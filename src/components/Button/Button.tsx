@@ -21,7 +21,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>((props, ref) => (
     <input
       type="submit"
       value={props.label}
-      disabled={true}
+      disabled={props.disabled}
       onClick={() => {
         if (props.onClick) props.onClick()
       }}
