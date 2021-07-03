@@ -1,6 +1,6 @@
 export const shareTargetPicker = async (text: string, url: string) => {
   const liff = (await import('@line/liff')).default
-  await liff.ready
+  // await liff.ready
   if (liff.isApiAvailable('shareTargetPicker')) {
     await liff
       .shareTargetPicker([
