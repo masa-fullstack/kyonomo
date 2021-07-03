@@ -70,22 +70,42 @@ const Component: React.VFC<Props> = ({
       </div>
       <div className="col-span-10">
         <StaticInput
-          id="text"
-          label="テキスト"
-          type="textarea"
-          placeholder="今日20:00からオンライン飲みどう？"
+          id="subject"
+          label="Subject"
+          type="text"
+          placeholder="オンライン飲みしよう！"
           defaultValue=""
-          register={form.register('text')}
+          register={form.register('subject')}
         />
       </div>
       <div className="col-span-10">
         <StaticInput
-          id="mode"
-          label="簡易回答"
-          type="checkbox"
-          placeholder=""
+          id="place"
+          label="Place"
+          type="text"
+          placeholder="zoom"
           defaultValue=""
-          register={form.register('mode')}
+          register={form.register('place')}
+        />
+      </div>
+      <div className="col-span-10">
+        <StaticInput
+          id="time"
+          label="Time"
+          type="text"
+          placeholder="21時ごろ〜23時"
+          defaultValue=""
+          register={form.register('time')}
+        />
+      </div>
+      <div className="col-span-10">
+        <StaticInput
+          id="text"
+          label="テキスト"
+          type="textarea"
+          placeholder="途中参加／退席自由です"
+          defaultValue=""
+          register={form.register('text')}
         />
       </div>
       {(form.formState.errors.limitDate || form.formState.errors.limitTime) && <span>締切は必須入力です</span>}
@@ -160,15 +180,7 @@ const Container: React.VFC = () => {
     const res: Invitation = await apiClient.invitation.$post({
       body: { ...data, limitDate, limitTime, lineId },
     })
-
-    if (form.getValues('mode') === true) {
-      form.setValue(
-        'answer',
-        `${process.env.NEXT_PUBLIC_LIFF_OK_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_HM_URL}?id=${res.id}\n${process.env.NEXT_PUBLIC_LIFF_NG_URL}?id=${res.id}\n`
-      )
-    } else {
-      form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
-    }
+    form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
 
     setIsDispURL(true)
     setIsLoading(false)
@@ -194,7 +206,7 @@ const Container: React.VFC = () => {
             contents: [
               {
                 type: 'text',
-                text: '変数TEXT',
+                text: form.getValues('subject'),
                 weight: 'bold',
                 size: 'xl',
               },
@@ -218,7 +230,7 @@ const Container: React.VFC = () => {
                       },
                       {
                         type: 'text',
-                        text: '変数ばしょ',
+                        text: form.getValues('place'),
                         wrap: true,
                         color: '#666666',
                         size: 'sm',
@@ -240,7 +252,7 @@ const Container: React.VFC = () => {
                       },
                       {
                         type: 'text',
-                        text: '変数時かん',
+                        text: form.getValues('time'),
                         wrap: true,
                         color: '#666666',
                         size: 'sm',
@@ -249,6 +261,12 @@ const Container: React.VFC = () => {
                     ],
                   },
                 ],
+              },
+              {
+                type: 'text',
+                text: form.getValues('text'),
+                margin: 'md',
+                size: 'sm',
               },
             ],
           },
@@ -268,7 +286,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'OK🍻',
-                      uri: 'https://liff.line.me/1656164238-QBJ8Kzky',
+                      uri: `https://liff.line.me/1656164238-QBJ8Kzky?id=${res.id}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -288,7 +306,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'Hmm...🤔',
-                      uri: 'https://liff.line.me/1656164238-pA6oXKvj',
+                      uri: `https://liff.line.me/1656164238-pA6oXKvj?id=${res.id}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -308,7 +326,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'NG🙅‍♂️',
-                      uri: 'https://liff.line.me/1656164238-PajlAG3E',
+                      uri: `https://liff.line.me/1656164238-PajlAG3E?id=${res.id}`,
                     },
                     color: '#FFFFFF',
                   },
