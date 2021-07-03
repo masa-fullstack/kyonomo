@@ -135,7 +135,6 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
-  const { localSubId, setLocalSubId } = useLocalSubId()
   const { closeWindow } = useLiff()
 
   const onSubmit = async (data: Answer) => {
@@ -161,6 +160,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     id = router.query.id
   }
 
+  const { localSubId, setLocalSubId } = useLocalSubId(id)
   const { data: answers, error } = useAspidaSWR(apiClient.invitation.check, '$get', {
     query: { id: id },
     enabled: !!id && !isAnswered,

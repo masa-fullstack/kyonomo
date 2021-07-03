@@ -5,21 +5,23 @@ export type LocalSubId = {
   subId: string
 }
 
-type GetLocalSubId = () => LocalSubId | undefined
+type GetLocalSubIds = () => LocalSubId[] | undefined
 
-const getLocalSubId: GetLocalSubId = () => {
-  const localSubId = localStorage.getItem('localSubId')
-  return localSubId != null ? JSON.parse(localSubId) : undefined
+const getLocalSubIds: GetLocalSubIds = () => {
+  const localSubIds = localStorage.getItem('localSubIds')
+  return localSubIds != null ? JSON.parse(localSubIds) : undefined
 }
 
 type SetLocalSubId = (localSubId: LocalSubId) => void
 
 const setLocalSubId: SetLocalSubId = (localSubId) => {
-  localStorage.setItem('localSubId', JSON.stringify(localSubId))
+  const localSubIds = getLocalSubIds()
+  localStorage.setItem('localSubIds', JSON.stringify([...localSubIds, localSubId]))
 }
 
-export const useLocalSubId = () => {
-  const [localSubId] = useState<LocalSubId | undefined>(getLocalSubId())
+export const useLocalSubId = (id: string) => {
+  const [localSubIds] = useState<LocalSubId[] | undefined>(getLocalSubIds())
+  const localSubId = localSubIds.filter((localSubId) => localSubId.id === id)[0]
 
   return {
     localSubId,
