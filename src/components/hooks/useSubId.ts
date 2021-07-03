@@ -21,7 +21,7 @@ const setLocalSubId: SetLocalSubId = (localSubId) => {
 
 export const useLocalSubId = (id: string) => {
   const [localSubIds] = useState<LocalSubId[] | undefined>(getLocalSubIds())
-  const localSubId = localSubIds.filter((localSubId) => localSubId.id === id)[0]
+  const localSubId = localSubIds ? localSubIds.filter((localSubId) => localSubId.id === id)[0] : undefined
 
   return {
     localSubId,
