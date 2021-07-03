@@ -7,9 +7,9 @@ import ReactLoading from 'react-loading'
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
 
-import { shareTargetPicker } from '../../utils/shareTargetPicker'
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
+import { useAuth } from '../hooks/Auth'
 
 type Props = {
   form: UseFormReturn<FieldValues>
@@ -146,14 +146,15 @@ const Container: React.VFC = () => {
   const form = useForm()
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
+
+  const { getIDToken, shareTargetPicker } = useAuth()
+
   const onSubmit = async (data) => {
     setIsLoading(true)
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
 
-    const liff = (await import('@line/liff')).default
-    await liff.ready
-    const lineId = await liff.getIDToken()
+    const lineId = await getIDToken()
 
     const res: Invitation = await apiClient.invitation.$post({
       body: { ...data, limitDate, limitTime, lineId },
@@ -173,7 +174,12 @@ const Container: React.VFC = () => {
 
     // eslint-disable-next-line no-console
     console.log('start')
-    const responseLiff = await shareTargetPicker(form.getValues('text'), form.getValues('answer'))
+    const responseLiff = await shareTargetPicker([
+      {
+        type: 'text',
+        text: 'Hello, World!',
+      },
+    ])
     // eslint-disable-next-line no-console
     console.log(responseLiff)
   }
