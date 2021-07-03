@@ -14,14 +14,11 @@ export const shareTargetPicker = async (text: string, url: string) => {
               type: 'box', // ③
               layout: 'vertical', // ④
               contents: [
-                // ⑤
                 {
-                  type: 'text', // ⑥
-                  text: 'Hello,',
-                },
-                {
-                  type: 'text', // ⑥
-                  text: 'World!',
+                  type: 'text',
+                  text: 'Brown Cafe',
+                  weight: 'bold',
+                  size: 'xl',
                 },
               ],
             },
