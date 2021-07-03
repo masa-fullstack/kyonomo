@@ -2,7 +2,6 @@ import useAspidaSWR from '@aspida/swr'
 import { useRouter } from 'next/dist/client/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
-import ReactLoading from 'react-loading'
 import { v4 as uuidV4 } from 'uuid'
 
 import { Answer, Status } from '~/src/types/api/Answer'
@@ -10,6 +9,7 @@ import { apiClient } from '~/src/utils/apiClient'
 
 import { AnimatedButton } from '../AnimatedButton'
 import { Animation } from '../Animation'
+import { Loading } from '../Loading'
 import { People } from '../People'
 import { StaticInput } from '../StaticInput'
 import { useLiff } from '../hooks/useLiff'
@@ -46,87 +46,87 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         </span>
       </div>
     ) : isLoading ? (
-      <div className="flex items-center justify-center">
-        <ReactLoading type="bars" color="#000" width={160} height={160} />
-      </div>
+      <Loading />
     ) : (
-      <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="hidden">
-          <StaticInput id="id" type="text" defaultValue={id} register={form.register('id')} />
-        </div>
-        <div className="hidden">
-          <StaticInput id="status" type="text" register={form.register('status')} />
-        </div>
-        <div className="hidden">
-          <StaticInput id="subId" type="text" register={form.register('subId')} />
-        </div>
-        <div className="hidden">
-          <StaticInput id="referrer" type="text" register={form.register('referrer')} />
-        </div>
+      <div className={initialStatus === undefined ? '' : 'hidden'}>
+        <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="hidden">
+            <StaticInput id="id" type="text" defaultValue={id} register={form.register('id')} />
+          </div>
+          <div className="hidden">
+            <StaticInput id="status" type="text" register={form.register('status')} />
+          </div>
+          <div className="hidden">
+            <StaticInput id="subId" type="text" register={form.register('subId')} />
+          </div>
+          <div className="hidden">
+            <StaticInput id="referrer" type="text" register={form.register('referrer')} />
+          </div>
 
-        <div className="flex items-center justify-center mt-6 mb-2">
-          <AnimatedButton
-            label="OK🙆‍♂️"
-            color="blue"
-            onClick={() => {
-              form.setValue('status', 'ok')
-            }}
-            ref={initialStatus === 'ok' ? ref : null}
-          />
-        </div>
-        <div className="flex items-center justify-center h-5 mb-6">
-          {answers
-            .filter((answer) => answer.status === 'ok')
-            .map((answer) => (
-              <People key={answer.subId} />
-            ))}
-        </div>
-        <div className="flex items-center justify-center mb-2">
-          <AnimatedButton
-            label="Hmm...🤔"
-            color="yellow"
-            onClick={() => {
-              form.setValue('status', 'hm')
-            }}
-            ref={initialStatus === 'hm' ? ref : null}
-          />
-        </div>
-        <div className="flex items-center justify-center h-5 mb-6">
-          {answers
-            .filter((answer) => answer.status === 'hm')
-            .map((answer) => (
-              <People key={answer.subId} />
-            ))}
-        </div>
-        <div className="flex items-center justify-center mb-2">
-          <AnimatedButton
-            label="NG🙅‍♂️"
-            color="red"
-            onClick={() => {
-              form.setValue('status', 'ng')
-            }}
-            ref={initialStatus === 'ng' ? ref : null}
-          />
-        </div>
-        <div className="flex items-center justify-center h-5 mb-12">
-          {answers
-            .filter((answer) => answer.status === 'ng')
-            .map((answer) => (
-              <People key={answer.subId} />
-            ))}
-        </div>
+          <div className="flex items-center justify-center mt-6 mb-2">
+            <AnimatedButton
+              label="OK🙆‍♂️"
+              color="blue"
+              onClick={() => {
+                form.setValue('status', 'ok')
+              }}
+              ref={initialStatus === 'ok' ? ref : null}
+            />
+          </div>
+          <div className="flex items-center justify-center h-5 mb-6">
+            {answers
+              .filter((answer) => answer.status === 'ok')
+              .map((answer) => (
+                <People key={answer.subId} />
+              ))}
+          </div>
+          <div className="flex items-center justify-center mb-2">
+            <AnimatedButton
+              label="Hmm...🤔"
+              color="yellow"
+              onClick={() => {
+                form.setValue('status', 'hm')
+              }}
+              ref={initialStatus === 'hm' ? ref : null}
+            />
+          </div>
+          <div className="flex items-center justify-center h-5 mb-6">
+            {answers
+              .filter((answer) => answer.status === 'hm')
+              .map((answer) => (
+                <People key={answer.subId} />
+              ))}
+          </div>
+          <div className="flex items-center justify-center mb-2">
+            <AnimatedButton
+              label="NG🙅‍♂️"
+              color="red"
+              onClick={() => {
+                form.setValue('status', 'ng')
+              }}
+              ref={initialStatus === 'ng' ? ref : null}
+            />
+          </div>
+          <div className="flex items-center justify-center h-5 mb-12">
+            {answers
+              .filter((answer) => answer.status === 'ng')
+              .map((answer) => (
+                <People key={answer.subId} />
+              ))}
+          </div>
 
-        <div className="mb-3 w-72">
-          <StaticInput
-            id="text"
-            label="コメントがあれば"
-            type="textarea"
-            placeholder="例)遅れて21時から参加します"
-            defaultValue=""
-            register={form.register('text')}
-          />
-        </div>
-      </form>
+          <div className="mb-3 w-72">
+            <StaticInput
+              id="text"
+              label="コメントがあれば"
+              type="textarea"
+              placeholder="例)遅れて21時から参加します"
+              defaultValue=""
+              register={form.register('text')}
+            />
+          </div>
+        </form>
+      </div>
     )
 )
 
@@ -153,7 +153,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     apiClient.answer.$post({
       body: { ...data, subId },
     })
-    setTimeout(() => closeWindow(), 2800)
+    setTimeout(() => closeWindow(), 1500)
   }
 
   let id: string
