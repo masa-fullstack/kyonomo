@@ -1,9 +1,8 @@
 import { parse, format } from 'date-fns'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
-import smoothscroll from 'smoothscroll-polyfill'
 
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
@@ -19,7 +18,6 @@ type Props = {
   isDispURL: boolean
   nowDate: string
   nowTime: string
-  scrollBottomRef: React.MutableRefObject<HTMLDivElement>
   isCopiedAnswer: boolean
   setIsCopiedAnswer: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -31,7 +29,6 @@ const Component: React.VFC<Props> = ({
   isDispURL,
   nowDate,
   nowTime,
-  scrollBottomRef,
   isCopiedAnswer,
   setIsCopiedAnswer,
 }) => (
@@ -138,7 +135,6 @@ const Component: React.VFC<Props> = ({
           </div>
         </>
       )}
-      <div ref={scrollBottomRef} />
     </div>
   </form>
 )
@@ -147,7 +143,6 @@ const Container: React.VFC = () => {
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isDispURL, setIsDispURL] = useState(false)
-  const scrollBottomRef = useRef<HTMLDivElement>(null)
   const form = useForm()
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
@@ -176,9 +171,11 @@ const Container: React.VFC = () => {
     setIsDispURL(true)
     setIsLoading(false)
 
-    smoothscroll.polyfill()
-    scrollBottomRef?.current?.scrollIntoView({ behavior: 'smooth' })
-    await shareTargetPicker(form.getValues('text'), form.getValues('answer'))
+    // eslint-disable-next-line no-console
+    console.log('start')
+    const responseLiff = await shareTargetPicker(form.getValues('text'), form.getValues('answer'))
+    // eslint-disable-next-line no-console
+    console.log(responseLiff)
   }
 
   // console.log(form.watch("mail"));
@@ -208,7 +205,6 @@ const Container: React.VFC = () => {
       isDispURL={isDispURL}
       nowDate={nowDate}
       nowTime={nowTime}
-      scrollBottomRef={scrollBottomRef}
       isCopiedAnswer={isCopiedAnswer}
       setIsCopiedAnswer={setIsCopiedAnswer}
     />

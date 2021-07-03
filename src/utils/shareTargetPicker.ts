@@ -2,7 +2,7 @@ export const shareTargetPicker = async (text: string, url: string) => {
   const liff = (await import('@line/liff')).default
   await liff.ready
   if (liff.isApiAvailable('shareTargetPicker')) {
-    liff.shareTargetPicker([
+    await liff.shareTargetPicker([
       {
         type: 'flex',
         altText: 'this is a flex message',
