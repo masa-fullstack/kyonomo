@@ -8,11 +8,11 @@ export const shareTargetPicker = async (text: string, url: string) => {
         altText: 'This is a buttons template',
         template: {
           type: 'buttons',
-          thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
-          imageAspectRatio: 'rectangle',
-          imageSize: 'cover',
-          imageBackgroundColor: '#FFFFFF',
-          title: 'Menu',
+          // thumbnailImageUrl: 'https://example.com/bot/images/image.jpg',
+          // imageAspectRatio: 'rectangle',
+          // imageSize: 'cover',
+          // imageBackgroundColor: '#FFFFFF',
+          // title: 'Menu',
           text: 'Please select',
           actions: [
             {
