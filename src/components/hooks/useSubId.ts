@@ -16,12 +16,15 @@ type SetLocalSubId = (localSubId: LocalSubId) => void
 
 const setLocalSubId: SetLocalSubId = (localSubId) => {
   const localSubIds = getLocalSubIds()
-  localStorage.setItem('localSubIds', JSON.stringify([...localSubIds, localSubId]))
+  const updatedLocalSubIds = localSubIds.map((e) => {
+    e.id === localSubId.id ? localSubId : e
+  })
+  localStorage.setItem('localSubIds', JSON.stringify(updatedLocalSubIds))
 }
 
 export const useLocalSubId = (id: string) => {
   const [localSubIds] = useState<LocalSubId[] | undefined>(getLocalSubIds())
-  const localSubId = localSubIds ? localSubIds.filter((localSubId) => localSubId.id === id)[0] : undefined
+  const localSubId = localSubIds === undefined ? undefined : localSubIds.filter((localSubId) => localSubId.id === id)[0]
 
   return {
     localSubId,
