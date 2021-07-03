@@ -9,15 +9,18 @@ type ContainerProps = {
   placeholder?: string
   defaultValue?: string
   currency?: string[]
+  isRequired?: boolean
+  isError?: boolean
 }
 
-type Props = ContainerProps
+type Props = { errorStyle: string } & ContainerProps
 
 const Component: React.VFC<Props> = (props) => (
   <div>
     {props.label && (
       <label htmlFor={props.id} className="block text-sm font-medium text-gray-700">
         {props.label}
+        {props.isRequired && <span className="text-red-500"> *</span>}
       </label>
     )}
     {/* テキストエリア */}
@@ -29,7 +32,7 @@ const Component: React.VFC<Props> = (props) => (
         defaultValue={props.defaultValue}
         placeholder={props.placeholder}
         {...props.register}
-        className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md resize-none bg-gray-100 focus:bg-white"
+        className={`${props.errorStyle}  focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md resize-none bg-gray-100 focus:bg-white`}
       />
     ) : // 読み取り専用枠なし
     props.type === 'url' ? (
@@ -68,7 +71,7 @@ const Component: React.VFC<Props> = (props) => (
           defaultValue={props.defaultValue}
           placeholder={props.placeholder}
           {...props.register}
-          className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md bg-gray-100 focus:bg-white"
+          className={`${props.errorStyle}  focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md bg-gray-100 focus:bg-white`}
         />
       </div>
     )}
@@ -76,7 +79,8 @@ const Component: React.VFC<Props> = (props) => (
 )
 
 const Container: React.VFC<ContainerProps> = (props) => {
-  return <Component {...props} />
+  const errorStyle = props.isError ? 'border-red-500' : ''
+  return <Component {...props} errorStyle={errorStyle} />
 }
 
 export default Container

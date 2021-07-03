@@ -55,6 +55,8 @@ const Component: React.VFC<Props> = ({
           type="date"
           placeholder=""
           defaultValue={nowDate}
+          isRequired={true}
+          isError={form.formState.errors.limitDate}
           register={form.register('limitDate', { required: true })}
         />
       </div>
@@ -65,6 +67,8 @@ const Component: React.VFC<Props> = ({
           type="time"
           placeholder=""
           defaultValue={nowTime}
+          isRequired={true}
+          isError={form.formState.errors.limitTime}
           register={form.register('limitTime', { required: true })}
         />
       </div>
@@ -75,7 +79,9 @@ const Component: React.VFC<Props> = ({
           type="text"
           placeholder="オンライン飲みしよう！"
           defaultValue=""
-          register={form.register('subject')}
+          isRequired={true}
+          isError={form.formState.errors.subject}
+          register={form.register('subject', { required: true })}
         />
       </div>
       <div className="col-span-10">
@@ -85,7 +91,9 @@ const Component: React.VFC<Props> = ({
           type="text"
           placeholder="zoom"
           defaultValue=""
-          register={form.register('place')}
+          isRequired={true}
+          isError={form.formState.errors.place}
+          register={form.register('place', { required: true })}
         />
       </div>
       <div className="col-span-10">
@@ -95,7 +103,9 @@ const Component: React.VFC<Props> = ({
           type="text"
           placeholder="21時ごろ〜23時"
           defaultValue=""
-          register={form.register('time')}
+          isRequired={true}
+          isError={form.formState.errors.time}
+          register={form.register('time', { required: true })}
         />
       </div>
       <div className="col-span-10">
@@ -108,11 +118,15 @@ const Component: React.VFC<Props> = ({
           register={form.register('text')}
         />
       </div>
-      {(form.formState.errors.limitDate || form.formState.errors.limitTime) && <span>締切は必須入力です</span>}
+      {(form.formState.errors.limitDate ||
+        form.formState.errors.limitTime ||
+        form.formState.errors.subject ||
+        form.formState.errors.place ||
+        form.formState.errors.time) && <div className="col-span-10 text-red-500">未入力項目があります</div>}
 
       <div className="col-span-10">
         <div className="flex flex-col items-center justify-center">
-          <Button label="飲もうぜ🍻" color="blue" />
+          <Button label="飲もうぜ🍻" color="blue" disabled={!form.formState.isValid} />
 
           {isLoading && (
             <div className="mt-5">
@@ -164,7 +178,7 @@ const Container: React.VFC = () => {
   const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isDispURL, setIsDispURL] = useState(false)
-  const form = useForm()
+  const form = useForm({ mode: 'all' })
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
 
@@ -264,7 +278,7 @@ const Container: React.VFC = () => {
               },
               {
                 type: 'text',
-                text: form.getValues('text'),
+                text: form.getValues('text') ? form.getValues('text') : ' ',
                 margin: 'md',
                 size: 'sm',
               },
