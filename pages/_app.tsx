@@ -3,10 +3,10 @@ import Head from 'next/head'
 import { FC } from 'react'
 
 import 'tailwindcss/tailwind.css'
-import { AuthProvider, useAuth } from '~/src/components/hooks/Auth'
+import { LiffProvider, useLiff } from '~/src/components/hooks/useLiff'
 
 const Layout: FC = ({ children }) => {
-  const { initialized, loggedIn, login } = useAuth()
+  const { initialized, loggedIn, login } = useLiff()
 
   if (!initialized) {
     return <p>loading...</p>
@@ -25,11 +25,11 @@ function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       </Head>
-      <AuthProvider>
+      <LiffProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </AuthProvider>
+      </LiffProvider>
     </>
   )
 }

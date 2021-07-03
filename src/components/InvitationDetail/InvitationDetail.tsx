@@ -9,7 +9,7 @@ import { apiClient } from '~/src/utils/apiClient'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
-import { useAuth } from '../hooks/Auth'
+import { useLiff } from '../hooks/useLiff'
 // import { message } from '~/src/utils/message'
 
 type Props = {
@@ -182,7 +182,7 @@ const Container: React.VFC = () => {
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
 
-  const { getIDToken, shareTargetPicker } = useAuth()
+  const { getIDToken, shareTargetPicker } = useLiff()
 
   const onSubmit = async (data) => {
     setIsLoading(true)
@@ -300,7 +300,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'OK🍻',
-                      uri: `https://liff.line.me/1656164238-QBJ8Kzky?id=${res.id}`,
+                      uri: `${process.env.NEXT_PUBLIC_LIFF_OK_URL}?id=${res.id}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -320,7 +320,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'Hmm...🤔',
-                      uri: `https://liff.line.me/1656164238-pA6oXKvj?id=${res.id}`,
+                      uri: `${process.env.NEXT_PUBLIC_LIFF_HM_URL}?id=${res.id}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -340,7 +340,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'NG🙅‍♂️',
-                      uri: `https://liff.line.me/1656164238-PajlAG3E?id=${res.id}`,
+                      uri: `${process.env.NEXT_PUBLIC_LIFF_NG_URL}?id=${res.id}`,
                     },
                     color: '#FFFFFF',
                   },

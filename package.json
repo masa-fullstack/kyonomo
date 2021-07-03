@@ -31,6 +31,7 @@
     "@line/liff": "^2.11.1",
     "@tailwindcss/forms": "^0.3.3",
     "@types/date-fns": "^2.6.0",
+    "@types/uuid": "^8.3.1",
     "axios": "^0.21.1",
     "lottie-web": "^5.7.11",
     "next": "latest",
@@ -43,7 +44,8 @@
     "react-lottie": "^1.2.3",
     "react-spring": "^9.2.3",
     "smoothscroll-polyfill": "^0.4.4",
-    "swr": "^0.5.6"
+    "swr": "^0.5.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@testing-library/react": "^11.2.5",

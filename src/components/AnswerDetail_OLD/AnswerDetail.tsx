@@ -3,7 +3,6 @@ import { useRouter } from 'next/dist/client/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
-import { v4 as uuidV4 } from 'uuid'
 
 import { Answer, Status } from '~/src/types/api/Answer'
 import { apiClient } from '~/src/utils/apiClient'
@@ -12,8 +11,6 @@ import { AnimatedButton } from '../AnimatedButton'
 import { Animation } from '../Animation'
 import { People } from '../People'
 import { StaticInput } from '../StaticInput'
-import { useLiff } from '../hooks/useLiff'
-import { useLocalSubId } from '../hooks/useSubId'
 
 type ContainerPorps = {
   initialStatus?: Status
@@ -135,25 +132,19 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
-  const { localSubId, setLocalSubId } = useLocalSubId()
-  const { closeWindow } = useLiff()
 
   const onSubmit = async (data: Answer) => {
     if (props.initialStatus) setIsAnswered(true)
     else setTimeout(() => setIsAnswered(true), 950)
 
-    let subId: string
-    if (!localSubId) {
-      subId = uuidV4()
-      setLocalSubId({ id, subId })
-    } else {
-      subId = localSubId.subId
-    }
+    const liff = (await import('@line/liff')).default
+    await liff.ready
+    const referrer = await liff.getIDToken()
 
     apiClient.answer.$post({
-      body: { ...data, subId },
+      body: { ...data, referrer },
     })
-    setTimeout(() => closeWindow(), 2800)
+    setTimeout(() => liff.closeWindow(), 2800)
   }
 
   let id: string
@@ -182,9 +173,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   })
 
   useEffect(() => {
-    if (props.initialStatus && answers) {
-      ref.current.click()
-    }
+    if (props.initialStatus && answers) ref.current.click()
   }, [props.initialStatus, answers])
 
   // useEffect(() => {
