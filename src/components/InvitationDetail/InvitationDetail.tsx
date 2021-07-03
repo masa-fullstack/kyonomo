@@ -204,14 +204,14 @@ const Container: React.VFC = () => {
     const responseLiff = await shareTargetPicker([
       {
         type: 'flex',
-        altText: 'this is a flex message',
+        altText: `${form.getValues('subject')}`,
         contents: {
           type: 'bubble',
           hero: {
             type: 'image',
             url: 'https://kyonomo.vercel.app/images/HEADER.png',
             size: 'full',
-            aspectRatio: '20:13',
+            aspectRatio: '2:1',
             aspectMode: 'cover',
           },
           body: {
