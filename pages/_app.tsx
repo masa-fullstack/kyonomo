@@ -3,18 +3,29 @@ import Head from 'next/head'
 import { FC } from 'react'
 
 import 'tailwindcss/tailwind.css'
+import { Layout } from '~/src/components/Layout'
 import { Loading } from '~/src/components/Loading'
 import { LiffProvider, useLiff } from '~/src/components/hooks/useLiff'
 
-const Layout: FC = ({ children }) => {
+const Liff: FC = ({ children }) => {
   const { initialized, loggedIn, login } = useLiff()
 
   if (!initialized) {
-    return <Loading />
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    )
   }
 
   if (!loggedIn) {
-    return <button onClick={login}>log in</button>
+    return (
+      <Layout>
+        <div className="flex items-center justify-center">
+          <button onClick={login}>log in</button>
+        </div>
+      </Layout>
+    )
   }
 
   return <>{children}</>
@@ -27,9 +38,9 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       </Head>
       <LiffProvider>
-        <Layout>
+        <Liff>
           <Component {...pageProps} />
-        </Layout>
+        </Liff>
       </LiffProvider>
     </>
   )
