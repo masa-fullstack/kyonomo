@@ -16,22 +16,13 @@ type SetLocalSubId = (localSubId: LocalSubId) => void
 
 const setLocalSubId: SetLocalSubId = (localSubId) => {
   const localSubIds = getLocalSubIds()
-  // eslint-disable-next-line no-console
-  console.log(`セット前localSubIds:${localSubIds}`)
-
   const updatedLocalSubIds = localSubIds === undefined ? [localSubId] : [...localSubIds, localSubId]
-  // eslint-disable-next-line no-console
-  console.log(`更新のやつupdatedLocalSubIds:${updatedLocalSubIds}`)
   localStorage.setItem('localSubIds', JSON.stringify(updatedLocalSubIds))
 }
 
 export const useLocalSubId = (id: string) => {
   const [localSubIds] = useState<LocalSubId[] | undefined>(getLocalSubIds())
-  // eslint-disable-next-line no-console
-  console.log(`最初localSubIds:${localSubIds}`)
   const localSubId = localSubIds === undefined ? undefined : localSubIds.filter((e) => e.id === id)[0]
-  // eslint-disable-next-line no-console
-  console.log(`最初撮ったlocalSubId:${localSubId}`)
 
   return {
     localSubId,
