@@ -1,11 +1,11 @@
-import { NextComponentType } from 'next'
-import { AppContext, AppInitialProps, AppProps } from 'next/app'
+import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { FC } from 'react'
 
 import 'tailwindcss/tailwind.css'
 import { AuthProvider, useAuth } from '~/src/components/hooks/Auth'
 
-const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Component, pageProps }) => {
+const Layout: FC = ({ children }) => {
   const { initialized, loggedIn, login } = useAuth()
 
   if (!initialized) {
@@ -16,13 +16,19 @@ const App: NextComponentType<AppContext, AppInitialProps, AppProps> = ({ Compone
     return <button onClick={login}>log in</button>
   }
 
+  return <>{children}</>
+}
+
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       </Head>
       <AuthProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </AuthProvider>
     </>
   )
