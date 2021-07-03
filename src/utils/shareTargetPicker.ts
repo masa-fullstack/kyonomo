@@ -12,7 +12,7 @@ export const shareTargetPicker = async (text: string, url: string) => {
             body: {
               // ②
               type: 'box', // ③
-              layout: 'horizontal', // ④
+              layout: 'vertical', // ④
               contents: [
                 // ⑤
                 {
