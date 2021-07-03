@@ -183,7 +183,7 @@ const Container: React.VFC = () => {
           type: 'bubble',
           hero: {
             type: 'image',
-            url: 'https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png',
+            url: 'https://kyonomo.vercel.app/images/HEADER.png',
             size: 'full',
             aspectRatio: '20:13',
             aspectMode: 'cover',
@@ -194,7 +194,7 @@ const Container: React.VFC = () => {
             contents: [
               {
                 type: 'text',
-                text: 'Brown Cafe',
+                text: '変数TEXT',
                 weight: 'bold',
                 size: 'xl',
               },
@@ -218,7 +218,7 @@ const Container: React.VFC = () => {
                       },
                       {
                         type: 'text',
-                        text: 'Miraina Tower, 4-1-6 Shinjuku, Tokyo',
+                        text: '変数ばしょ',
                         wrap: true,
                         color: '#666666',
                         size: 'sm',
@@ -240,7 +240,7 @@ const Container: React.VFC = () => {
                       },
                       {
                         type: 'text',
-                        text: '10:00 - 23:00',
+                        text: '変数時かん',
                         wrap: true,
                         color: '#666666',
                         size: 'sm',
@@ -255,37 +255,67 @@ const Container: React.VFC = () => {
           footer: {
             type: 'box',
             layout: 'vertical',
-            spacing: 'sm',
+            spacing: 'xxl',
             contents: [
               {
-                type: 'button',
-                style: 'link',
-                height: 'sm',
-                action: {
-                  type: 'uri',
-                  label: 'OK🍻',
-                  uri: 'https://linecorp.com',
-                },
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: 'OK🍻',
+                      uri: 'https://liff.line.me/1656164238-QBJ8Kzky',
+                    },
+                    color: '#FFFFFF',
+                  },
+                ],
+                backgroundColor: '#3b82f6',
+                cornerRadius: 'xl',
+                paddingAll: 'md',
               },
               {
-                type: 'button',
-                style: 'link',
-                height: 'sm',
-                action: {
-                  type: 'uri',
-                  label: 'Hmm...',
-                  uri: 'https://linecorp.com',
-                },
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: 'Hmm...🤔',
+                      uri: 'https://liff.line.me/1656164238-pA6oXKvj',
+                    },
+                    color: '#FFFFFF',
+                  },
+                ],
+                backgroundColor: '#fbbf24',
+                cornerRadius: 'xl',
+                paddingAll: 'md',
               },
               {
-                type: 'button',
-                style: 'link',
-                height: 'sm',
-                action: {
-                  type: 'uri',
-                  label: 'NG',
-                  uri: 'https://linecorp.com',
-                },
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: 'NG🙅‍♂️',
+                      uri: 'https://liff.line.me/1656164238-PajlAG3E',
+                    },
+                    color: '#FFFFFF',
+                  },
+                ],
+                backgroundColor: '#f87171',
+                paddingAll: 'md',
+                cornerRadius: 'xl',
               },
               {
                 type: 'spacer',
