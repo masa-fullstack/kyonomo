@@ -11,7 +11,7 @@ type ContainerProps = {
   currency?: string[]
   isRequired?: boolean
   isError?: boolean
-  isChecked?: boolean
+  defaultChecked?: boolean
 }
 
 type Props = { errorStyle: string } & ContainerProps
@@ -55,7 +55,7 @@ const Component: React.VFC<Props> = (props) => (
           type={props.type}
           name={props.id}
           id={props.id}
-          checked={props.isChecked}
+          defaultChecked={props.defaultChecked}
           placeholder={props.placeholder}
           {...props.register}
           className="focus:ring-indigo-500 focus:border-indigo-500 block h-4 w-4 text-indigo-600 border-gray-300 rounded bg-gray-100 focus:bg-white"

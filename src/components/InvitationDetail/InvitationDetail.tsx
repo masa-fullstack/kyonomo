@@ -110,7 +110,7 @@ const Component: React.VFC<Props> = ({
           id="mode"
           label="回答者にプロフィール情報を求める"
           type="checkbox"
-          isChecked={true}
+          defaultChecked={true}
           register={form.register('mode')}
         />
       </div>
