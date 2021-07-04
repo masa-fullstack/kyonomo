@@ -17,6 +17,7 @@ import { useLocalSubId } from '../hooks/useSubId'
 
 type ContainerPorps = {
   initialStatus?: Status
+  useProfile?: boolean
 }
 
 type Props = {
@@ -135,7 +136,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
-  const { closeWindow } = useLiff()
+  const { closeWindow, getIDToken } = useLiff()
 
   const onSubmit = async (data: Answer) => {
     if (props.initialStatus) setIsAnswered(true)
@@ -149,8 +150,15 @@ const Container: React.VFC<ContainerPorps> = (props) => {
       subId = localSubId
     }
 
+    let token: string
+    if (props.useProfile) {
+      token = getIDToken()
+    } else {
+      token = undefined
+    }
+
     apiClient.answer.$post({
-      body: { ...data, subId },
+      body: { ...data, subId, token },
     })
     setTimeout(() => closeWindow(), 1500)
   }

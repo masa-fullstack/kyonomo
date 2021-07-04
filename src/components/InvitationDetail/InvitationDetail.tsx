@@ -105,6 +105,15 @@ const Component: React.VFC<Props> = ({
           register={form.register('text')}
         />
       </div>
+      <div className="col-span-10">
+        <StaticInput
+          id="mode"
+          label="回答者にプロフィール情報を求める"
+          type="checkbox"
+          defaultValue=""
+          register={form.register('mode')}
+        />
+      </div>
       {(form.formState.errors.limitDate ||
         form.formState.errors.limitTime ||
         form.formState.errors.subject ||
@@ -186,8 +195,18 @@ const Container: React.VFC = () => {
     setIsDispURL(true)
     setIsLoading(false)
 
-    // eslint-disable-next-line no-console
-    console.log('start')
+    const okURL = form.getValues('mode')
+      ? process.env.NEXT_PUBLIC_LIFF_OK_PROFILE_URL
+      : process.env.NEXT_PUBLIC_LIFF_OK_URL
+    const hmURL = form.getValues('mode')
+      ? process.env.NEXT_PUBLIC_LIFF_HM_PROFILE_URL
+      : process.env.NEXT_PUBLIC_LIFF_HM_URL
+    const ngURL = form.getValues('mode')
+      ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL
+      : process.env.NEXT_PUBLIC_LIFF_NG_URL
+
+    const useProfile = form.getValues('mode') ? true : false
+
     const responseLiff = await shareTargetPicker([
       {
         type: 'flex',
@@ -287,7 +306,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'OK🍻',
-                      uri: `${process.env.NEXT_PUBLIC_LIFF_OK_URL}?id=${res.id}`,
+                      uri: `${okURL}?id=${res.id}&useProfile=${useProfile}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -307,7 +326,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'Hmm...🤔',
-                      uri: `${process.env.NEXT_PUBLIC_LIFF_HM_URL}?id=${res.id}`,
+                      uri: `${hmURL}?id=${res.id}&useProfile=${useProfile}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -327,7 +346,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'NG🙅‍♂️',
-                      uri: `${process.env.NEXT_PUBLIC_LIFF_NG_URL}?id=${res.id}`,
+                      uri: `${ngURL}?id=${res.id}&useProfile=${useProfile}`,
                     },
                     color: '#FFFFFF',
                   },

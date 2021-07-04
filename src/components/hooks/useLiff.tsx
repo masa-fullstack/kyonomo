@@ -34,7 +34,7 @@ type UseLiffReturn = {
   initialized: boolean
   loggedIn: boolean
   login: () => void
-  getIDToken: () => void
+  getIDToken: () => string
   isApiAvailable: IsApiAvailable
   shareTargetPicker: ShareTargetPicker
   closeWindow: () => void
