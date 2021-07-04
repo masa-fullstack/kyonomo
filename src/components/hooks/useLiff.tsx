@@ -34,7 +34,7 @@ type UseLiffReturn = {
   initialized: boolean
   loggedIn: boolean
   login: () => void
-  getIDToken: () => string
+  token: string
   isApiAvailable: IsApiAvailable
   shareTargetPicker: ShareTargetPicker
   closeWindow: () => void
@@ -48,7 +48,7 @@ export const useLiff = (): UseLiffReturn => {
       initialized: false,
       loggedIn: false,
       login: () => null,
-      getIDToken: () => null,
+      token: '',
       isApiAvailable: () => false,
       shareTargetPicker: () => new Promise(null),
       closeWindow: () => null,
@@ -59,7 +59,7 @@ export const useLiff = (): UseLiffReturn => {
     initialized: true,
     loggedIn: liff.isLoggedIn(),
     login: liff.login,
-    getIDToken: liff.getIDToken,
+    token: liff.getIDToken(),
     isApiAvailable: liff.isApiAvailable,
     shareTargetPicker: liff.shareTargetPicker,
     closeWindow: liff.closeWindow,

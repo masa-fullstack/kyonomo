@@ -178,14 +178,12 @@ const Container: React.VFC = () => {
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
 
-  const { getIDToken, shareTargetPicker } = useLiff()
+  const { token, shareTargetPicker } = useLiff()
 
   const onSubmit = async (data) => {
     setIsLoading(true)
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
-
-    const token = await getIDToken()
 
     const res: Invitation = await apiClient.invitation.$post({
       body: { ...data, limitDate, limitTime, token },
@@ -205,7 +203,7 @@ const Container: React.VFC = () => {
       ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL
       : process.env.NEXT_PUBLIC_LIFF_NG_URL
 
-    const useProfile = form.getValues('mode') === undefined ? false : true
+    const isLiff = form.getValues('mode') === undefined ? false : true
 
     const responseLiff = await shareTargetPicker([
       {
@@ -306,7 +304,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'OK🍻',
-                      uri: `${okURL}?id=${res.id}&useProfile=${useProfile}`,
+                      uri: `${okURL}?id=${res.id}&isLiff=${isLiff}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -326,7 +324,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'Hmm...🤔',
-                      uri: `${hmURL}?id=${res.id}&useProfile=${useProfile}`,
+                      uri: `${hmURL}?id=${res.id}&isLiff=${isLiff}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -346,7 +344,7 @@ const Container: React.VFC = () => {
                     action: {
                       type: 'uri',
                       label: 'NG🙅‍♂️',
-                      uri: `${ngURL}?id=${res.id}&useProfile=${useProfile}`,
+                      uri: `${ngURL}?id=${res.id}&isLiff=${isLiff}`,
                     },
                     color: '#FFFFFF',
                   },
@@ -379,17 +377,7 @@ const Container: React.VFC = () => {
   // console.log(form.watch("answer"));
   // console.log(form.watch("text"));
   // eslint-disable-next-line no-console
-  console.log(form.watch('mode'))
-
-  // useEffect(() => {
-  //   const func = async () => {
-  //     const liff = (await import('@line/liff')).default
-  //     await liff.ready
-  //     const idToken = await liff.getIDToken
-  //     form.setValue('lineId', idToken)
-  //   }
-  //   func()
-  // }, [form])
+  // console.log(form.watch('mode'))
 
   return (
     <Component

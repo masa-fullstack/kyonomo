@@ -6,18 +6,20 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { Answer, Status } from '~/src/types/api/Answer'
 import { apiClient } from '~/src/utils/apiClient'
+import { getAsString } from '~/src/utils/getAsString'
 
 import { AnimatedButton } from '../AnimatedButton'
 import { Animation } from '../Animation'
 import { Loading } from '../Loading'
 import { People } from '../People'
 import { StaticInput } from '../StaticInput'
-import { useLiff } from '../hooks/useLiff'
 import { useLocalSubId } from '../hooks/useSubId'
 
 type ContainerPorps = {
   initialStatus?: Status
-  useProfile?: boolean
+  isLiff?: boolean
+  closeWindow: () => void
+  token?: string
 }
 
 type Props = {
@@ -136,48 +138,23 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   const [isAnswered, setIsAnswered] = useState(false)
   const form = useForm()
   const ref = useRef<HTMLInputElement>()
-  const { closeWindow, getIDToken } = useLiff()
 
   const onSubmit = async (data: Answer) => {
     if (props.initialStatus) setIsAnswered(true)
     else setTimeout(() => setIsAnswered(true), 950)
 
-    let subId: string
+    const subId = !localSubId ? uuidV4() : localSubId
     if (!localSubId) {
-      subId = uuidV4()
       setLocalSubId(id, subId)
-    } else {
-      subId = localSubId
-    }
-
-    let token: string
-    // eslint-disable-next-line no-console
-    console.log('プロファイル' + useProfile)
-    if (useProfile) {
-      token = getIDToken()
-      // eslint-disable-next-line no-console
-      console.log('トークン取れた：' + token)
-    } else {
-      token = undefined
-      // eslint-disable-next-line no-console
-      console.log('トークン取れじ')
     }
 
     apiClient.answer.$post({
-      body: { ...data, subId, token },
+      body: { ...data, subId, token: props.token },
     })
-    setTimeout(() => closeWindow(), 1500)
+    setTimeout(() => props.closeWindow(), 1500)
   }
 
-  let id: string
-  let useProfile: boolean
-  if (typeof router.query.id === 'string') {
-    id = router.query.id
-  }
-  if (typeof router.query.useProfile === 'string') {
-    useProfile = router.query.useProfile === 'true'
-  }
-
+  const id = getAsString(router.query.id)
   const { localSubId, setLocalSubId } = useLocalSubId(id)
   const { data: answers, error } = useAspidaSWR(apiClient.invitation.check, '$get', {
     query: { id: id },
@@ -204,19 +181,6 @@ const Container: React.VFC<ContainerPorps> = (props) => {
       ref.current.click()
     }
   }, [props.initialStatus, answers])
-
-  // useEffect(() => {
-  //   const func = async () => {
-  //     const liff = (await import('@line/liff')).default
-  //     await liff.ready
-  //     const profile = await liff.getProfile()
-  //     const userId = profile.userId
-  //     const displayName = profile.displayName
-  //     form.setValue('subId', userId)
-  //     form.setValue('referrer', displayName)
-  //   }
-  //   func()
-  // }, [form])
 
   return (
     <Component
