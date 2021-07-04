@@ -34,7 +34,7 @@ type Props = {
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef<HTMLInputElement, Props>(
-  ({ form, onSubmit, isLoading, isAnswered, isError, id, answers, initialStatus }, ref) =>
+  ({ closeWindow, form, onSubmit, isLoading, isAnswered, isError, id, answers, initialStatus }, ref) =>
     isError ? (
       <div className="flex items-center justify-center">
         <span className="text-xl" role="img" aria-label="エラー">
@@ -43,7 +43,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
       </div>
     ) : isAnswered ? (
       <div className="flex flex-col items-center justify-center">
-        <Animation speed={2} />
+        <Animation speed={2} onClick={closeWindow} />
         <span className="text-3xl" role="img" aria-label="完了">
           Thank you🙌
         </span>
