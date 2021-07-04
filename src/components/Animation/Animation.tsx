@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import lottie from 'lottie-web'
 import React, { useEffect, useRef } from 'react'
 
@@ -14,7 +12,7 @@ type Props = {
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-  return <div ref={ref} className={`w-80 h-80 ${props.className}`} onClick={props.onClick} />
+  return <div ref={ref} className={`w-80 h-80 ${props.className}`} />
 })
 
 const Container: React.VFC<ContainerPorps> = (props) => {

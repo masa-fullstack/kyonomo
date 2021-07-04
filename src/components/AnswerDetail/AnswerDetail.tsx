@@ -30,11 +30,12 @@ type Props = {
   isError: boolean
   id: string
   answers: Answer[]
+  isLiff: boolean
 } & ContainerPorps
 
 // eslint-disable-next-line react/display-name
 const Component = React.forwardRef<HTMLInputElement, Props>(
-  ({ closeWindow, form, onSubmit, isLoading, isAnswered, isError, id, answers, initialStatus }, ref) =>
+  ({ form, onSubmit, isLoading, isAnswered, isError, id, answers, isLiff, initialStatus }, ref) =>
     isError ? (
       <div className="flex items-center justify-center">
         <span className="text-xl" role="img" aria-label="エラー">
@@ -43,10 +44,11 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
       </div>
     ) : isAnswered ? (
       <div className="flex flex-col items-center justify-center">
-        <Animation speed={2} onClick={closeWindow} />
+        <Animation speed={2} />
         <span className="text-3xl" role="img" aria-label="完了">
           Thank you🙌
         </span>
+        {isLiff && <span className="text-lg">下にスワイプ or 右上の × で閉じます</span>}
       </div>
     ) : isLoading ? (
       <Loading />
@@ -155,6 +157,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   }
 
   const id = getAsString(router.query.id)
+  const isLiff = getAsString(router.query.isLiff)
   const { subId: oldSubId, setLocalSubId } = useLocalSubId(id)
   const { data: answers, error } = useAspidaSWR(apiClient.invitation.check, '$get', {
     query: { id: id },
@@ -192,6 +195,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
       isAnswered={isAnswered}
       id={id}
       answers={answers}
+      isLiff={isLiff === 'true'}
       ref={ref}
     />
   )
