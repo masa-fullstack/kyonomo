@@ -143,8 +143,8 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     if (props.initialStatus) setIsAnswered(true)
     else setTimeout(() => setIsAnswered(true), 950)
 
-    const subId = !localSubId ? uuidV4() : localSubId
-    if (!localSubId) {
+    const subId = !oldSubId ? uuidV4() : oldSubId
+    if (!oldSubId) {
       setLocalSubId(id, subId)
     }
 
@@ -155,7 +155,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   }
 
   const id = getAsString(router.query.id)
-  const { localSubId, setLocalSubId } = useLocalSubId(id)
+  const { subId: oldSubId, setLocalSubId } = useLocalSubId(id)
   const { data: answers, error } = useAspidaSWR(apiClient.invitation.check, '$get', {
     query: { id: id },
     enabled: !!id && !isAnswered,

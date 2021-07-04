@@ -1,16 +1,19 @@
 import { format, subMonths } from 'date-fns'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export type LocalSubId = string
+export type LocalSubId = {
+  subId: string
+  setLocalSubId: SetLocalSubId
+}
 
-type GetLocalSubId = (id: string) => LocalSubId | undefined
+type GetLocalSubId = (id: string) => string | undefined
 
 const getLocalSubId: GetLocalSubId = (id) => {
   const localSubId = localStorage.getItem(`KYONOMO_STORE:${id}:subId`)
   return localSubId != null ? JSON.parse(localSubId).subId : undefined
 }
 
-type SetLocalSubId = (id: string, localSubId: LocalSubId) => void
+type SetLocalSubId = (id: string, subId: string) => void
 
 const setLocalSubId: SetLocalSubId = (id, subId) => {
   const date = format(new Date(), 'yyyyMMddHHmmss')
@@ -27,12 +30,20 @@ const cleanLocalSubId: CleanLocalSubId = () => {
   })
 }
 
-export const useLocalSubId = (id: string) => {
-  cleanLocalSubId()
-  const [localSubId] = useState<LocalSubId | undefined>(getLocalSubId(id))
+type UseLocalSubId = (id: string) => LocalSubId
+
+export const useLocalSubId: UseLocalSubId = (id) => {
+  const [state, setState] = useState<LocalSubId | undefined>()
+
+  useEffect(() => {
+    cleanLocalSubId()
+    const subId = getLocalSubId(id)
+
+    setState({ subId, setLocalSubId })
+  }, [id])
 
   return {
-    localSubId,
-    setLocalSubId,
+    subId: state.subId,
+    setLocalSubId: state.setLocalSubId,
   }
 }
