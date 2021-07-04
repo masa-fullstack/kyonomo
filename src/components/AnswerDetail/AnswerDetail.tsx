@@ -144,9 +144,9 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     let subId: string
     if (!localSubId) {
       subId = uuidV4()
-      setLocalSubId({ id, subId })
+      setLocalSubId(id, subId)
     } else {
-      subId = localSubId.subId
+      subId = localSubId
     }
 
     apiClient.answer.$post({
