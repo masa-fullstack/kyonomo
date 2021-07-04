@@ -33,7 +33,7 @@ const Liff: FC = ({ children }) => {
 }
 
 function App({ Component, pageProps, router }: AppProps) {
-  if (getAsString(router.query.isLiff) === 'true') {
+  if (getAsString(router.query.isLiff) !== 'false') {
     return (
       <>
         <Head>
