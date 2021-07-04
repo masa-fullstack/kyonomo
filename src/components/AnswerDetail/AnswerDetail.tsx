@@ -18,7 +18,7 @@ import { useLocalSubId } from '../hooks/useSubId'
 type ContainerPorps = {
   initialStatus?: Status
   isLiff?: boolean
-  closeWindow: () => void
+  closeWindow?: () => void
   token?: string
 }
 
