@@ -1,28 +1,22 @@
 import { useState } from 'react'
 
-export type LocalSubId = {
-  id: string
-  subId: string
+export type LocalSubId = string
+
+type GetLocalSubIds = (id: string) => LocalSubId | undefined
+
+const getLocalSubId: GetLocalSubIds = (id) => {
+  const localSubId = localStorage.getItem(`KYONOMO_STORE:subId:${id}`)
+  return localSubId != null ? JSON.parse(localSubId) : undefined
 }
 
-type GetLocalSubIds = () => LocalSubId[] | undefined
+type SetLocalSubId = (id: string, localSubId: LocalSubId) => void
 
-const getLocalSubIds: GetLocalSubIds = () => {
-  const localSubIds = localStorage.getItem('localSubIds')
-  return localSubIds != null ? JSON.parse(localSubIds) : undefined
-}
-
-type SetLocalSubId = (localSubId: LocalSubId) => void
-
-const setLocalSubId: SetLocalSubId = (localSubId) => {
-  const localSubIds = getLocalSubIds()
-  const updatedLocalSubIds = localSubIds === undefined ? [localSubId] : [...localSubIds, localSubId]
-  localStorage.setItem('localSubIds', JSON.stringify(updatedLocalSubIds))
+const setLocalSubId: SetLocalSubId = (id, localSubId) => {
+  localStorage.setItem(`KYONOMO_STORE:subId:${id}`, JSON.stringify(localSubId))
 }
 
 export const useLocalSubId = (id: string) => {
-  const [localSubIds] = useState<LocalSubId[] | undefined>(getLocalSubIds())
-  const localSubId = localSubIds === undefined ? undefined : localSubIds.filter((e) => e.id === id)[0]
+  const [localSubId] = useState<LocalSubId | undefined>(getLocalSubId(id))
 
   return {
     localSubId,
