@@ -18,7 +18,9 @@ export type Methods = {
       subId: string
       status: string
       text?: string
-      referrer?: string
+      token?: string
+      lineId?: string
+      name?: string
     }
 
     resBody: Answer

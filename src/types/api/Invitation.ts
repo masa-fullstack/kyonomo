@@ -2,7 +2,7 @@ import { ApiCommonValue } from './Common'
 
 export type Invitation = {
   id: string
-  mail: string
+  token: string
   lineId: string
   limitDate: string
   limitTime: string

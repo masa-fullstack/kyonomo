@@ -35,19 +35,6 @@ const Component: React.VFC<Props> = ({
 }) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
     <div className="grid grid-cols-10 gap-4">
-      {/* <div className="col-span-10">
-        <StaticInput
-          id="mail"
-          label="Mail"
-          type="text"
-          placeholder="kyonomo@gmail.com"
-          defaultValue=""
-          register={form.register('mail')}
-        />
-      </div> */}
-      <div className="hidden">
-        <StaticInput id="lineId" type="text" register={form.register('lineId')} />
-      </div>
       <div className="col-span-6">
         <StaticInput
           id="limitDate"
@@ -189,10 +176,10 @@ const Container: React.VFC = () => {
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
 
-    const lineId = await getIDToken()
+    const token = await getIDToken()
 
     const res: Invitation = await apiClient.invitation.$post({
-      body: { ...data, limitDate, limitTime, lineId },
+      body: { ...data, limitDate, limitTime, token },
     })
     form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
 
@@ -367,8 +354,6 @@ const Container: React.VFC = () => {
     console.log(responseLiff)
   }
 
-  // console.log(form.watch("mail"));
-  // console.log(form.watch("lineId"));
   // console.log(form.watch("limitDate"));
   // console.log(form.watch("limitTime"));
   // console.log(form.watch("text"));

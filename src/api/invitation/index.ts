@@ -14,10 +14,13 @@ export type Methods = {
   post: {
     reqHeaders?: ApiReqHeaders
     reqBody: {
-      mail?: string
+      token: string
       lineId?: string
       limitDate: string
       limitTime: string
+      subject?: string
+      place?: string
+      time?: string
       text?: string
     }
 
