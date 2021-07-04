@@ -19,11 +19,11 @@ const setLocalSubId: SetLocalSubId = (id, subId) => {
 
 type CleanLocalSubId = () => void
 
-// 前月のlocalStrageは削除する
+// １ヶ月経過したlocalStrageは削除する
 const cleanLocalSubId: CleanLocalSubId = () => {
-  const date = format(subMonths(new Date(), 1), 'yyyyMMddHHmmss')
+  const lastDate = format(subMonths(new Date(), 1), 'yyyyMMddHHmmss')
   Object.keys(localStorage).map((key) => {
-    if (JSON.parse(localStorage.getItem(key)).date <= date) localStorage.removeItem(key)
+    if (JSON.parse(localStorage.getItem(key)).date <= lastDate) localStorage.removeItem(key)
   })
 }
 
