@@ -205,7 +205,7 @@ const Container: React.VFC = () => {
       ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL
       : process.env.NEXT_PUBLIC_LIFF_NG_URL
 
-    const useProfile = form.getValues('mode') ? true : false
+    const useProfile = form.getValues('mode') === undefined ? false : true
 
     const responseLiff = await shareTargetPicker([
       {
@@ -378,7 +378,8 @@ const Container: React.VFC = () => {
   // console.log(form.watch("text"));
   // console.log(form.watch("answer"));
   // console.log(form.watch("text"));
-  // console.log(form.watch("mode"));
+  // eslint-disable-next-line no-console
+  console.log(form.watch('mode'))
 
   // useEffect(() => {
   //   const func = async () => {
