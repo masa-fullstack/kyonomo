@@ -377,7 +377,7 @@ const Container: React.VFC = () => {
   // console.log(form.watch("answer"));
   // console.log(form.watch("text"));
   // eslint-disable-next-line no-console
-  // console.log(form.watch('mode'))
+  console.log(form.watch('mode'))
 
   return (
     <Component
