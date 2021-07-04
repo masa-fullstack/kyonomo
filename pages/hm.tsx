@@ -8,6 +8,10 @@ import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/
 const AnswerPage: NextPage = () => {
   const title = returnTitle('Hmm...🤔')
   const description = '条件付き参加の場合はこちら'
+  const closeWindow = () => {
+    window.close()
+  }
+
   return (
     <>
       <Head>
@@ -18,7 +22,7 @@ const AnswerPage: NextPage = () => {
         <meta key={OG_IMAGE} property={OG_IMAGE} content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/HM_OGP.png`} />
       </Head>
       <Layout>
-        <AnswerDetail initialStatus="hm" />
+        <AnswerDetail initialStatus="hm" closeWindow={closeWindow} />
       </Layout>
     </>
   )

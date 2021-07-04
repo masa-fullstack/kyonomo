@@ -3,14 +3,13 @@ import Head from 'next/head'
 
 import { AnswerDetail } from '~/src/components/AnswerDetail'
 import { Layout } from '~/src/components/Layout'
+import { useLiff } from '~/src/components/hooks/useLiff'
 import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/src/utils/meta'
 
 const AnswerPage: NextPage = () => {
   const title = returnTitle('NG🙅‍♂️')
   const description = 'NGの場合はこちら'
-  const closeWindow = () => {
-    window.close()
-  }
+  const { closeWindow, token } = useLiff()
 
   return (
     <>
@@ -22,7 +21,7 @@ const AnswerPage: NextPage = () => {
         <meta key={OG_IMAGE} property={OG_IMAGE} content={`${process.env.NEXT_PUBLIC_SITE_URL}/images/NG_OGP.png`} />
       </Head>
       <Layout>
-        <AnswerDetail initialStatus="ng" closeWindow={closeWindow} />
+        <AnswerDetail initialStatus="ng" closeWindow={closeWindow} token={token} />
       </Layout>
     </>
   )
