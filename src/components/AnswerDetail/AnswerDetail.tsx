@@ -151,10 +151,16 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     }
 
     let token: string
+    // eslint-disable-next-line no-console
+    console.log('プロファイル' + props.useProfile)
     if (props.useProfile) {
       token = getIDToken()
+      // eslint-disable-next-line no-console
+      console.log('トークン取れた：' + token)
     } else {
       token = undefined
+      // eslint-disable-next-line no-console
+      console.log('トークン取れじ')
     }
 
     apiClient.answer.$post({
