@@ -11,6 +11,7 @@ type ContainerProps = {
   currency?: string[]
   isRequired?: boolean
   isError?: boolean
+  isChecked?: boolean
 }
 
 type Props = { errorStyle: string } & ContainerProps
@@ -23,8 +24,8 @@ const Component: React.VFC<Props> = (props) => (
         {props.isRequired && <span className="text-red-500"> *</span>}
       </label>
     )}
-    {/* テキストエリア */}
     {props.type === 'textarea' ? (
+      // テキストエリア
       <textarea
         name={props.id}
         id={props.id}
@@ -34,8 +35,8 @@ const Component: React.VFC<Props> = (props) => (
         {...props.register}
         className={`${props.errorStyle}  focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md resize-none bg-gray-100 focus:bg-white`}
       />
-    ) : // 読み取り専用枠なし
-    props.type === 'url' ? (
+    ) : props.type === 'url' ? (
+      // 読み取り専用枠なし
       <textarea
         name={props.id}
         id={props.id}
@@ -46,15 +47,15 @@ const Component: React.VFC<Props> = (props) => (
         {...props.register}
         className="block w-full px-3 md:px-5 text-xs md:text-sm border-0 ring-0 focus:ring-0 resize-none"
       />
-    ) : // チェックボックス
-    props.type === 'checkbox' ? (
+    ) : props.type === 'checkbox' ? (
+      // チェックボックス
       <div className="mt-1 relative rounded-md">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
         <input
           type={props.type}
           name={props.id}
           id={props.id}
-          defaultValue={props.defaultValue}
+          checked={props.isChecked}
           placeholder={props.placeholder}
           {...props.register}
           className="focus:ring-indigo-500 focus:border-indigo-500 block h-4 w-4 text-indigo-600 border-gray-300 rounded bg-gray-100 focus:bg-white"

@@ -110,7 +110,7 @@ const Component: React.VFC<Props> = ({
           id="mode"
           label="回答者にプロフィール情報を求める"
           type="checkbox"
-          defaultValue=""
+          isChecked={true}
           register={form.register('mode')}
         />
       </div>
@@ -203,7 +203,7 @@ const Container: React.VFC = () => {
       ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL
       : process.env.NEXT_PUBLIC_LIFF_NG_URL
 
-    const isLiff = form.getValues('mode') === undefined ? false : true
+    const isLiff = form.getValues('mode')
 
     const responseLiff = await shareTargetPicker([
       {
