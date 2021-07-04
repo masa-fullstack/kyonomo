@@ -6,5 +6,7 @@ export type Answer = {
   subId: string
   status: Status
   text: string
-  referrer: string
+  token: string
+  lineId: string
+  name: string
 } & ApiCommonValue
