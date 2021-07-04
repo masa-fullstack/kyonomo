@@ -48,7 +48,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <span className="text-3xl" role="img" aria-label="完了">
           Thank you🙌
         </span>
-        {isLiff && <span className="text-lg">下にスワイプ or 右上の × で閉じます</span>}
+        {!isLiff && <span className="mt-2 text-lg">下にスワイプ or 右上の × で閉じます</span>}
       </div>
     ) : isLoading ? (
       <Loading />
