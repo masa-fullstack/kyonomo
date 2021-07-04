@@ -8,7 +8,9 @@ import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/
 const AnswerPage: NextPage = () => {
   const title = returnTitle('OK🙆‍♂️')
   const description = 'OKの場合はこちら'
-  const closeWindow = () => window.close()
+  const closeWindow = () => {
+    window.close()
+  }
 
   return (
     <>
