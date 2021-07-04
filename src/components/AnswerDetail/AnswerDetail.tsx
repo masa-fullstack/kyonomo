@@ -152,8 +152,8 @@ const Container: React.VFC<ContainerPorps> = (props) => {
 
     let token: string
     // eslint-disable-next-line no-console
-    console.log('プロファイル' + props.useProfile)
-    if (props.useProfile) {
+    console.log('プロファイル' + useProfile)
+    if (useProfile) {
       token = getIDToken()
       // eslint-disable-next-line no-console
       console.log('トークン取れた：' + token)
@@ -170,8 +170,12 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   }
 
   let id: string
+  let useProfile: boolean
   if (typeof router.query.id === 'string') {
     id = router.query.id
+  }
+  if (typeof router.query.useProfile === 'string') {
+    useProfile = router.query.useProfile === 'true'
   }
 
   const { localSubId, setLocalSubId } = useLocalSubId(id)
