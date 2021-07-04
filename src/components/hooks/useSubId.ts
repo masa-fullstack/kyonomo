@@ -33,7 +33,11 @@ const cleanLocalSubId: CleanLocalSubId = () => {
 type UseLocalSubId = (id: string) => LocalSubId
 
 export const useLocalSubId: UseLocalSubId = (id) => {
-  const [state, setState] = useState<LocalSubId | undefined>()
+  const initialState = {
+    subId: '',
+    setLocalSubId: () => null,
+  }
+  const [state, setState] = useState<LocalSubId | undefined>(initialState)
 
   useEffect(() => {
     cleanLocalSubId()
