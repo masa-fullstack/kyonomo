@@ -165,26 +165,6 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
               cornerRadius: 'xl',
             },
             {
-              type: 'box',
-              layout: 'vertical',
-              contents: [
-                {
-                  type: 'button',
-                  style: 'link',
-                  height: 'sm',
-                  action: {
-                    type: 'uri',
-                    label: '回答確認',
-                    uri: `${answerURL}?id=${id}&isLiff=${isLiff}`,
-                  },
-                  color: '#000000',
-                },
-              ],
-              backgroundColor: '#dddddd',
-              paddingAll: 'md',
-              cornerRadius: 'xl',
-            },
-            {
               type: 'spacer',
               size: 'sm',
             },
