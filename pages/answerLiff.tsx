@@ -3,14 +3,13 @@ import Head from 'next/head'
 
 import { AnswerDetail } from '~/src/components/AnswerDetail'
 import { Layout } from '~/src/components/Layout'
+import { useLiff } from '~/src/components/hooks/useLiff'
 import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/src/utils/meta'
 
 const AnswerPage: NextPage = () => {
   const title = returnTitle('回答確認')
   const description = '他の回答を確認しながら回答できます'
-  const closeWindow = () => {
-    window.close()
-  }
+  const { closeWindow, token } = useLiff()
 
   return (
     <>
@@ -26,7 +25,7 @@ const AnswerPage: NextPage = () => {
         />
       </Head>
       <Layout>
-        <AnswerDetail closeWindow={closeWindow} />
+        <AnswerDetail closeWindow={closeWindow} token={token} />
       </Layout>
     </>
   )

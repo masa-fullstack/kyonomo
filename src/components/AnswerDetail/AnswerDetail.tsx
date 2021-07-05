@@ -67,6 +67,16 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
           <div className="hidden">
             <StaticInput id="referrer" type="text" register={form.register('referrer')} />
           </div>
+          <div className="mb-3 w-72">
+            <StaticInput
+              id="text"
+              label="コメントがあれば"
+              type="textarea"
+              placeholder="例)遅れて21時から参加します"
+              defaultValue=""
+              register={form.register('text')}
+            />
+          </div>
 
           <div className="flex items-center justify-center mt-6 mb-2">
             <AnimatedButton
@@ -78,11 +88,11 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               ref={initialStatus === 'ok' ? ref : null}
             />
           </div>
-          <div className="flex items-center justify-center h-5 mb-6">
+          <div className="flex flex-col justify-center h-5 mt-6 mb-16">
             {answers
               .filter((answer) => answer.status === 'ok')
               .map((answer) => (
-                <People key={answer.subId} />
+                <People key={answer.subId} name={answer.name} text={answer.text} />
               ))}
           </div>
           <div className="flex items-center justify-center mb-2">
@@ -95,11 +105,11 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               ref={initialStatus === 'hm' ? ref : null}
             />
           </div>
-          <div className="flex items-center justify-center h-5 mb-6">
+          <div className="flex flex-col justify-center h-5 mt-6 mb-16">
             {answers
               .filter((answer) => answer.status === 'hm')
               .map((answer) => (
-                <People key={answer.subId} />
+                <People key={answer.subId} name={answer.name} text={answer.text} />
               ))}
           </div>
           <div className="flex items-center justify-center mb-2">
@@ -112,23 +122,12 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               ref={initialStatus === 'ng' ? ref : null}
             />
           </div>
-          <div className="flex items-center justify-center h-5 mb-12">
+          <div className="flex flex-col justify-center h-5 mt-6 mb-16">
             {answers
               .filter((answer) => answer.status === 'ng')
               .map((answer) => (
-                <People key={answer.subId} />
+                <People key={answer.subId} name={answer.name} text={answer.text} />
               ))}
-          </div>
-
-          <div className="mb-3 w-72">
-            <StaticInput
-              id="text"
-              label="コメントがあれば"
-              type="textarea"
-              placeholder="例)遅れて21時から参加します"
-              defaultValue=""
-              register={form.register('text')}
-            />
           </div>
         </form>
       </div>

@@ -195,9 +195,10 @@ const Container: React.VFC = () => {
 
     const isLiff = !form.getValues('mode')
 
-    const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_PROFILE_URL : process.env.NEXT_PUBLIC_LIFF_OK_URL
-    const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_PROFILE_URL : process.env.NEXT_PUBLIC_LIFF_HM_URL
-    const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL : process.env.NEXT_PUBLIC_LIFF_NG_URL
+    const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_URL : process.env.NEXT_PUBLIC_OK_URL
+    const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_URL : process.env.NEXT_PUBLIC_HM_URL
+    const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
+    const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
 
     await shareTargetPicker(
       getMessages(
@@ -206,6 +207,7 @@ const Container: React.VFC = () => {
         okURL,
         hmURL,
         ngURL,
+        answerURL,
         form.getValues('subject'),
         form.getValues('place'),
         form.getValues('time'),

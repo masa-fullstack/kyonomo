@@ -6,13 +6,14 @@ type GetMessage = (
   okURL: string,
   hmURL: string,
   ngURL: string,
+  answerURL: string,
   subject?: string,
   place?: string,
   time?: string,
   text?: string
 ) => SendMessagesParams
 
-export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, subject, place, time, text) => {
+export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerURL, subject, place, time, text) => {
   const messages: SendMessagesParams = [
     {
       type: 'flex',
@@ -166,6 +167,26 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, subject
             {
               type: 'spacer',
               size: 'sm',
+            },
+            {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'button',
+                  style: 'link',
+                  height: 'sm',
+                  action: {
+                    type: 'uri',
+                    label: '回答確認',
+                    uri: `${answerURL}?id=${id}&isLiff=${isLiff}`,
+                  },
+                  color: '#000000',
+                },
+              ],
+              backgroundColor: '#dddddd',
+              paddingAll: 'md',
+              cornerRadius: 'xl',
             },
           ],
           flex: 0,
