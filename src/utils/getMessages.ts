@@ -165,10 +165,6 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
               cornerRadius: 'xl',
             },
             {
-              type: 'spacer',
-              size: 'sm',
-            },
-            {
               type: 'box',
               layout: 'vertical',
               contents: [
@@ -187,6 +183,10 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
               backgroundColor: '#dddddd',
               paddingAll: 'md',
               cornerRadius: 'xl',
+            },
+            {
+              type: 'spacer',
+              size: 'sm',
             },
           ],
           flex: 0,

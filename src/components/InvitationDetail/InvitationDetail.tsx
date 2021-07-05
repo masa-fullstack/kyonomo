@@ -200,6 +200,22 @@ const Container: React.VFC = () => {
     const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
     const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
 
+    // eslint-disable-next-line no-console
+    console.log(
+      getMessages(
+        res.id,
+        isLiff,
+        okURL,
+        hmURL,
+        ngURL,
+        answerURL,
+        form.getValues('subject'),
+        form.getValues('place'),
+        form.getValues('time'),
+        form.getValues('text')
+      )
+    )
+
     await shareTargetPicker(
       getMessages(
         res.id,
