@@ -10,7 +10,7 @@ type ContainerProps = {
 type Props = ContainerProps
 
 const Component: React.VFC<Props> = (props) => (
-  <div className={`flex items-center mt-1 ml-12`}>
+  <div className={`flex items-center mt-1 mb-1 ml-12`}>
     <span className="text-xxs">{props.name}</span>
     <img src="/images/people.svg" className="w-5" alt="人数" />
     {props.text && (

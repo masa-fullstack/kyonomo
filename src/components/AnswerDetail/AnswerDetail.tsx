@@ -67,6 +67,11 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
           <div className="hidden">
             <StaticInput id="referrer" type="text" register={form.register('referrer')} />
           </div>
+          {answers.length === 0 && (
+            <div className="inline-block px-3 py-1 text-xs bg-gray-800 text-white rounded-lg shadow-lg mb-3">
+              回答はまだありません
+            </div>
+          )}
           <div className="mb-3 w-72">
             <StaticInput
               id="text"
@@ -77,8 +82,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               register={form.register('text')}
             />
           </div>
-
-          <div className="flex items-center justify-center mt-6 mb-2">
+          <div className="flex items-center justify-center mt-6 mb-6">
             <AnimatedButton
               label="OK🙆‍♂️"
               color="blue"
@@ -88,14 +92,16 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               ref={initialStatus === 'ok' ? ref : null}
             />
           </div>
-          <div className="flex flex-col justify-center h-5 mt-6 mb-16">
-            {answers
-              .filter((answer) => answer.status === 'ok')
-              .map((answer) => (
-                <People key={answer.subId} name={answer.name} text={answer.text} />
-              ))}
-          </div>
-          <div className="flex items-center justify-center mb-2">
+          {answers.filter((answer) => answer.status === 'ok').length !== 0 && (
+            <div className="flex flex-col justify-center h-5 mb-10">
+              {answers
+                .filter((answer) => answer.status === 'ok')
+                .map((answer) => (
+                  <People key={answer.subId} name={answer.name} text={answer.text} />
+                ))}
+            </div>
+          )}
+          <div className="flex items-center justify-center mb-6">
             <AnimatedButton
               label="Hmm...🤔"
               color="yellow"
@@ -105,14 +111,16 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               ref={initialStatus === 'hm' ? ref : null}
             />
           </div>
-          <div className="flex flex-col justify-center h-5 mt-6 mb-16">
-            {answers
-              .filter((answer) => answer.status === 'hm')
-              .map((answer) => (
-                <People key={answer.subId} name={answer.name} text={answer.text} />
-              ))}
-          </div>
-          <div className="flex items-center justify-center mb-2">
+          {answers.filter((answer) => answer.status === 'hm').length !== 0 && (
+            <div className="flex flex-col justify-center h-5 mb-10">
+              {answers
+                .filter((answer) => answer.status === 'hm')
+                .map((answer) => (
+                  <People key={answer.subId} name={answer.name} text={answer.text} />
+                ))}
+            </div>
+          )}
+          <div className="flex items-center justify-center mb-6">
             <AnimatedButton
               label="NG🙅‍♂️"
               color="red"
@@ -122,13 +130,15 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
               ref={initialStatus === 'ng' ? ref : null}
             />
           </div>
-          <div className="flex flex-col justify-center h-5 mt-6 mb-16">
-            {answers
-              .filter((answer) => answer.status === 'ng')
-              .map((answer) => (
-                <People key={answer.subId} name={answer.name} text={answer.text} />
-              ))}
-          </div>
+          {answers.filter((answer) => answer.status === 'ng').length !== 0 && (
+            <div className="flex flex-col justify-center h-5 mb-10">
+              {answers
+                .filter((answer) => answer.status === 'ng')
+                .map((answer) => (
+                  <People key={answer.subId} name={answer.name} text={answer.text} />
+                ))}
+            </div>
+          )}
         </form>
       </div>
     )
