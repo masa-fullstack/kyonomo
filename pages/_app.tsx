@@ -1,12 +1,15 @@
 import { AppProps } from 'next/app'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { FC } from 'react'
 
 import 'tailwindcss/tailwind.css'
 import { Layout } from '~/src/components/Layout'
-import { Loading } from '~/src/components/Loading'
+// import { Loading } from '~/src/components/Loading'
 import { LiffProvider, useLiff } from '~/src/components/hooks/useLiff'
 import { getAsString } from '~/src/utils/getAsString'
+
+const Loading = dynamic(() => import('~/src/components/Loading').then((modules) => modules.Loading), { ssr: false })
 
 const Liff: FC = ({ children }) => {
   const { initialized, loggedIn, login } = useLiff()

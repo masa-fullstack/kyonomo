@@ -6,11 +6,11 @@ import ReactLoading from 'react-loading'
 
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
+import { getMessages } from '~/src/utils/getMessages'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
 import { useLiff } from '../hooks/useLiff'
-// import { message } from '~/src/utils/message'
 
 type Props = {
   form: UseFormReturn<FieldValues>
@@ -62,7 +62,7 @@ const Component: React.VFC<Props> = ({
       <div className="col-span-10">
         <StaticInput
           id="subject"
-          label="Subject"
+          label="タイトル"
           type="text"
           placeholder="オンライン飲みしよう！"
           defaultValue=""
@@ -74,7 +74,7 @@ const Component: React.VFC<Props> = ({
       <div className="col-span-10">
         <StaticInput
           id="place"
-          label="Place"
+          label="場所"
           type="text"
           placeholder="zoom"
           defaultValue=""
@@ -86,7 +86,7 @@ const Component: React.VFC<Props> = ({
       <div className="col-span-10">
         <StaticInput
           id="time"
-          label="Time"
+          label="時間"
           type="text"
           placeholder="21時ごろ〜23時"
           defaultValue=""
@@ -98,7 +98,7 @@ const Component: React.VFC<Props> = ({
       <div className="col-span-10">
         <StaticInput
           id="text"
-          label="テキスト"
+          label="自由記入"
           type="textarea"
           placeholder="途中参加／退席自由です"
           defaultValue=""
@@ -108,9 +108,9 @@ const Component: React.VFC<Props> = ({
       <div className="col-span-10">
         <StaticInput
           id="mode"
-          label="回答者にプロフィール情報を求める"
+          label="匿名回答モード"
           type="checkbox"
-          defaultChecked={true}
+          defaultChecked={false}
           register={form.register('mode')}
         />
       </div>
@@ -193,182 +193,25 @@ const Container: React.VFC = () => {
     setIsDispURL(true)
     setIsLoading(false)
 
-    const okURL = form.getValues('mode')
-      ? process.env.NEXT_PUBLIC_LIFF_OK_PROFILE_URL
-      : process.env.NEXT_PUBLIC_LIFF_OK_URL
-    const hmURL = form.getValues('mode')
-      ? process.env.NEXT_PUBLIC_LIFF_HM_PROFILE_URL
-      : process.env.NEXT_PUBLIC_LIFF_HM_URL
-    const ngURL = form.getValues('mode')
-      ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL
-      : process.env.NEXT_PUBLIC_LIFF_NG_URL
+    const isLiff = !form.getValues('mode')
 
-    const isLiff = form.getValues('mode')
+    const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_PROFILE_URL : process.env.NEXT_PUBLIC_LIFF_OK_URL
+    const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_PROFILE_URL : process.env.NEXT_PUBLIC_LIFF_HM_URL
+    const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_PROFILE_URL : process.env.NEXT_PUBLIC_LIFF_NG_URL
 
-    const responseLiff = await shareTargetPicker([
-      {
-        type: 'flex',
-        altText: `${form.getValues('subject')}`,
-        contents: {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: 'https://kyonomo.vercel.app/images/HEADER.png',
-            size: 'full',
-            aspectRatio: '2:1',
-            aspectMode: 'cover',
-          },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: form.getValues('subject'),
-                weight: 'bold',
-                size: 'xl',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                margin: 'lg',
-                spacing: 'sm',
-                contents: [
-                  {
-                    type: 'box',
-                    layout: 'baseline',
-                    spacing: 'sm',
-                    contents: [
-                      {
-                        type: 'text',
-                        text: 'Place',
-                        color: '#aaaaaa',
-                        size: 'sm',
-                        flex: 1,
-                      },
-                      {
-                        type: 'text',
-                        text: form.getValues('place'),
-                        wrap: true,
-                        color: '#666666',
-                        size: 'sm',
-                        flex: 5,
-                      },
-                    ],
-                  },
-                  {
-                    type: 'box',
-                    layout: 'baseline',
-                    spacing: 'sm',
-                    contents: [
-                      {
-                        type: 'text',
-                        text: 'Time',
-                        color: '#aaaaaa',
-                        size: 'sm',
-                        flex: 1,
-                      },
-                      {
-                        type: 'text',
-                        text: form.getValues('time'),
-                        wrap: true,
-                        color: '#666666',
-                        size: 'sm',
-                        flex: 5,
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                type: 'text',
-                text: form.getValues('text') ? form.getValues('text') : ' ',
-                margin: 'md',
-                size: 'sm',
-              },
-            ],
-          },
-          footer: {
-            type: 'box',
-            layout: 'vertical',
-            spacing: 'xxl',
-            contents: [
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: 'OK🍻',
-                      uri: `${okURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#FFFFFF',
-                  },
-                ],
-                backgroundColor: '#3b82f6',
-                cornerRadius: 'xl',
-                paddingAll: 'md',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: 'Hmm...🤔',
-                      uri: `${hmURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#FFFFFF',
-                  },
-                ],
-                backgroundColor: '#fbbf24',
-                cornerRadius: 'xl',
-                paddingAll: 'md',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: 'NG🙅‍♂️',
-                      uri: `${ngURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#FFFFFF',
-                  },
-                ],
-                backgroundColor: '#f87171',
-                paddingAll: 'md',
-                cornerRadius: 'xl',
-              },
-              {
-                type: 'spacer',
-                size: 'sm',
-              },
-            ],
-            flex: 0,
-          },
-        },
-      },
-      // {
-      //   type: 'text',
-      //   text: 'Hello, World!',
-      // },
-    ])
-    // eslint-disable-next-line no-console
-    console.log(responseLiff)
+    await shareTargetPicker(
+      getMessages(
+        res.id,
+        isLiff,
+        okURL,
+        hmURL,
+        ngURL,
+        form.getValues('subject'),
+        form.getValues('place'),
+        form.getValues('time'),
+        form.getValues('text')
+      )
+    )
   }
 
   // console.log(form.watch("limitDate"));
