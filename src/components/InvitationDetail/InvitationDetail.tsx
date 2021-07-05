@@ -6,7 +6,7 @@ import ReactLoading from 'react-loading'
 
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
-import { getMessages } from '~/src/utils/getMessages'
+// import { getMessages } from '~/src/utils/getMessages'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
@@ -201,35 +201,201 @@ const Container: React.VFC = () => {
     const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
 
     // eslint-disable-next-line no-console
-    console.log(
-      getMessages(
-        res.id,
-        isLiff,
-        okURL,
-        hmURL,
-        ngURL,
-        answerURL,
-        form.getValues('subject'),
-        form.getValues('place'),
-        form.getValues('time'),
-        form.getValues('text')
-      )
-    )
+    // console.log(
+    //   getMessages(
+    //     res.id,
+    //     isLiff,
+    //     okURL,
+    //     hmURL,
+    //     ngURL,
+    //     answerURL,
+    //     form.getValues('subject'),
+    //     form.getValues('place'),
+    //     form.getValues('time'),
+    //     form.getValues('text')
+    //   )
+    // )
 
-    await shareTargetPicker(
-      getMessages(
-        res.id,
-        isLiff,
-        okURL,
-        hmURL,
-        ngURL,
-        answerURL,
-        form.getValues('subject'),
-        form.getValues('place'),
-        form.getValues('time'),
-        form.getValues('text')
-      )
-    )
+    await shareTargetPicker([
+      {
+        type: 'flex',
+        altText: form.getValues('subject'),
+        contents: {
+          type: 'bubble',
+          hero: {
+            type: 'image',
+            url: 'https://kyonomo.vercel.app/images/HEADER.png',
+            size: 'full',
+            aspectRatio: '2:1',
+            aspectMode: 'cover',
+          },
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: form.getValues('subject'),
+                wrap: true,
+                weight: 'bold',
+                size: 'xl',
+              },
+              {
+                type: 'box',
+                layout: 'vertical',
+                margin: 'lg',
+                spacing: 'sm',
+                contents: [
+                  {
+                    type: 'box',
+                    layout: 'baseline',
+                    spacing: 'sm',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: 'Place',
+                        color: '#aaaaaa',
+                        size: 'sm',
+                        flex: 1,
+                      },
+                      {
+                        type: 'text',
+                        text: form.getValues('place'),
+                        wrap: true,
+                        color: '#666666',
+                        size: 'sm',
+                        flex: 5,
+                      },
+                    ],
+                  },
+                  {
+                    type: 'box',
+                    layout: 'baseline',
+                    spacing: 'sm',
+                    contents: [
+                      {
+                        type: 'text',
+                        text: 'Time',
+                        color: '#aaaaaa',
+                        size: 'sm',
+                        flex: 1,
+                      },
+                      {
+                        type: 'text',
+                        text: form.getValues('time'),
+                        wrap: true,
+                        color: '#666666',
+                        size: 'sm',
+                        flex: 5,
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'text',
+                text: form.getValues('text'),
+                wrap: true,
+                margin: 'md',
+                size: 'sm',
+              },
+            ],
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            spacing: 'xxl',
+            contents: [
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: 'OK🍻',
+                      uri: `${okURL}?id=${res.id}&isLiff=${isLiff}`,
+                    },
+                    color: '#FFFFFF',
+                  },
+                ],
+                backgroundColor: '#3b82f6',
+                cornerRadius: 'xl',
+                paddingAll: 'md',
+              },
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: 'Hmm...🤔',
+                      uri: `${hmURL}?id=${res.id}&isLiff=${isLiff}`,
+                    },
+                    color: '#FFFFFF',
+                  },
+                ],
+                backgroundColor: '#fbbf24',
+                cornerRadius: 'xl',
+                paddingAll: 'md',
+              },
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: 'NG🙅‍♂️',
+                      uri: `${ngURL}?id=${res.id}&isLiff=${isLiff}`,
+                    },
+                    color: '#FFFFFF',
+                  },
+                ],
+                backgroundColor: '#f87171',
+                paddingAll: 'md',
+                cornerRadius: 'xl',
+              },
+              {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                  {
+                    type: 'button',
+                    style: 'link',
+                    height: 'sm',
+                    action: {
+                      type: 'uri',
+                      label: '回答確認',
+                      uri: `${answerURL}?id=${res.id}&isLiff=${isLiff}`,
+                    },
+                    color: '#000000',
+                  },
+                ],
+                backgroundColor: '#dddddd',
+                paddingAll: 'md',
+                cornerRadius: 'xl',
+              },
+              {
+                type: 'spacer',
+                size: 'sm',
+              },
+            ],
+            flex: 0,
+          },
+        },
+      },
+    ])
   }
 
   // console.log(form.watch("limitDate"));
