@@ -171,7 +171,7 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
               height: 'sm',
               action: {
                 type: 'uri',
-                label: 'コメント付き回答／皆の回答確認',
+                label: 'コメント付き回答／回答確認',
                 uri: `${answerURL}?id=${id}&isLiff=${isLiff}`,
               },
               color: '#000000',

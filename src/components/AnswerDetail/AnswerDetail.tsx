@@ -93,7 +93,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             />
           </div>
           {answers.filter((answer) => answer.status === 'ok').length !== 0 && (
-            <div className="flex flex-col justify-center h-5 mb-10">
+            <div className="flex flex-col justify-center mb-10">
               {answers
                 .filter((answer) => answer.status === 'ok')
                 .map((answer) => (
@@ -112,7 +112,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             />
           </div>
           {answers.filter((answer) => answer.status === 'hm').length !== 0 && (
-            <div className="flex flex-col justify-center h-5 mb-10">
+            <div className="flex flex-col justify-center mb-10">
               {answers
                 .filter((answer) => answer.status === 'hm')
                 .map((answer) => (
@@ -131,7 +131,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             />
           </div>
           {answers.filter((answer) => answer.status === 'ng').length !== 0 && (
-            <div className="flex flex-col justify-center h-5 mb-10">
+            <div className="flex flex-col justify-center mb-10">
               {answers
                 .filter((answer) => answer.status === 'ng')
                 .map((answer) => (

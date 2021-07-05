@@ -1,4 +1,6 @@
-import React from 'react'
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react'
 
 import { getSlicedString } from '~/src/utils/getSlicedString'
 
@@ -7,34 +9,37 @@ type ContainerProps = {
   text?: string
 }
 
-type Props = ContainerProps
+type Props = {
+  isOpen: boolean
+  toggleOpen: () => void
+} & ContainerProps
+
+const DISPLAY_INITIAL_MESSAGE_LENGTH = 24
 
 const Component: React.VFC<Props> = (props) => (
-  <div className={`flex items-center mt-1 mb-1 ml-12`}>
+  <div className="flex items-start mt-1 mb-1 max-w-xs">
     <span className="text-xxs">{props.name}</span>
     <img src="/images/people.svg" className="w-5" alt="人数" />
     {props.text && (
-      <div className="relative">
-        <span
-          title={props.text}
-          className="absolute z-20 left-1 -bottom-2 inline-block p-1 whitespace-nowrap max-w-xxs text-xxs bg-gray-800 text-white rounded-lg shadow-lg"
-        >
-          {getSlicedString(props.text, 16)}
-        </span>
-        <svg
-          className="absolute z-10 left-10 -bottom-6 w-6 h-6 transform -translate-x-12 -translate-y-3 fill-current stroke-current"
-          width="12"
-          height="12"
-        >
-          <rect x="12" y="-10" width="10" height="10" transform="rotate(44)" />
-        </svg>
+      <div
+        title={props.text}
+        onClick={() => props.toggleOpen()}
+        className="inline-block break-words p-1 text-xxs bg-gray-800 w-56 text-white rounded-lg shadow-lg"
+      >
+        {props.isOpen || props.text.length <= DISPLAY_INITIAL_MESSAGE_LENGTH
+          ? props.text
+          : `${getSlicedString(props.text, DISPLAY_INITIAL_MESSAGE_LENGTH)} Tapで続きを読む`}
       </div>
     )}
   </div>
 )
 
 const Container: React.VFC<ContainerProps> = (props) => {
-  return <Component {...props} />
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleOpen = () => {
+    setIsOpen((prevState) => !prevState)
+  }
+  return <Component {...props} isOpen={isOpen} toggleOpen={toggleOpen} />
 }
 
 export default Container
