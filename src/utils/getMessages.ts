@@ -33,6 +33,7 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, subject
             {
               type: 'text',
               text: subject,
+              wrap: true,
               weight: 'bold',
               size: 'xl',
             },
@@ -76,6 +77,14 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, subject
                       size: 'sm',
                       flex: 1,
                     },
+                    {
+                      type: 'text',
+                      text: time,
+                      wrap: true,
+                      color: '#666666',
+                      size: 'sm',
+                      flex: 5,
+                    },
                   ],
                 },
               ],
@@ -83,6 +92,7 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, subject
             {
               type: 'text',
               text: text,
+              wrap: true,
               margin: 'md',
               size: 'sm',
             },
