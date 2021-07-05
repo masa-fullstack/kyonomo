@@ -193,12 +193,12 @@ const Container: React.VFC = () => {
     setIsDispURL(true)
     setIsLoading(false)
 
-    const isLiff = !form.getValues('mode')
+    // const isLiff = !form.getValues('mode')
 
-    const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_URL : process.env.NEXT_PUBLIC_OK_URL
-    const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_URL : process.env.NEXT_PUBLIC_HM_URL
-    const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
-    const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
+    // const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_URL : process.env.NEXT_PUBLIC_OK_URL
+    // const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_URL : process.env.NEXT_PUBLIC_HM_URL
+    // const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
+    // const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
 
     // eslint-disable-next-line no-console
     // console.log(
@@ -218,182 +218,8 @@ const Container: React.VFC = () => {
 
     await shareTargetPicker([
       {
-        type: 'flex',
-        altText: form.getValues('subject'),
-        contents: {
-          type: 'bubble',
-          hero: {
-            type: 'image',
-            url: 'https://kyonomo.vercel.app/images/HEADER.png',
-            size: 'full',
-            aspectRatio: '2:1',
-            aspectMode: 'cover',
-          },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: form.getValues('subject'),
-                wrap: true,
-                weight: 'bold',
-                size: 'xl',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                margin: 'lg',
-                spacing: 'sm',
-                contents: [
-                  {
-                    type: 'box',
-                    layout: 'baseline',
-                    spacing: 'sm',
-                    contents: [
-                      {
-                        type: 'text',
-                        text: 'Place',
-                        color: '#aaaaaa',
-                        size: 'sm',
-                        flex: 1,
-                      },
-                      {
-                        type: 'text',
-                        text: form.getValues('place'),
-                        wrap: true,
-                        color: '#666666',
-                        size: 'sm',
-                        flex: 5,
-                      },
-                    ],
-                  },
-                  {
-                    type: 'box',
-                    layout: 'baseline',
-                    spacing: 'sm',
-                    contents: [
-                      {
-                        type: 'text',
-                        text: 'Time',
-                        color: '#aaaaaa',
-                        size: 'sm',
-                        flex: 1,
-                      },
-                      {
-                        type: 'text',
-                        text: form.getValues('time'),
-                        wrap: true,
-                        color: '#666666',
-                        size: 'sm',
-                        flex: 5,
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                type: 'text',
-                text: form.getValues('text'),
-                wrap: true,
-                margin: 'md',
-                size: 'sm',
-              },
-            ],
-          },
-          footer: {
-            type: 'box',
-            layout: 'vertical',
-            spacing: 'xxl',
-            contents: [
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: 'OK🍻',
-                      uri: `${okURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#FFFFFF',
-                  },
-                ],
-                backgroundColor: '#3b82f6',
-                cornerRadius: 'xl',
-                paddingAll: 'md',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: 'Hmm...🤔',
-                      uri: `${hmURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#FFFFFF',
-                  },
-                ],
-                backgroundColor: '#fbbf24',
-                cornerRadius: 'xl',
-                paddingAll: 'md',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: 'NG🙅‍♂️',
-                      uri: `${ngURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#FFFFFF',
-                  },
-                ],
-                backgroundColor: '#f87171',
-                paddingAll: 'md',
-                cornerRadius: 'xl',
-              },
-              {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                  {
-                    type: 'button',
-                    style: 'link',
-                    height: 'sm',
-                    action: {
-                      type: 'uri',
-                      label: '回答確認',
-                      uri: `${answerURL}?id=${res.id}&isLiff=${isLiff}`,
-                    },
-                    color: '#000000',
-                  },
-                ],
-                backgroundColor: '#dddddd',
-                paddingAll: 'md',
-                cornerRadius: 'xl',
-              },
-              {
-                type: 'spacer',
-                size: 'sm',
-              },
-            ],
-            flex: 0,
-          },
-        },
+        type: 'text',
+        text: 'Hello, world',
       },
     ])
   }
