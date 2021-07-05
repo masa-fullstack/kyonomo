@@ -93,7 +93,7 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
             },
             {
               type: 'text',
-              text: text ? text : '',
+              text: text ? text : ' ',
               wrap: true,
               margin: 'md',
               size: 'sm',
@@ -171,7 +171,7 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
               height: 'sm',
               action: {
                 type: 'uri',
-                label: '他の回答確認しつつ回答する',
+                label: 'コメント付き回答／皆の回答確認',
                 uri: `${answerURL}?id=${id}&isLiff=${isLiff}`,
               },
               color: '#000000',

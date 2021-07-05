@@ -1,6 +1,5 @@
 import { parse, format } from 'date-fns'
 import React, { useState } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
 import ReactLoading from 'react-loading'
 
@@ -16,25 +15,13 @@ type Props = {
   form: UseFormReturn<FieldValues>
   onSubmit: (data: Invitation) => void
   isLoading: boolean
-  isDispURL: boolean
   nowDate: string
   nowTime: string
-  isCopiedAnswer: boolean
-  setIsCopiedAnswer: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Component: React.VFC<Props> = ({
-  form,
-  onSubmit,
-  isLoading,
-  isDispURL,
-  nowDate,
-  nowTime,
-  isCopiedAnswer,
-  setIsCopiedAnswer,
-}) => (
+const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTime }) => (
   <form onSubmit={form.handleSubmit(onSubmit)}>
-    <div className="grid grid-cols-10 gap-4">
+    <div className="grid grid-cols-10 gap-4 relative">
       <div className="col-span-6">
         <StaticInput
           id="limitDate"
@@ -125,62 +112,25 @@ const Component: React.VFC<Props> = ({
           <Button label="飲もうぜ🍻" color="blue" disabled={!form.formState.isValid} />
 
           {isLoading && (
-            <div className="mt-5">
+            <div className="absolute z-10 -top-20 h-screen w-screen bg-gray-500 opacity-90 flex items-center justify-center">
               <ReactLoading type="bars" color="#000" width={80} height={80} />
             </div>
           )}
         </div>
       </div>
-
-      {isDispURL && (
-        <>
-          <div className="col-span-10">
-            <div className="flex">
-              <div className="flex-grow">
-                <StaticInput
-                  id="answerURL"
-                  label="回答URL"
-                  type="url"
-                  placeholder=""
-                  defaultValue=""
-                  register={form.register('answer')}
-                />
-              </div>
-              <div className="relative flex items-center">
-                <CopyToClipboard
-                  text={form.getValues('answer')}
-                  onCopy={() => {
-                    setIsCopiedAnswer(true)
-                    setTimeout(() => setIsCopiedAnswer(false), 1000)
-                  }}
-                >
-                  <img src="images/icon_copy.svg" className="cursor-pointer" alt="copy"></img>
-                </CopyToClipboard>
-                {isCopiedAnswer ? (
-                  <span className="absolute left-2 bottom-16 inline-block p-1 whitespace-nowrap text-sm bg-gray-800 text-gray-200 rounded-lg">
-                    Copied
-                  </span>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
     </div>
   </form>
 )
 
 const Container: React.VFC = () => {
-  const [isCopiedAnswer, setIsCopiedAnswer] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [isDispURL, setIsDispURL] = useState(false)
   const form = useForm({ mode: 'all' })
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
 
-  const { token, shareTargetPicker } = useLiff()
+  const { token, shareTargetPicker, closeWindow } = useLiff()
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: Invitation) => {
     setIsLoading(true)
     const limitDate = format(parse(data.limitDate, 'yyyy-MM-dd', new Date()), 'yyyyMMdd')
     const limitTime = format(parse(data.limitTime, 'HH:mm', new Date()), 'HHmm')
@@ -188,10 +138,6 @@ const Container: React.VFC = () => {
     const res: Invitation = await apiClient.invitation.$post({
       body: { ...data, limitDate, limitTime, token },
     })
-    form.setValue('answer', `${process.env.NEXT_PUBLIC_LIFF_ANSWER_URL}?id=${res.id}`)
-
-    setIsDispURL(true)
-    setIsLoading(false)
 
     const isLiff = !form.getValues('mode')
 
@@ -199,22 +145,6 @@ const Container: React.VFC = () => {
     const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_URL : process.env.NEXT_PUBLIC_HM_URL
     const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
     const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
-
-    // eslint-disable-next-line no-console
-    console.log(
-      getMessages(
-        res.id,
-        isLiff,
-        okURL,
-        hmURL,
-        ngURL,
-        answerURL,
-        form.getValues('subject'),
-        form.getValues('place'),
-        form.getValues('time'),
-        form.getValues('text')
-      )
-    )
 
     await shareTargetPicker(
       getMessages(
@@ -230,28 +160,11 @@ const Container: React.VFC = () => {
         form.getValues('text')
       )
     )
+    setIsLoading(false)
+    closeWindow()
   }
 
-  // console.log(form.watch("limitDate"));
-  // console.log(form.watch("limitTime"));
-  // console.log(form.watch("text"));
-  // console.log(form.watch("answer"));
-  // console.log(form.watch("text"));
-  // eslint-disable-next-line no-console
-  console.log(form.watch('mode'))
-
-  return (
-    <Component
-      form={form}
-      onSubmit={onSubmit}
-      isLoading={isLoading}
-      isDispURL={isDispURL}
-      nowDate={nowDate}
-      nowTime={nowTime}
-      isCopiedAnswer={isCopiedAnswer}
-      setIsCopiedAnswer={setIsCopiedAnswer}
-    />
-  )
+  return <Component form={form} onSubmit={onSubmit} isLoading={isLoading} nowDate={nowDate} nowTime={nowTime} />
 }
 
 export default Container
