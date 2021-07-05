@@ -6,7 +6,7 @@ import ReactLoading from 'react-loading'
 
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
-// import { getMessages } from '~/src/utils/getMessages'
+import { getMessages } from '~/src/utils/getMessages'
 
 import { Button } from '../Button'
 import { StaticInput } from '../StaticInput'
@@ -193,35 +193,43 @@ const Container: React.VFC = () => {
     setIsDispURL(true)
     setIsLoading(false)
 
-    // const isLiff = !form.getValues('mode')
+    const isLiff = !form.getValues('mode')
 
-    // const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_URL : process.env.NEXT_PUBLIC_OK_URL
-    // const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_URL : process.env.NEXT_PUBLIC_HM_URL
-    // const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
-    // const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
+    const okURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_OK_URL : process.env.NEXT_PUBLIC_OK_URL
+    const hmURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_HM_URL : process.env.NEXT_PUBLIC_HM_URL
+    const ngURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_NG_URL : process.env.NEXT_PUBLIC_NG_URL
+    const answerURL = isLiff ? process.env.NEXT_PUBLIC_LIFF_ANSWER_URL : process.env.NEXT_PUBLIC_ANSWER_URL
 
     // eslint-disable-next-line no-console
-    // console.log(
-    //   getMessages(
-    //     res.id,
-    //     isLiff,
-    //     okURL,
-    //     hmURL,
-    //     ngURL,
-    //     answerURL,
-    //     form.getValues('subject'),
-    //     form.getValues('place'),
-    //     form.getValues('time'),
-    //     form.getValues('text')
-    //   )
-    // )
+    console.log(
+      getMessages(
+        res.id,
+        isLiff,
+        okURL,
+        hmURL,
+        ngURL,
+        answerURL,
+        form.getValues('subject'),
+        form.getValues('place'),
+        form.getValues('time'),
+        form.getValues('text')
+      )
+    )
 
-    await shareTargetPicker([
-      {
-        type: 'text',
-        text: 'Hello, world',
-      },
-    ])
+    await shareTargetPicker(
+      getMessages(
+        res.id,
+        isLiff,
+        okURL,
+        hmURL,
+        ngURL,
+        answerURL,
+        form.getValues('subject'),
+        form.getValues('place'),
+        form.getValues('time'),
+        form.getValues('text')
+      )
+    )
   }
 
   // console.log(form.watch("limitDate"));
