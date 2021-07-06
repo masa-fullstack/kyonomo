@@ -26,7 +26,7 @@ const Component: React.VFC<Props> = (props) => (
         onClick={() => props.toggleOpen()}
         className="inline-block break-words p-1 text-xxs bg-gray-800 w-56 text-white rounded-lg shadow-lg"
       >
-        {props.isOpen || props.text.length <= DISPLAY_INITIAL_MESSAGE_LENGTH
+        {props.isOpen || props.text.length <= DISPLAY_INITIAL_MESSAGE_LENGTH + 8
           ? props.text
           : `${getSlicedString(props.text, DISPLAY_INITIAL_MESSAGE_LENGTH)} Tapで続きを読む`}
       </div>
