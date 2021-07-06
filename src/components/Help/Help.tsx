@@ -19,7 +19,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>((props, ref) => (
   <div className="cursor-pointer relative" ref={ref} id={props.id}>
     <img src="/images/help.svg" alt="helpMessage" className="w-5" />
     {props.isOpen && (
-      <span className="absolute z-10 -left-10 inline-block break-words p-1 text-xxs bg-gray-800 w-72 text-white rounded-lg shadow-lg">
+      <span className="absolute z-10 -left-10 inline-block break-words p-1 text-xxs bg-gray-800 w-full text-white rounded-lg shadow-lg">
         {props.children}
       </span>
     )}
