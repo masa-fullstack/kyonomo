@@ -3,7 +3,6 @@ import Head from 'next/head'
 
 import { AnswerDetail } from '~/src/components/AnswerDetail'
 import { Layout } from '~/src/components/Layout'
-import { OpacityDisplay } from '~/src/components/OpacityDisplay'
 import { useLiff } from '~/src/components/hooks/useLiff'
 import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/src/utils/meta'
 
@@ -26,9 +25,7 @@ const AnswerPage: NextPage = () => {
         />
       </Head>
       <Layout>
-        <OpacityDisplay>
-          <AnswerDetail closeWindow={closeWindow} token={token} />
-        </OpacityDisplay>
+        <AnswerDetail closeWindow={closeWindow} token={token} />
       </Layout>
     </>
   )

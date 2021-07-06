@@ -11,6 +11,7 @@ import { getAsString } from '~/src/utils/getAsString'
 import { AnimatedButton } from '../AnimatedButton'
 import { Animation } from '../Animation'
 import { Loading } from '../Loading'
+import { OpacityDisplay } from '../OpacityDisplay'
 import { People } from '../People'
 import { StaticInput } from '../StaticInput'
 import { useLocalSubId } from '../hooks/useSubId'
@@ -55,94 +56,96 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         <Loading />
       </div>
     ) : (
-      <div className={initialStatus === undefined ? '' : 'hidden'}>
-        <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="hidden">
-            <StaticInput id="id" type="text" defaultValue={id} register={form.register('id')} />
-          </div>
-          <div className="hidden">
-            <StaticInput id="status" type="text" register={form.register('status')} />
-          </div>
-          <div className="hidden">
-            <StaticInput id="subId" type="text" register={form.register('subId')} />
-          </div>
-          <div className="hidden">
-            <StaticInput id="referrer" type="text" register={form.register('referrer')} />
-          </div>
-          {answers.length === 0 && (
-            <div className="inline-block px-3 py-1 text-xs bg-gray-800 text-white rounded-lg shadow-lg mb-3">
-              回答はまだありません
+      <OpacityDisplay>
+        <div className={initialStatus === undefined ? '' : 'hidden'}>
+          <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="hidden">
+              <StaticInput id="id" type="text" defaultValue={id} register={form.register('id')} />
             </div>
-          )}
-          <div className="mb-3 w-72">
-            <StaticInput
-              id="text"
-              label="コメントがあれば"
-              type="textarea"
-              placeholder="例)遅れて21時から参加します"
-              defaultValue=""
-              register={form.register('text')}
-            />
-          </div>
-          <div className="flex items-center justify-center mt-6 mb-6">
-            <AnimatedButton
-              label="OK🙆‍♂️"
-              color="blue"
-              onClick={() => {
-                form.setValue('status', 'ok')
-              }}
-              ref={initialStatus === 'ok' ? ref : null}
-            />
-          </div>
-          {answers.filter((answer) => answer.status === 'ok').length !== 0 && (
-            <div className="flex flex-col justify-center mb-10">
-              {answers
-                .filter((answer) => answer.status === 'ok')
-                .map((answer) => (
-                  <People key={answer.subId} name={answer.name} text={answer.text} />
-                ))}
+            <div className="hidden">
+              <StaticInput id="status" type="text" register={form.register('status')} />
             </div>
-          )}
-          <div className="flex items-center justify-center mb-6">
-            <AnimatedButton
-              label="Hmm...🤔"
-              color="yellow"
-              onClick={() => {
-                form.setValue('status', 'hm')
-              }}
-              ref={initialStatus === 'hm' ? ref : null}
-            />
-          </div>
-          {answers.filter((answer) => answer.status === 'hm').length !== 0 && (
-            <div className="flex flex-col justify-center mb-10">
-              {answers
-                .filter((answer) => answer.status === 'hm')
-                .map((answer) => (
-                  <People key={answer.subId} name={answer.name} text={answer.text} />
-                ))}
+            <div className="hidden">
+              <StaticInput id="subId" type="text" register={form.register('subId')} />
             </div>
-          )}
-          <div className="flex items-center justify-center mb-6">
-            <AnimatedButton
-              label="NG🙅‍♂️"
-              color="red"
-              onClick={() => {
-                form.setValue('status', 'ng')
-              }}
-              ref={initialStatus === 'ng' ? ref : null}
-            />
-          </div>
-          {answers.filter((answer) => answer.status === 'ng').length !== 0 && (
-            <div className="flex flex-col justify-center mb-10">
-              {answers
-                .filter((answer) => answer.status === 'ng')
-                .map((answer) => (
-                  <People key={answer.subId} name={answer.name} text={answer.text} />
-                ))}
+            <div className="hidden">
+              <StaticInput id="referrer" type="text" register={form.register('referrer')} />
             </div>
-          )}
-        </form>
-      </div>
+            {answers.length === 0 && (
+              <div className="inline-block px-3 py-1 text-xs bg-gray-800 text-white rounded-lg shadow-lg mb-3">
+                回答はまだありません
+              </div>
+            )}
+            <div className="mb-3 w-72">
+              <StaticInput
+                id="text"
+                label="コメントがあれば"
+                type="textarea"
+                placeholder="例)遅れて21時から参加します"
+                defaultValue=""
+                register={form.register('text')}
+              />
+            </div>
+            <div className="flex items-center justify-center mt-6 mb-6">
+              <AnimatedButton
+                label="OK🙆‍♂️"
+                color="blue"
+                onClick={() => {
+                  form.setValue('status', 'ok')
+                }}
+                ref={initialStatus === 'ok' ? ref : null}
+              />
+            </div>
+            {answers.filter((answer) => answer.status === 'ok').length !== 0 && (
+              <div className="flex flex-col justify-center mb-10">
+                {answers
+                  .filter((answer) => answer.status === 'ok')
+                  .map((answer) => (
+                    <People key={answer.subId} name={answer.name} text={answer.text} />
+                  ))}
+              </div>
+            )}
+            <div className="flex items-center justify-center mb-6">
+              <AnimatedButton
+                label="Hmm...🤔"
+                color="yellow"
+                onClick={() => {
+                  form.setValue('status', 'hm')
+                }}
+                ref={initialStatus === 'hm' ? ref : null}
+              />
+            </div>
+            {answers.filter((answer) => answer.status === 'hm').length !== 0 && (
+              <div className="flex flex-col justify-center mb-10">
+                {answers
+                  .filter((answer) => answer.status === 'hm')
+                  .map((answer) => (
+                    <People key={answer.subId} name={answer.name} text={answer.text} />
+                  ))}
+              </div>
+            )}
+            <div className="flex items-center justify-center mb-6">
+              <AnimatedButton
+                label="NG🙅‍♂️"
+                color="red"
+                onClick={() => {
+                  form.setValue('status', 'ng')
+                }}
+                ref={initialStatus === 'ng' ? ref : null}
+              />
+            </div>
+            {answers.filter((answer) => answer.status === 'ng').length !== 0 && (
+              <div className="flex flex-col justify-center mb-10">
+                {answers
+                  .filter((answer) => answer.status === 'ng')
+                  .map((answer) => (
+                    <People key={answer.subId} name={answer.name} text={answer.text} />
+                  ))}
+              </div>
+            )}
+          </form>
+        </div>
+      </OpacityDisplay>
     )
 )
 

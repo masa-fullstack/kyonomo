@@ -42,7 +42,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>((props, ref) => (
 ))
 
 const Container = React.forwardRef<HTMLInputElement, ContainerProps>((props, ref) => {
-  const [springState, setSpringState] = useState(true)
+  const [springState, setSpringState] = useState(false)
   const { x } = useSpring({
     from: { x: 0 },
     x: springState ? 1 : 0,
