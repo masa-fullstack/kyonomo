@@ -1,3 +1,4 @@
+import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import Slider from 'react-slick'
 
@@ -14,22 +15,28 @@ const settings = {
 }
 
 const images = [
-  { src: '/images/ANSWER_OGP.png', isEnd: false },
-  { src: '/images/OK_OGP.png', isEnd: false },
-  { src: '/images/HM_OGP.png', isEnd: false },
-  { src: '/images/NG_OGP.png', isEnd: false },
-  { src: '/images/permission.png', isEnd: true },
+  { src: '/images/walkthrough1.png', isEnd: false },
+  { src: '/images/walkthrough2.png', isEnd: false },
+  { src: '/images/walkthrough3.png', isEnd: false },
+  { src: '/images/walkthrough4.png', isEnd: false },
+  { src: '/images/walkthrough5.png', isEnd: false },
+  { src: '/images/walkthrough6.png', isEnd: false },
+  { src: '/images/walkthrough7.png', isEnd: false },
+  { src: '/images/walkthrough8.png', isEnd: true },
 ]
 
-const Component: React.VFC = () => (
+type Props = {
+  linkToApp: () => void
+}
+const Component: React.VFC<Props> = (props) => (
   <div className="w-80">
     <Slider {...settings}>
       {images.map((image, idx) => (
-        <div className="w-full flex flex-row items-center justify-center" key={idx}>
+        <div key={idx}>
           <img src={image.src} className="w-80" alt="how to use" />
           {image.isEnd && (
-            <div className="ml-5">
-              <Button label="使ってみる🍻" color="blue" />
+            <div className="ml-5 mb-7">
+              <Button label="使ってみる🍻" color="blue" onClick={() => props.linkToApp()} />
             </div>
           )}
         </div>
@@ -39,7 +46,11 @@ const Component: React.VFC = () => (
 )
 
 const Container: React.VFC = () => {
-  return <Component />
+  const { push } = useRouter()
+  const linkToApp = () => {
+    push(process.env.NEXT_PUBLIC_LIFF_ID)
+  }
+  return <Component linkToApp={linkToApp} />
 }
 
 export default Container
