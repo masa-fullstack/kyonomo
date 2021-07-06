@@ -3,7 +3,7 @@ import ReactLoading from 'react-loading'
 
 const Component: React.VFC = () => (
   <div className="flex items-center justify-center">
-    <ReactLoading type="bars" color="#000" width={160} height={160} />
+    <ReactLoading type="spin" color="#000" width={160} height={160} />
   </div>
 )
 

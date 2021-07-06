@@ -25,7 +25,7 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
           type: 'image',
           url: 'https://kyonomo.vercel.app/images/HEADER.png',
           size: 'full',
-          aspectRatio: '2:1',
+          aspectRatio: '3:1',
           aspectMode: 'cover',
         },
         body: {
@@ -174,7 +174,6 @@ export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerU
                 label: 'コメント付き回答／回答確認',
                 uri: `${answerURL}?id=${id}&isLiff=${isLiff}`,
               },
-              color: '#000000',
             },
             {
               type: 'spacer',
