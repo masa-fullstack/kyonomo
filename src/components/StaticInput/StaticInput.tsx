@@ -24,7 +24,7 @@ const Component: React.VFC<Props> = (props) => (
     {props.label && (
       <label htmlFor={props.id} className="flex text-sm font-medium text-gray-700">
         {props.label}
-        {props.isRequired && <span className="text-red-500"> *</span>}
+        {props.isRequired && <span className="text-red-500"> * </span>}
         {props.children && <Help id={props.id}>{props.children}</Help>}
       </label>
     )}
