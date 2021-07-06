@@ -156,8 +156,14 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   const ref = useRef<HTMLInputElement>()
 
   const onSubmit = async (data: Answer) => {
-    if (props.initialStatus) setIsAnswered(true)
-    else setTimeout(() => setIsAnswered(true), 950)
+    let closeTime = 1500
+    if (props.initialStatus) {
+      setIsAnswered(true)
+    } else {
+      const animatedButtonEffectTime = 950
+      closeTime += animatedButtonEffectTime
+      setTimeout(() => setIsAnswered(true), animatedButtonEffectTime)
+    }
 
     const subId = !oldSubId ? uuidV4() : oldSubId
     if (!oldSubId) {
@@ -167,7 +173,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
     apiClient.answer.$post({
       body: { ...data, subId, token: props.token },
     })
-    setTimeout(() => props.closeWindow(), 1500)
+    setTimeout(() => props.closeWindow(), closeTime)
   }
 
   const id = getAsString(router.query.id)
