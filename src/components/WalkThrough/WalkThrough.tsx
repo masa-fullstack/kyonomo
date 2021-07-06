@@ -29,13 +29,13 @@ type Props = {
   linkToApp: () => void
 }
 const Component: React.VFC<Props> = (props) => (
-  <div className="w-80">
+  <div className="w-88">
     <Slider {...settings}>
       {images.map((image, idx) => (
         <div key={idx}>
-          <img src={image.src} className="w-80" alt="how to use" />
+          <img src={image.src} alt="how to use" />
           {image.isEnd && (
-            <div className="ml-5 mb-7">
+            <div className="ml-5 mb-2">
               <Button label="使ってみる🍻" color="blue" onClick={() => props.linkToApp()} />
             </div>
           )}

@@ -26,7 +26,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>((props, ref) => (
         if (props.onClick) props.onClick()
       }}
       ref={ref}
-      className={`${props.colorStyle} ${props.disabledStyle} w-72 px-10 py-3 text-white text-xl font-medium rounded-xl cursor-pointer shadow-xl`}
+      className={`${props.colorStyle} ${props.disabledStyle} w-72 px-10 py-3 text-white text-xl font-medium rounded-xl cursor-pointer shadow-md`}
     />
   </>
 ))

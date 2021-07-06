@@ -3,6 +3,11 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      spacing: {
+        84: '21rem',
+        88: '22rem',
+        92: '23rem',
+      },
       fontSize: {
         xxxs: '.5rem',
         xxs: '.75rem',
