@@ -8,7 +8,7 @@ type Props = {
 
 const Component: React.VFC<Props> = ({ children }) => (
   <div className="h-screen flex flex-col">
-    <main className="flex-grow pt-4 md:pt-10 container mx-auto px-4 flex justify-center">{children}</main>
+    <main className="flex-grow pt-4 container mx-auto px-4 flex justify-center">{children}</main>
     <div className="h-10 flex-none">
       <Footer />
     </div>
