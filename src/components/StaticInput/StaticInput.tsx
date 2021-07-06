@@ -1,6 +1,8 @@
 import React, { InputHTMLAttributes } from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
 
+import { Help } from '../Help'
+
 type ContainerProps = {
   id: string
   register: UseFormRegisterReturn
@@ -12,6 +14,7 @@ type ContainerProps = {
   isRequired?: boolean
   isError?: boolean
   defaultChecked?: boolean
+  children?: React.ReactNode
 }
 
 type Props = { errorStyle: string } & ContainerProps
@@ -19,9 +22,10 @@ type Props = { errorStyle: string } & ContainerProps
 const Component: React.VFC<Props> = (props) => (
   <div>
     {props.label && (
-      <label htmlFor={props.id} className="block text-sm font-medium text-gray-700">
+      <label htmlFor={props.id} className="flex text-sm font-medium text-gray-700">
         {props.label}
         {props.isRequired && <span className="text-red-500"> *</span>}
+        {props.children && <Help id={props.id}>{props.children}</Help>}
       </label>
     )}
     {props.type === 'textarea' ? (

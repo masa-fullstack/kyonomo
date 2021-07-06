@@ -32,7 +32,10 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
           isRequired={true}
           isError={form.formState.errors.limitDate}
           register={form.register('limitDate', { required: true })}
-        />
+        >
+          <p>回答の締切を設定します。</p>
+          <p>回答者は締切を超えて回答できなくなります。</p>
+        </StaticInput>
       </div>
       <div className="col-span-4">
         <StaticInput
@@ -99,7 +102,11 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
           type="checkbox"
           defaultChecked={false}
           register={form.register('mode')}
-        />
+        >
+          <>
+            <p>ONにすると匿名での回答となります。</p>
+          </>
+        </StaticInput>
       </div>
       {(form.formState.errors.limitDate ||
         form.formState.errors.limitTime ||
