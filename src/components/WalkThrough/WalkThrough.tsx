@@ -48,7 +48,7 @@ const Component: React.VFC<Props> = (props) => (
 const Container: React.VFC = () => {
   const { push } = useRouter()
   const linkToApp = () => {
-    push(process.env.NEXT_PUBLIC_LIFF_ID)
+    push(process.env.NEXT_PUBLIC_SITE_URL)
   }
   return <Component linkToApp={linkToApp} />
 }
