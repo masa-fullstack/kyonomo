@@ -112,7 +112,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
           <Button label="飲もうぜ🍻" color="blue" disabled={!form.formState.isValid} />
 
           {isLoading && (
-            <div className="absolute z-10 h-screen w-screen bg-gray-500 opacity-90 flex items-center justify-center">
+            <div className="absolute z-10 -top-10 h-screen w-screen bg-cover bg-gray-500 opacity-90 flex items-center justify-center">
               <ReactLoading type="bars" color="#000" width={80} height={80} />
             </div>
           )}
