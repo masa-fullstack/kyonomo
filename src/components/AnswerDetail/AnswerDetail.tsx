@@ -37,7 +37,7 @@ type Props = {
 const Component = React.forwardRef<HTMLInputElement, Props>(
   ({ form, onSubmit, isLoading, isAnswered, isError, id, answers, isLiff, initialStatus }, ref) =>
     isError ? (
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center mt-56">
         <span className="text-xl" role="img" aria-label="エラー">
           有効なお誘いが存在しません。 期限が切れているか、URLが誤っていないかご確認下さい🥺
         </span>
@@ -51,7 +51,9 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
         {!isLiff && <span className="mt-2 text-lg">下にスワイプ or 右上の × で閉じます</span>}
       </div>
     ) : isLoading ? (
-      <Loading />
+      <div className="mt-56">
+        <Loading />
+      </div>
     ) : (
       <div className={initialStatus === undefined ? '' : 'hidden'}>
         <form name="answerForm" onSubmit={form.handleSubmit(onSubmit)}>

@@ -1,13 +1,13 @@
 import { parse, format } from 'date-fns'
 import React, { useState } from 'react'
 import { FieldValues, useForm, UseFormReturn } from 'react-hook-form'
-import ReactLoading from 'react-loading'
 
 import { Invitation } from '~/src/types/api/Invitation'
 import { apiClient } from '~/src/utils/apiClient'
 import { getMessages } from '~/src/utils/getMessages'
 
 import { Button } from '../Button'
+import { Loading } from '../Loading'
 import { StaticInput } from '../StaticInput'
 import { useLiff } from '../hooks/useLiff'
 
@@ -113,7 +113,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
 
           {isLoading && (
             <div className="absolute z-10 -top-4 h-screen w-screen bg-cover bg-gray-500 opacity-90 flex items-center justify-center">
-              <ReactLoading type="bars" color="#000" width={80} height={80} />
+              <Loading />
             </div>
           )}
         </div>
