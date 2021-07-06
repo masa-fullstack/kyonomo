@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import { AnswerDetail } from '~/src/components/AnswerDetail'
 import { Layout } from '~/src/components/Layout'
+import { OpacityDisplay } from '~/src/components/OpacityDisplay'
 import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/src/utils/meta'
 
 const AnswerPage: NextPage = () => {
@@ -26,7 +27,9 @@ const AnswerPage: NextPage = () => {
         />
       </Head>
       <Layout>
-        <AnswerDetail closeWindow={closeWindow} />
+        <OpacityDisplay>
+          <AnswerDetail closeWindow={closeWindow} />
+        </OpacityDisplay>
       </Layout>
     </>
   )
