@@ -28,7 +28,7 @@ const Container: React.VFC<ContainerPorps> = (props) => {
       path: props.path,
     })
     if (props.speed) lottie.setSpeed(props.speed)
-  }, [props.speed, props.path])
+  }, [props.speed, props.path, props.loop])
 
   return <Component {...props} ref={ref} />
 }
