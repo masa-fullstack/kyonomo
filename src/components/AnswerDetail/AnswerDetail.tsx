@@ -45,7 +45,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
       </div>
     ) : isAnswered ? (
       <div className="h-full flex flex-col items-center justify-center">
-        <Animation speed={2} />
+        <Animation path="/animes/check.json" loop={false} speed={2} />
         <span className="text-3xl" role="img" aria-label="完了">
           Thank you🙌
         </span>

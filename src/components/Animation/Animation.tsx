@@ -2,7 +2,9 @@ import lottie from 'lottie-web'
 import React, { useEffect, useRef } from 'react'
 
 type ContainerPorps = {
+  path: string
   speed?: number
+  loop?: boolean
   onClick?: () => void
 }
 
@@ -21,12 +23,12 @@ const Container: React.VFC<ContainerPorps> = (props) => {
   useEffect(() => {
     lottie.loadAnimation({
       container: ref.current,
-      loop: false,
+      loop: props.loop,
       autoplay: true,
-      path: '/images/check.json',
+      path: props.path,
     })
     if (props.speed) lottie.setSpeed(props.speed)
-  }, [props.speed])
+  }, [props.speed, props.path])
 
   return <Component {...props} ref={ref} />
 }
