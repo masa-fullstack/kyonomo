@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Component: React.VFC = () => (
-  <footer className="h-full w-screen mx-auto flex items-center justify-center">
+  <footer className="h-full mx-auto flex items-center justify-center">
     <p className="">
       <span role="img" aria-label="sake">
         ©Kyonomo🍻

@@ -37,13 +37,9 @@ const VerticalFeatures = () => (
       </VerticalFeatureRow>
     </Section>
     <Section title="ご利用の流れ" description="">
-      <VerticalFeatureRow
-        title=""
-        description=""
-        image="/images/feature3.svg"
-        imageAlt="Second feature alt text"
-        reverse
-      />
+      <div className="w-full p-6">
+        <img src={`/images/flow.png`} className="w-96 mx-auto" alt="ご利用の流れ" />
+      </div>
     </Section>
   </>
 )
