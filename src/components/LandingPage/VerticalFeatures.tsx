@@ -5,7 +5,7 @@ import { Section } from './components/layout/Section'
 
 const VerticalFeatures = () => (
   <>
-    <Section title="「今日飲も」を使うメリット" description="">
+    <Section title="今日飲も🍻 を使うメリット" description="">
       <VerticalFeatureRow
         itemNumber="01"
         title="回答までの時間短縮"

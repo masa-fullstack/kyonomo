@@ -32,7 +32,7 @@ const Hero = () => (
               <p>１タップで返事が出来るサービスです。</p>
             </div>
             <div className="mt-6">
-              <img src="/images/iphoneX.png" className="w-56 mx-auto" alt="app" />
+              <img src="/images/iPhoneX.png" className="w-56 mx-auto" alt="app" />
             </div>
           </>
         }
