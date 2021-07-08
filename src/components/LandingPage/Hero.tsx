@@ -14,10 +14,25 @@ const Hero = () => (
       <HeroOneButton
         title={
           <>
-            <span className="text-primary-500">飲み会の誘いを気軽にできるように。返事が簡単に出来るように。</span>
+            <div className="text-primary-500">
+              <p>飲み会の誘いを気軽に。</p>
+              <p>返事も簡単に。</p>
+            </div>
           </>
         }
-        description="今日飲も🍻 は、LINEで３秒で返事が出来るサービスです。"
+        description={
+          <>
+            <div className="text-primary-500">
+              <p>
+                <span role="img" aria-label="beer">
+                  今日飲も🍻 は、
+                </span>
+              </p>
+              <p>LINEトークルームから</p>
+              <p>１タップで返事が出来るサービスです。</p>
+            </div>
+          </>
+        }
       />
     </Section>
   </Background>
