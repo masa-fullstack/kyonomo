@@ -24,7 +24,7 @@ type Props = {
 const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTime, isCreated }) =>
   isCreated ? (
     <div className="h-full flex flex-col items-center justify-center">
-      <Animation path="/animes/done.json" loop={false} speed={1} />
+      <Animation path="/animes/done.json" loop={false} speed={1.5} />
       <span className="text-3xl" role="img" aria-label="完了">
         Have a Good Time🙌
       </span>
