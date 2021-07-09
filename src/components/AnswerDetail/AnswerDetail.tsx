@@ -88,7 +88,7 @@ const Component = React.forwardRef<HTMLInputElement, Props>(
             </div>
             <div className="flex items-center justify-center mt-6 mb-6">
               <AnimatedButton
-                label="OK🙆‍♂️"
+                label="OK🍻"
                 color="blue"
                 onClick={() => {
                   form.setValue('status', 'ok')
