@@ -11,7 +11,7 @@ const Banner = () => (
       title="もちろん無料です。"
       subtitle="さっそく使ってみましょう。"
       button={
-        <Link href="https://liff.line.me/1645278921-kWRPP32q?accountId=182kyetg&openerPlatform=native&openerKey=talkroom%3Amessage#mst_challenge=xUr-rmkrG2ITKwN3-WlCFrC3w8RYzY6fSSdvywiqxWo">
+        <Link href="https://lin.ee/uX0gj7O">
           <a>
             <Button color="blue" label="使ってみる" />
           </a>
