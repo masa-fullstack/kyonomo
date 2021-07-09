@@ -9,6 +9,11 @@ class Document extends NextDocument<Props> {
       <Html>
         <Head>
           <link rel="shortcut icon" href="/favicon/favicon-32x32.png" type="image/png" />
+          <script
+            data-ad-client="ca-pub-4415028963923432"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
         </Head>
         <body>
           <Main />
