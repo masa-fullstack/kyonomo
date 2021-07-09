@@ -10,8 +10,8 @@ if (process.env.NEXT_PUBLIC_SITE_URL === undefined) {
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
-const title = '今日飲も🍻'
-export const description = '今日飲も🍻'
+const title = '今日飲も？🍻'
+export const description = '今日飲も？🍻'
 
 export const returnTitle = (pageTitle?: string) => {
   if (pageTitle !== undefined) {

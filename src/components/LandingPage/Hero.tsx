@@ -16,7 +16,7 @@ const Hero = () => (
           <>
             <div className="text-primary-500 mb-6">
               <p className="mb-3">飲み会の誘いを気軽に。</p>
-              <p>返事を簡単に。</p>
+              <p>回答を簡単に。</p>
             </div>
           </>
         }
@@ -25,7 +25,7 @@ const Hero = () => (
             <div className="text-primary-500">
               <p>
                 <span role="img" aria-label="beer">
-                  今日飲も🍻 は
+                  今日飲も？🍻 は
                 </span>
               </p>
               <p>LINEのトークルームから</p>
