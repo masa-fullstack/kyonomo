@@ -90,6 +90,8 @@ const Component: React.VFC<Props> = (props) => (
                 items={props?.items}
                 onSelect={(e) => field.onChange(e.key)}
                 onInput={field.onChange}
+                clearInputOnSelect={true}
+                clearInputOnClick={true}
               />
             )
           }}
