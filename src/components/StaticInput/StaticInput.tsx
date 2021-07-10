@@ -17,6 +17,8 @@ type ContainerProps = {
   defaultChecked?: boolean
   data?: string[]
   control?: Control<FieldValues>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rules?: any
   children?: React.ReactNode
 }
 
@@ -80,16 +82,17 @@ const Component: React.VFC<Props> = (props) => (
         <Controller
           name={props.id}
           control={props.control}
-          rules={{ required: true }}
-          render={({ field }) => {
+          rules={props.rules}
+          render={({ field: { onChange, name, value } }) => {
             return (
               <DataListInput
-                {...field}
+                name={name}
+                value={value}
                 placeholder={props.placeholder}
                 inputClassName={`${props.errorStyle}  focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md bg-gray-100 focus:bg-white`}
                 items={props?.items}
-                onSelect={(e) => field.onChange(e.key)}
-                onInput={field.onChange}
+                onSelect={(e: { key: string }) => onChange(e.key)}
+                onInput={onChange}
                 clearInputOnSelect={true}
               />
             )

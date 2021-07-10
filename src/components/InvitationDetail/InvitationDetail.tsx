@@ -66,30 +66,24 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             id="subject"
             label="タイトル"
             type="datalist"
-            placeholder="オンライン飲みしよう！"
-            defaultValue=""
             data={localInvitations?.subject}
             control={form.control}
+            rules={{ required: true }}
+            placeholder="オンライン飲みしよう！"
+            defaultValue=""
             isRequired={true}
             isError={form.formState.errors.subject}
             register={form.register('subject', { required: true })}
           />
-          {/* <StaticInput
-            id="subject"
-            label="タイトル"
-            type="text"
-            placeholder="オンライン飲みしよう！"
-            defaultValue=""
-            isRequired={true}
-            isError={form.formState.errors.subject}
-            register={form.register('subject', { required: true })}
-          /> */}
         </div>
         <div className="col-span-10">
           <StaticInput
             id="place"
             label="場所"
-            type="text"
+            type="datalist"
+            data={localInvitations?.place}
+            control={form.control}
+            rules={{ required: true }}
             placeholder="zoom"
             defaultValue=""
             isRequired={true}
@@ -101,7 +95,10 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
           <StaticInput
             id="time"
             label="時間"
-            type="text"
+            type="datalist"
+            data={localInvitations?.time}
+            control={form.control}
+            rules={{ required: true }}
             placeholder="21時ごろ〜23時"
             defaultValue=""
             isRequired={true}
@@ -197,7 +194,6 @@ const Container: React.VFC = () => {
       subject: form.getValues('subject'),
       place: form.getValues('place'),
       time: form.getValues('time'),
-      text: form.getValues('text'),
     })
     setIsLoading(false)
     setIsCreated(true)
