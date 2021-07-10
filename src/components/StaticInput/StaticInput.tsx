@@ -1,5 +1,6 @@
-import React, { InputHTMLAttributes } from 'react'
-import { UseFormRegisterReturn } from 'react-hook-form'
+import React, { InputHTMLAttributes, useMemo } from 'react'
+import DataListInput from 'react-datalist-input'
+import { Control, Controller, FieldValues, UseFormRegisterReturn } from 'react-hook-form'
 
 import { Help } from '../Help'
 
@@ -14,10 +15,18 @@ type ContainerProps = {
   isRequired?: boolean
   isError?: boolean
   defaultChecked?: boolean
+  data?: string[]
+  control?: Control<FieldValues>
   children?: React.ReactNode
 }
 
-type Props = { errorStyle: string } & ContainerProps
+type Props = {
+  errorStyle: string
+  items: {
+    label: string
+    key: string
+  }[]
+} & ContainerProps
 
 const Component: React.VFC<Props> = (props) => (
   <div>
@@ -65,6 +74,27 @@ const Component: React.VFC<Props> = (props) => (
           className="focus:ring-indigo-500 focus:border-indigo-500 block h-4 w-4 text-indigo-600 border-gray-300 rounded bg-gray-100 focus:bg-white"
         />
       </div>
+    ) : props.type === 'datalist' ? (
+      <div className="mt-1 relative rounded-md shadow-sm">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"></div>
+        <Controller
+          name={props.id}
+          control={props.control}
+          rules={{ required: true }}
+          render={({ field }) => {
+            return (
+              <DataListInput
+                {...field}
+                placeholder={props.placeholder}
+                inputClassName={`${props.errorStyle}  focus:ring-indigo-500 focus:border-indigo-500 block w-full px-3 md:px-5 text-base placeholder-gray-300 border-gray-300 rounded-md bg-gray-100 focus:bg-white`}
+                items={props?.items}
+                onSelect={(e) => field.onChange(e.key)}
+                onInput={field.onChange}
+              />
+            )
+          }}
+        />
+      </div>
     ) : (
       //以外
       <div className="mt-1 relative rounded-md shadow-sm">
@@ -85,7 +115,16 @@ const Component: React.VFC<Props> = (props) => (
 
 const Container: React.VFC<ContainerProps> = (props) => {
   const errorStyle = props.isError ? 'border-red-500' : ''
-  return <Component {...props} errorStyle={errorStyle} />
+
+  const items = useMemo(() => {
+    if (!props.data) return []
+    return props.data?.map((oneItem) => ({
+      label: oneItem,
+      key: oneItem,
+    }))
+  }, [props.data])
+
+  return <Component {...props} errorStyle={errorStyle} items={items} />
 }
 
 export default Container

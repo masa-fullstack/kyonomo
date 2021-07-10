@@ -1,62 +1,60 @@
-import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 const MAX_HISTORY_COUNT = 10
 
-type InvitationInfo = {
-  id: string
+export type InvitationInfo = {
   subject: string
   place: string
   time: string
   text: string
 }
-type LocalStrageInfo = { date: string }
-type LocalInvitation = InvitationInfo & LocalStrageInfo
+
+export type LocalInvitation = {
+  subject: string[]
+  place: string[]
+  time: string[]
+  text: string[]
+}
+
 type ReturnUseInvitations = {
-  localInvitations: LocalInvitation[] | undefined
+  localInvitations: LocalInvitation | undefined
   setLocalInvitation: SetLocalInvitation
 }
 
-type GetInvitations = () => LocalInvitation[] | undefined
+type GetInvitations = () => LocalInvitation | undefined
 
 const getInvitations: GetInvitations = () => {
   const localInvitations = localStorage.getItem(`KYONOMO_STORE:invitation`)
   return localInvitations != null ? JSON.parse(localInvitations) : undefined
 }
 
+type AddToArray = <T>(array: T[], value: T) => T[]
+
+const addToArray: AddToArray = (array, value) => {
+  // 新規の場合は追加してリターン
+  if (!array) return [value]
+  // 重複している場合は追加せずリターン
+  if (array.includes(value)) return array
+
+  //最大件数以上の場合、最大件数-1にスライスする
+  const slicedArray =
+    array.length > MAX_HISTORY_COUNT - 1 ? array.slice(array.length - MAX_HISTORY_COUNT + 1, MAX_HISTORY_COUNT) : array
+  return [...slicedArray, value]
+}
+
 type SetLocalInvitation = (invitationInfo: InvitationInfo) => void
 
-const setLocalInvitation: SetLocalInvitation = ({ id, subject, place, time, text }) => {
-  const date = format(new Date(), 'yyyyMMddHHmmss')
+const setLocalInvitation: SetLocalInvitation = ({ subject, place, time, text }) => {
   const oldLocalInvitations = getInvitations()
-  // 取得できなければフィルター処理はしない
-  if (!oldLocalInvitations) {
-    localStorage.setItem(`KYONOMO_STORE:invitation`, JSON.stringify([{ id, subject, place, time, text, date }]))
-  } else {
-    // 同一の入力は過去のものは省く（最新のものが追加される）
-    const filteredLocalInvitations = oldLocalInvitations.filter((invitation) => {
-      if (
-        invitation.subject !== subject ||
-        invitation.place !== place ||
-        invitation.time !== time ||
-        invitation.text !== text
-      ) {
-        return true
-      } else {
-        return false
-      }
-    })
-    //最大件数以上の場合、最大件数-1にスライスする
-    const slicedLocalInvitations =
-      filteredLocalInvitations.length > MAX_HISTORY_COUNT - 1
-        ? filteredLocalInvitations.slice(filteredLocalInvitations.length - MAX_HISTORY_COUNT + 1, MAX_HISTORY_COUNT)
-        : filteredLocalInvitations
+  const newSubject = addToArray(oldLocalInvitations?.subject, subject)
+  const newPlace = addToArray(oldLocalInvitations?.place, place)
+  const newTime = addToArray(oldLocalInvitations?.time, time)
+  const newText = addToArray(oldLocalInvitations?.text, text)
 
-    localStorage.setItem(
-      `KYONOMO_STORE:invitation`,
-      JSON.stringify([...slicedLocalInvitations, { id, subject, place, time, text, date }])
-    )
-  }
+  localStorage.setItem(
+    `KYONOMO_STORE:invitation`,
+    JSON.stringify({ subject: newSubject, place: newPlace, time: newTime, text: newText })
+  )
 }
 
 type UseInvitation = () => ReturnUseInvitations

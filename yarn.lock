@@ -5608,6 +5608,11 @@ react-copy-to-clipboard@^5.0.3:
     copy-to-clipboard "^3"
     prop-types "^15.5.8"
 
+react-datalist-input@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-datalist-input/-/react-datalist-input-2.2.1.tgz#0cd104e2d5f51d2c8f2a2a5c31c885cdf6b1ad6e"
+  integrity sha512-svp3kuNngAheL5+b8l99MNuNyLwmB/mDAwqC9eC2rRgJ4DhEilgGNcVm9M6l9DxVcMv7QQ6+8cJT2XVX69TRhg==
+
 react-dom@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"

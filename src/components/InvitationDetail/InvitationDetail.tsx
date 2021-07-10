@@ -10,6 +10,7 @@ import { Animation } from '../Animation'
 import { Button } from '../Button'
 import { Loading } from '../Loading'
 import { StaticInput } from '../StaticInput'
+import { LocalInvitation, useInvitation } from '../hooks/useInvitation'
 import { useLiff } from '../hooks/useLiff'
 
 type Props = {
@@ -19,9 +20,10 @@ type Props = {
   nowDate: string
   nowTime: string
   isCreated: boolean
+  localInvitations: LocalInvitation
 }
 
-const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTime, isCreated }) =>
+const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTime, isCreated, localInvitations }) =>
   isCreated ? (
     <div className="h-full flex flex-col items-center justify-center">
       <Animation path="/animes/done.json" loop={false} speed={1.5} />
@@ -63,13 +65,25 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
           <StaticInput
             id="subject"
             label="タイトル"
+            type="datalist"
+            placeholder="オンライン飲みしよう！"
+            defaultValue=""
+            data={localInvitations?.subject}
+            control={form.control}
+            isRequired={true}
+            isError={form.formState.errors.subject}
+            register={form.register('subject', { required: true })}
+          />
+          {/* <StaticInput
+            id="subject"
+            label="タイトル"
             type="text"
             placeholder="オンライン飲みしよう！"
             defaultValue=""
             isRequired={true}
             isError={form.formState.errors.subject}
             register={form.register('subject', { required: true })}
-          />
+          /> */}
         </div>
         <div className="col-span-10">
           <StaticInput
@@ -142,6 +156,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
 const Container: React.VFC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isCreated, setIsCreated] = useState(false)
+  const { localInvitations, setLocalInvitation } = useInvitation()
   const form = useForm({ mode: 'all' })
   const nowDate = format(new Date(), 'yyyy-MM-dd')
   const nowTime = '23:59'
@@ -178,6 +193,12 @@ const Container: React.VFC = () => {
         form.getValues('text')
       )
     )
+    setLocalInvitation({
+      subject: form.getValues('subject'),
+      place: form.getValues('place'),
+      time: form.getValues('time'),
+      text: form.getValues('text'),
+    })
     setIsLoading(false)
     setIsCreated(true)
     setTimeout(() => closeWindow(), 1500)
@@ -191,6 +212,7 @@ const Container: React.VFC = () => {
       nowDate={nowDate}
       nowTime={nowTime}
       isCreated={isCreated}
+      localInvitations={localInvitations}
     />
   )
 }
