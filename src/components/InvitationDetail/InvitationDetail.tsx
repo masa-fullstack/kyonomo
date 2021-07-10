@@ -137,7 +137,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
 
         <div className="col-span-10">
           <div className="flex flex-col items-center justify-center">
-            <Button label="送信先選択" color="blue" disabled={!form.formState.isValid} />
+            <Button label="送信" color="blue" disabled={!form.formState.isValid} />
 
             {isLoading && (
               <div className="absolute z-10 -top-4 h-screen w-screen bg-cover bg-gray-500 opacity-90 flex items-center justify-center">
