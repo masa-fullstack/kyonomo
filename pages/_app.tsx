@@ -7,6 +7,7 @@ import 'tailwindcss/tailwind.css'
 import { Layout } from '~/src/components/Layout'
 // import { Loading } from '~/src/components/Loading'
 import { LiffProvider, useLiff } from '~/src/components/hooks/useLiff'
+import usePageView from '~/src/components/hooks/usePageView'
 import { getAsString } from '~/src/utils/getAsString'
 
 const Loading = dynamic(() => import('~/src/components/Loading').then((modules) => modules.Loading), { ssr: false })
@@ -36,6 +37,7 @@ const Liff: FC = ({ children }) => {
 }
 
 function App({ Component, pageProps, router }: AppProps) {
+  usePageView()
   if (getAsString(router.query.isLiff) === 'false' || router.pathname === '/') {
     return (
       <>
