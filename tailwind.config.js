@@ -15,6 +15,11 @@ module.exports = {
       maxWidth: {
         xxs: '12rem',
       },
+      backgroundColor: (theme) => ({
+        ...theme('colors'),
+        line: '#00C300',
+        'line-hover': '#00E000',
+      }),
     },
   },
   variants: {

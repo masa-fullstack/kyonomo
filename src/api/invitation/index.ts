@@ -22,6 +22,7 @@ export type Methods = {
       place?: string
       time?: string
       text?: string
+      link?: string
     }
 
     resBody: Invitation

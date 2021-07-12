@@ -76,7 +76,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             register={form.register('subject', { required: true })}
           />
         </div>
-        <div className="col-span-10">
+        <div className="col-span-5">
           <StaticInput
             id="place"
             label="場所"
@@ -91,7 +91,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             register={form.register('place', { required: true })}
           />
         </div>
-        <div className="col-span-10">
+        <div className="col-span-5">
           <StaticInput
             id="time"
             label="時間"
@@ -104,6 +104,19 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             isRequired={true}
             isError={form.formState.errors.time}
             register={form.register('time', { required: true })}
+          />
+        </div>
+        <div className="col-span-10">
+          <StaticInput
+            id="link"
+            label="リンク"
+            type="datalist"
+            data={localInvitations?.link}
+            control={form.control}
+            placeholder="https://meet.google.com/abc-defg-hij"
+            defaultValue=""
+            isError={form.formState.errors.link}
+            register={form.register('link')}
           />
         </div>
         <div className="col-span-10">
@@ -137,7 +150,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
 
         <div className="col-span-10">
           <div className="flex flex-col items-center justify-center">
-            <Button label="送信" color="blue" disabled={!form.formState.isValid} />
+            <Button label="友だち/グループの選択" color="line" disabled={!form.formState.isValid} />
 
             {isLoading && (
               <div className="absolute z-10 -top-4 h-screen w-screen bg-cover bg-gray-500 opacity-90 flex items-center justify-center">
@@ -187,13 +200,15 @@ const Container: React.VFC = () => {
         form.getValues('subject'),
         form.getValues('place'),
         form.getValues('time'),
-        form.getValues('text')
+        form.getValues('text'),
+        form.getValues('link')
       )
     )
     setLocalInvitation({
       subject: form.getValues('subject'),
       place: form.getValues('place'),
       time: form.getValues('time'),
+      link: form.getValues('link'),
     })
     setIsLoading(false)
     setIsCreated(true)

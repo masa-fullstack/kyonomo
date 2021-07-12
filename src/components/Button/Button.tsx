@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type ColorType = 'blue' | 'yellow' | 'red'
+export type ColorType = 'blue' | 'yellow' | 'red' | 'line'
 
 type ContainerProps = {
   label: string
@@ -40,6 +40,8 @@ const Container = React.forwardRef<HTMLInputElement, ContainerProps>((props, ref
       ? 'bg-yellow-400 hover:bg-yellow-500'
       : props.color === 'red'
       ? 'bg-red-400 hover:bg-red-500'
+      : props.color === 'line'
+      ? 'bg-line hover:bg-line-hover'
       : ''
   const disabledStyle = props.disabled ? 'opacity-50' : ''
 

@@ -6,12 +6,14 @@ export type InvitationInfo = {
   subject: string
   place: string
   time: string
+  link: string
 }
 
 export type LocalInvitation = {
   subject: string[]
   place: string[]
   time: string[]
+  link: string[]
 }
 
 type ReturnUseInvitations = {
@@ -42,15 +44,16 @@ const addToArray: AddToArray = (array, value) => {
 
 type SetLocalInvitation = (invitationInfo: InvitationInfo) => void
 
-const setLocalInvitation: SetLocalInvitation = ({ subject, place, time }) => {
+const setLocalInvitation: SetLocalInvitation = ({ subject, place, time, link }) => {
   const oldLocalInvitations = getInvitations()
   const newSubject = addToArray(oldLocalInvitations?.subject, subject)
   const newPlace = addToArray(oldLocalInvitations?.place, place)
   const newTime = addToArray(oldLocalInvitations?.time, time)
+  const newLink = addToArray(oldLocalInvitations?.link, link)
 
   localStorage.setItem(
     `KYONOMO_STORE:invitation`,
-    JSON.stringify({ subject: newSubject, place: newPlace, time: newTime })
+    JSON.stringify({ subject: newSubject, place: newPlace, time: newTime, link: newLink })
   )
 }
 
