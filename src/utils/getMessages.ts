@@ -11,23 +11,10 @@ type GetMessage = (
   subject?: string,
   place?: string,
   time?: string,
-  text?: string,
-  link?: string
+  text?: string
 ) => SendMessagesParams
 
-export const getMessages: GetMessage = (
-  id,
-  isLiff,
-  okURL,
-  hmURL,
-  ngURL,
-  answerURL,
-  subject,
-  place,
-  time,
-  text,
-  link
-) => {
+export const getMessages: GetMessage = (id, isLiff, okURL, hmURL, ngURL, answerURL, subject, place, time, text) => {
   const messages: SendMessagesParams = isLiff
     ? // Liff利用の場合は初回の認証画面についての文言を含める
       [
@@ -79,15 +66,6 @@ export const getMessages: GetMessage = (
                           color: '#666666',
                           size: 'sm',
                           flex: 5,
-                        },
-                        {
-                          type: 'text',
-                          text: link,
-                          action: {
-                            type: 'uri',
-                            label: link,
-                            uri: link,
-                          },
                         },
                       ],
                     },
@@ -268,15 +246,6 @@ export const getMessages: GetMessage = (
                           color: '#666666',
                           size: 'sm',
                           flex: 5,
-                        },
-                        {
-                          type: 'text',
-                          text: link,
-                          action: {
-                            type: 'uri',
-                            label: link,
-                            uri: link,
-                          },
                         },
                       ],
                     },

@@ -76,7 +76,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             register={form.register('subject', { required: true })}
           />
         </div>
-        <div className="col-span-5">
+        <div className="col-span-10">
           <StaticInput
             id="place"
             label="場所"
@@ -91,7 +91,7 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             register={form.register('place', { required: true })}
           />
         </div>
-        <div className="col-span-5">
+        <div className="col-span-10">
           <StaticInput
             id="time"
             label="時間"
@@ -104,19 +104,6 @@ const Component: React.VFC<Props> = ({ form, onSubmit, isLoading, nowDate, nowTi
             isRequired={true}
             isError={form.formState.errors.time}
             register={form.register('time', { required: true })}
-          />
-        </div>
-        <div className="col-span-10">
-          <StaticInput
-            id="link"
-            label="リンク"
-            type="datalist"
-            data={localInvitations?.link}
-            control={form.control}
-            placeholder="https://meet.google.com/abc-defg-hij"
-            defaultValue=""
-            isError={form.formState.errors.link}
-            register={form.register('link')}
           />
         </div>
         <div className="col-span-10">
@@ -200,15 +187,13 @@ const Container: React.VFC = () => {
         form.getValues('subject'),
         form.getValues('place'),
         form.getValues('time'),
-        form.getValues('text'),
-        form.getValues('link')
+        form.getValues('text')
       )
     )
     setLocalInvitation({
       subject: form.getValues('subject'),
       place: form.getValues('place'),
       time: form.getValues('time'),
-      link: form.getValues('link'),
     })
     setIsLoading(false)
     setIsCreated(true)

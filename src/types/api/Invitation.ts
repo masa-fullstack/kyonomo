@@ -10,5 +10,4 @@ export type Invitation = {
   place: string
   time: string
   text: string
-  link: string
 } & ApiCommonValue
