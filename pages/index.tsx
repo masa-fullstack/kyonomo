@@ -8,7 +8,7 @@ import { OG_TITLE, DESCRIPTION, OG_DESCRIPTION, OG_IMAGE, returnTitle } from '~/
 const IndexPage = () => {
   const title = returnTitle()
   const description =
-    '飲み会の誘いを気軽に。回答を簡単に。今日飲も？🍻 はLINEのトークルームからお誘いの回答が１タップで出来るサービスです。'
+    '飲みの誘いを気軽に。回答を簡単に。今日飲も？🍻 はLINEのトークルームからお誘いの回答が１タップで出来るサービスです。'
 
   return (
     <>

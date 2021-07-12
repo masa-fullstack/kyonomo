@@ -15,7 +15,7 @@ const Hero = () => (
         title={
           <>
             <div className="text-primary-500 mb-6">
-              <p className="mb-3">飲み会の誘いを気軽に。</p>
+              <p className="mb-3">飲みの誘いを気軽に。</p>
               <p>回答を簡単に。</p>
             </div>
           </>
